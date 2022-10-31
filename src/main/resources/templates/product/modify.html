@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">제품 수정</h1>
+    <p class="mb-4">
+
+    </p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <!-- Topbar Search -->
+        <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
+          <!--제품 추가 버튼(오른쪽 정렬)-->
+          <div class="d-sm-flex align-items-center justify-content-between float-right">
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> 초기화</a>
+          </div>
+        </h3>
+      </div>
+
+      <div class="card-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="p_name">제품명</label>
+            <input type="text" class="form-control w-50" id="p_name">
+          </div>
+          <div class="form-group">
+            <label for="p_category">분류</label>
+            <input type="text" class="form-control w-50" id="p_category">
+          </div>
+          <div class="form-group">
+            <label for="p_cost">구매가</label>
+            <input type="text" class="form-control w-50" id="p_cost">
+          </div>
+          <div class="form-group">
+            <label for="p_price">판매가</label>
+            <input type="text" class="form-control w-50" id="p_price">
+          </div>
+          <div class="form-group">
+            <label for="p_image">이미지</label>
+            <img src="data:image/jpeg;base64,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" alt="My Image" width="150" height="150" id="p_image">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <a class="btn btn-info btn-icon-split w-10" data-toggle="modal" data-target="#modifyModal">
+      <span class="text">수정</span>
+    </a>
+    <a href="read" class="btn btn-primary btn-icon-split w-10">
+      <span class="text">취소</span>
+    </a>
+
+    <!-- Modal-->
+    <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">제품 수정이 완료되었습니다.</div>
+          <div class="modal-footer">
+            <a class="btn btn-primary" href="read">확인</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </th:block>
+</th:block>
+</html>

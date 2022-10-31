@@ -1027,6 +1027,10 @@ pre code {
         flex: 0 0 16.66667%;
         max-width: 16.66667%;
     }
+    .col-md-2-5 {
+        flex: 0 0 20.66667%;
+        max-width: 20.66667%;
+    }
     .col-md-3 {
         flex: 0 0 25%;
         max-width: 25%;
@@ -7579,6 +7583,10 @@ button.bg-dark:focus {
 
 .shadow-none {
     box-shadow: none !important;
+}
+
+.w-10 {
+    width: 10% !important;
 }
 
 .w-25 {

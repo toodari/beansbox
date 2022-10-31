@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">제품 목록</h1>
+        <p class="mb-4">
+
+        </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary align-items-center">
+
+
+                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm w-10">
+                        <option value="전체">전체</option>
+                        <option value="제품명">제품명</option>
+                        <option value="분류">분류</option>
+                    </select>
+
+
+                    <!-- Topbar Search -->
+                    <form
+                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                            <div class="input-group-append">
+                                <a href="#" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fa fa-undo" aria-hidden="true"></i>
+                                        </span>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                    <!--제품 추가 버튼(오른쪽 정렬)-->
+                    <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
+                        <a href="register" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa fa-plus fa-sm text-white-50"></i> 제품 추가</a>
+                    </div>
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>제품명</th>
+                            <th>분류</th>
+                            <th>구매가</th>
+                            <th>판매가</th>
+                            <th>상품등록일</th>
+                            <th>수량</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>더미1</td>
+                            <td>더미1</td>
+                            <td>더미1</td>
+                            <td>더미1</td>
+                            <td>더미1</td>
+                            <td>더미1</td>
+                            <td>더미1</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="col-sm-8 col-md-2-5 float-right">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a href="#" class="page-link">Previous</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">4</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">5</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+
+</html>

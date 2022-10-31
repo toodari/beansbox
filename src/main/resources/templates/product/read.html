@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">제품 상세 정보</h1>
+    <p class="mb-4">
+
+    </p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <!-- Topbar Search -->
+        <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
+          <!--제품 추가 버튼(오른쪽 정렬)-->
+          <div class="d-sm-flex align-items-center justify-content-between float-right">
+          </div>
+        </h3>
+      </div>
+    </div>
+    <div class="card-body">
+      <form role="form">
+        <div class="form-group col-3 float-left">
+          <img src="https://mblogthumb-phinf.pstatic.net/MjAxOTEwMjdfMjgy/MDAxNTcyMTU4OTA1NzA2.33uR9qrel18FzLKr4A6_nbWvt2GZCK4SiDk5WAf6nqIg.7wl_IpKoPwxJPCjpQ0fm6ZxmITATZfMcFUammEx3T9gg.JPEG.msjin93/IMG_8410.JPG?type=w800" alt="My Image" width="150" height="150">
+        </div>
+        <div class="row">
+        <div class="form-group col-6">
+          <label for="p_name">제품명</label>
+          <input type="text" class="form-control w-75" id="p_name">
+        </div>
+        <div class="form-group col-6">
+          <label for="p_category">분류</label>
+          <input type="text" class="form-control w-75" id="p_category">
+        </div>
+        <div class="form-group col-6">
+          <label for="p_cost">구매가</label>
+          <input type="text" class="form-control w-75" id="p_cost">
+        </div>
+        <div class="form-group col-6">
+          <label for="p_price">판매가</label>
+          <input type="text" class="form-control w-75" id="p_price">
+        </div>
+        <hr>
+        <div class="form-group col-6">
+          <label for="p_regdate">상품등록일</label>
+          <input type="text" class="form-control w-75" id="p_regdate">
+        </div>
+        <div class="form-group col-6">
+          <label for="p_moddate">등록수정일</label>
+          <input type="text" class="form-control w-75" id="p_moddate">
+        </div>
+        </div>
+      </form>
+    </div>
+    <hr>
+    <div class="row" >
+    <a href="modify" class="btn btn-info btn-icon-split col-1">
+      <span class="text">수정</span>
+    </a>
+      &nbsp;&nbsp;
+    <a href="clone" class="btn btn-info btn-icon-split col-1">
+     <span class="text">복제</span>
+    </a>
+      &nbsp;&nbsp;
+    <a href="#" class="btn btn-info btn-icon-split col-1" data-toggle="modal" data-target="#deleteModal">
+     <span class="text">삭제</span>
+    </a>
+
+    <a href="list" class="btn btn-primary btn-icon-split col-1 offset-7">
+      <span class="text">돌아가기</span>
+    </a>
+    </div>
+
+    <!-- Modal-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">정말 삭제하시겠습니까?</div>
+          <div class="modal-footer">
+              <a class="btn btn-primary" href="list">확인</a>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </th:block>
+</th:block>
+</html>
