@@ -10,13 +10,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = "member")
+@Table(name = "ORDERS")
 public class Orders extends BaseEntity {
     @Id
+    @Column(name = "o_num")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long o_num;
+    private Long onum;
 
-    @Column(nullable = false)
-    private String o_cat;
+    @Column(name = "o_cat", nullable = false)
+    private String ocat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "m_num")

@@ -22,60 +22,44 @@
             </div>
 
             <div class="card-body">
-                <form role="form">
+                <form action="/product/register" method="post">
                     <div class="form-group">
-                        <label for="p_name">제품명</label>
-                        <input type="text" class="form-control w-50" id="p_name">
+                        <label>제품명</label>
+                        <input type="text" class="form-control w-50" name="pname">
                     </div>
                     <div class="form-group">
-                        <label for="p_category">분류</label>
-                        <input type="text" class="form-control w-50" id="p_category">
+                        <label>분류</label>
+                        <input type="text" class="form-control w-50" name="pcat">
                     </div>
                     <div class="form-group">
-                        <label for="p_cost">구매가</label>
-                        <input type="text" class="form-control w-50" id="p_cost">
+                        <label>구매가</label>
+                        <input type="text" class="form-control w-50" name="pcost">
                     </div>
                     <div class="form-group">
-                        <label for="p_price">판매가</label>
-                        <input type="text" class="form-control w-50" id="p_price">
+                        <label>판매가</label>
+                        <input type="text" class="form-control w-50" name="pprice">
                     </div>
                     <div class="form-group">
                         <label>이미지</label>
                     </div>
                     <hr>
                     <div class="form-group">
-                        <label for="p_quantity">초기수량</label>
-                        <input type="text" class="form-control w-50" id="p_quantity">
+                        <label>초기수량</label>
+                        <input type="text" class="form-control w-50" name="pquantity">
                     </div>
+
+                    <button type="submit" class="btn btn-info btn-icon-split w-10" >
+                        <span class="text">입력 완료</span>
+                    </button>
+                    <button type="button" onclick="history.back()" class="btn btn-primary btn-icon-split w-10">
+                        <span class="text">취소</span>
+                    </button>
                 </form>
             </div>
         </div>
 
-        <a class="btn btn-info btn-icon-split w-10" data-toggle="modal" data-target="#regModal">
-            <span class="text">입력 완료</span>
-        </a>
-        <a href="list" class="btn btn-primary btn-icon-split w-10">
-            <span class="text">취소</span>
-        </a>
 
-        <!-- Logout Modal-->
-        <div class="modal fade" id="regModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">제품 등록이 완료되었습니다.</div>
-                    <div class="modal-footer">
-                        <a class="btn btn-primary" href="list">확인</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
     </th:block>
 </th:block>

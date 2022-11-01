@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">제품 복제</h1>
+    <p class="mb-4">
+
+    </p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <!-- Topbar Search -->
+        <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
+          <!--제품 추가 버튼(오른쪽 정렬)-->
+          <div class="d-sm-flex align-items-center justify-content-between float-right">
+            <div class="d-sm-flex align-items-center justify-content-between float-right">
+              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> 초기화</a>
+            </div>
+          </div>
+        </h3>
+      </div>
+
+      <div class="card-body">
+        <form action="/product/copy" method="post">
+          <div class="form-group">
+            <label>제품명</label>
+            <input type="text" class="form-control w-50" name="pname" th:value="${dto.pname}">
+          </div>
+          <div class="form-group">
+            <label>분류</label>
+            <input type="text" class="form-control w-50" name="pcat" th:value="${dto.pcat}">
+          </div>
+          <div class="form-group">
+            <label>구매가</label>
+            <input type="text" class="form-control w-50" name="pcost" th:value="${dto.pcost}">
+          </div>
+          <div class="form-group">
+            <label>판매가</label>
+            <input type="text" class="form-control w-50" name="pprice" th:value="${dto.pprice}">
+          </div>
+          <div class="form-group">
+            <label>이미지</label>
+          </div>
+          <hr>
+          <div class="form-group">
+            <label>초기수량</label>
+            <input type="text" class="form-control w-50" name="pquantity" th:value="${dto.pquantity}">
+          </div>
+
+          <button type="submit" class="btn btn-info btn-icon-split w-10">
+            <span class="text">복제</span>
+          </button>
+          <button type="button" onclick="history.back()" class="btn btn-primary btn-icon-split w-10">
+            <span class="text">취소</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+
+  </th:block>
+</th:block>
+</html>

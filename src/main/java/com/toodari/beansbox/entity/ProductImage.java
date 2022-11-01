@@ -13,17 +13,18 @@ import javax.persistence.*;
 @Table(name = "PRODUCT_IMAGE")
 public class ProductImage {
     @Id
+    @Column(name = "img_num")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long img_num;
+    private Long imgnum;
 
-    @Column(nullable = false)
-    private String img_name;
+    @Column(name = "img_name", nullable = false)
+    private String imgname;
 
-    @Column(nullable = false)
-    private String img_path;
+    @Column(name = "img_path", nullable = false)
+    private String imgpath;
 
-    @Column(nullable = false)
-    private String img_uuid;
+    @Column(name = "img_uuid", nullable = false)
+    private String imguuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "p_num")

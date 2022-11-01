@@ -14,11 +14,12 @@ import javax.persistence.*;
 public class OrderDetail {
 
     @Id
+    @Column(name = "od_num")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long od_num;
+    private Long odnum;
 
-    @Column(nullable = false)
-    private Long od_quantity;
+    @Column(name = "od_quantity", nullable = false)
+    private Long odquantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "p_num")

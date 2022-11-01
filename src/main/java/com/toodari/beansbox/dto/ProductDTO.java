@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @Data
 public class ProductDTO {
 
-    private Long p_num;
-    private String p_name;
-    private String p_cat;
-    private Long p_quantity;
-    private Long p_cost;
-    private Long p_price;
-    private int p_active;
+    private Long pnum;
+    private String pname;
+    private String pcat;
+    private Long pquantity;
+    private Long pcost;
+    private Long pprice;
+    private int pactive;
     private LocalDateTime regDate, modDate;
 
 }
