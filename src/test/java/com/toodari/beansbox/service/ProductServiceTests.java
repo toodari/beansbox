@@ -96,4 +96,30 @@ public class ProductServiceTests {
 
         System.out.println(service.copy(productDTO));
     }
+
+    @Test
+    public  void testSearch(){
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .type("nc")
+                .keyword("영광")
+                .build();
+
+        PageResultDTO<ProductDTO, Product> resultDTO = service.getList(pageRequestDTO);
+
+        System.out.println("PREV: " + resultDTO.isPrev());
+        System.out.println("NEXT: " + resultDTO.isNext());
+        System.out.println("TOTAL: " + resultDTO.getTotalPage());
+
+        System.out.println("----------------------------------------------------------");
+
+        for(ProductDTO productDTO : resultDTO.getDtoList()) {
+            System.out.println(productDTO);
+        }
+
+        System.out.println("==========================================================");
+        resultDTO.getPageList().forEach(i -> System.out.println(i));
+    }
 }

@@ -15,15 +15,18 @@
         <!-- Topbar Search -->
         <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
           <!--제품 추가 버튼(오른쪽 정렬)-->
-          <div class="d-sm-flex align-items-center justify-content-between float-right">
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> 초기화</a>
-          </div>
+<!--          <div class="d-sm-flex align-items-center justify-content-between float-right">-->
+<!--            <button type="reset" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" form="modForm">초기화</button>-->
+<!--          </div>-->
         </h3>
       </div>
 
       <div class="card-body">
         <form action="/product/modify" method="post">
           <input type="hidden"  name="pnum" th:value="${dto.pnum}">
+          <!--<input type="hidden"  name="page" th:value="${requestDTO.page}">
+          <input type="hidden"  name="type" th:value="${requestDTO.type}">
+          <input type="hidden"  name="keyword" th:value="${#requestDTO.keyword}">-->
           <div class="form-group">
             <label>제품명</label>
             <input type="text" class="form-control w-50" name="pname" th:value="${dto.pname}">
@@ -58,6 +61,31 @@
         </form>
       </div>
     </div>
+
+    <script th:inline="javascript">
+
+      var msg = [[${msg}]];
+
+      console.log(msg);
+
+      if(msg){
+        $(".modal").modal();
+      }
+
+      var searchForm = $("#searchForm");
+
+      $('.btn-search').click(function (e){
+
+        searchForm.submit();
+      });
+
+
+      $('.btn-clear').click(function (e){
+
+        searchForm.empty().submit();
+
+      });
+    </script>
 
   </th:block>
 </th:block>

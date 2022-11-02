@@ -69,6 +69,8 @@ public class ProductController {
 
         redirectAttributes.addAttribute("page", requestDTO.getPage());
         redirectAttributes.addAttribute("pnum", dto.getPnum());
+        /*redirectAttributes.addAttribute("type", requestDTO.getType());
+        redirectAttributes.addAttribute("keyword", requestDTO.getKeyword());*/
         redirectAttributes.addFlashAttribute("modifymsg", dto);
 
         return "redirect:/product/read";
@@ -88,7 +90,7 @@ public class ProductController {
 
         redirectAttributes.addAttribute("page", requestDTO.getPage());
         redirectAttributes.addAttribute("pnum", firstProduct.getPnum()); //null 자리에 새로운 번호가 들어감
-        redirectAttributes.addFlashAttribute("copymsg", pnum);
+        redirectAttributes.addFlashAttribute("copymsg", firstProduct);
 
         return "redirect:/product/read";
     }

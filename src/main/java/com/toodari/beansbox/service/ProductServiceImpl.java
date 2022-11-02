@@ -1,9 +1,12 @@
 package com.toodari.beansbox.service;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.toodari.beansbox.dto.PageRequestDTO;
 import com.toodari.beansbox.dto.PageResultDTO;
 import com.toodari.beansbox.dto.ProductDTO;
 import com.toodari.beansbox.entity.Product;
+import com.toodari.beansbox.entity.QProduct;
 import com.toodari.beansbox.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -42,7 +45,9 @@ public class ProductServiceImpl implements ProductService{
 
         Pageable pageable = requestDTO.getPageable(Sort.by("pnum").descending());
 
-        Page<Product> result = productRepository.findAll(pageable);
+        BooleanBuilder booleanBuilder = getSearch(requestDTO);
+
+        Page<Product> result = productRepository.findAll(booleanBuilder, pageable);
 
         Function<Product, ProductDTO> fn = (product -> modelMapper.map(product, ProductDTO.class));
 
@@ -87,6 +92,39 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void remove(Long pnum) {
         productRepository.deleteById(pnum);
+    }
+
+    private BooleanBuilder getSearch(PageRequestDTO requestDTO){
+
+        String type = requestDTO.getType();
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        QProduct qProduct = QProduct.product;
+
+        String keyword = requestDTO.getKeyword();
+
+        BooleanExpression expression = qProduct.pnum.gt(0L);
+
+        booleanBuilder.and(expression);
+
+        if(type == null || type.trim().length() == 0){
+            return booleanBuilder;
+        }
+
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if(type.contains("n")){
+            conditionBuilder.or(qProduct.pname.contains(keyword));
+        }
+        if(type.contains("c")){
+            conditionBuilder.or(qProduct.pcat.contains(keyword));
+        }
+
+        booleanBuilder.and(conditionBuilder);
+
+        return booleanBuilder;
+
     }
 
 }

@@ -15,31 +15,31 @@
                 <h6 class="m-0 font-weight-bold text-primary align-items-center">
 
 
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm w-10">
-                        <option value="전체">전체</option>
-                        <option value="제품명">제품명</option>
-                        <option value="분류">분류</option>
-                    </select>
-
-
                     <!-- Topbar Search -->
-                    <form
-                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form action="/product/list" method="get" id="searchForm"
+                            class="d-none d-sm-inline-block form-inline mr-5  my-2 my-md-0 mw-100 navbar-search ">
                         <div class="input-group">
-
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="hidden" name="page" value="1">
+                            <div class="input-group-prepend">
+                                <select name="type" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm h-100">
+                                    <option value="nc" th:selected="${pageRequestDTO.type == 'nc'}">전체</option>
+                                    <option value="n" th:selected="${pageRequestDTO.type == 'n'}">제품명</option>
+                                    <option value="c" th:selected="${pageRequestDTO.type == 'c'}">분류</option>
+                                </select>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" class="form-control bg-light border-0 small" placeholder="검색어를 입력하세요"
                                    aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                            <div class="input-group-append" id="button-addon">
+                                <button type="button" class="btn btn-search btn-primary" >
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
-                            </div>
-                            <div class="input-group-append">
-                                <a href="#" class="btn btn-primary btn-icon-split">
+
+                                <button type="button" class="btn btn-clear btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fa fa-undo" aria-hidden="true"></i>
                                         </span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -67,12 +67,19 @@
                         <tbody>
 
                         <tr th:each="dto : ${result.dtoList}">
-                            <td>
+                            <th scope="row">
+                                <a th:href="@{/product/read(pnum = ${dto.pnum}, page= ${result.page},
+                                type=${pageRequestDTO.type},
+                             keyword= ${pageRequestDTO.keyword})}">
+                                   ...
+                                </a>
 
-                            </td>
+                            </th>
 
                             <td>
-                                <a th:href="@{/product/read(pnum = ${dto.pnum}, page= ${result.page})}">
+                                <a th:href="@{/product/read(pnum = ${dto.pnum}, page= ${result.page},
+                                type=${pageRequestDTO.type},
+                             keyword= ${pageRequestDTO.keyword})}">
                                     [[${dto.pname}]]
                             </a>
                             </td>
@@ -89,18 +96,24 @@
                     <ul class="pagination h-100 justify-content-end align-items-center">
 
                         <li class="page-item" th:if="${result.prev}">
-                            <a class="page-link" th:href="@{/product/list(page= ${result.start -1})}" tabindex="-1">Previous</a>
+                            <a class="page-link" th:href="@{/product/list(page= ${result.start -1},
+                             type=${pageRequestDTO.type},
+                             keyword= ${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
                         </li>
 
-                        <li th:class="'page-item' + ${result.page == page?'active':''}"
+                        <li th:class="'page-item ' + ${result.page == page?'active':''}"
                             th:each="page: ${result.pageList}">
-                            <a class="page-link" th:href="@{/product/list(page = ${page})}">
+                            <a class="page-link" th:href="@{/product/list(page = ${page},
+                             type=${pageRequestDTO.type},
+                             keyword= ${pageRequestDTO.keyword})}">
                                 [[${page}]]
                             </a>
                         </li>
 
                         <li class="page-item" th:if="${result.next}">
-                            <a class="page-link" th:href="@{/product/list(page= ${result.end + 1})}">Next</a>
+                            <a class="page-link" th:href="@{/product/list(page= ${result.end + 1},
+                            type=${pageRequestDTO.type},
+                            keyword= ${pageRequestDTO.keyword})}">Next</a>
                         </li>
                     </ul>
 
@@ -147,6 +160,20 @@
             if(msg){
                 $(".modal").modal();
             }
+
+            var searchForm = $("#searchForm");
+
+            $('.btn-search').click(function (e){
+
+                searchForm.submit();
+            });
+
+
+            $('.btn-clear').click(function (e){
+
+                searchForm.empty().submit();
+
+            });
         </script>
 
 

@@ -15,9 +15,9 @@
                     <!-- Topbar Search -->
                     <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
                     <!--제품 추가 버튼(오른쪽 정렬)-->
-                        <div class="d-sm-flex align-items-center justify-content-between float-right">
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> 초기화</a>
-                        </div>
+<!--                        <div class="d-sm-flex align-items-center justify-content-between float-right">-->
+<!--                            <button type="reset" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" form="regForm">초기화</button>-->
+<!--                        </div>-->
                     </h3>
             </div>
 
@@ -59,7 +59,16 @@
         </div>
 
 
+        <script th:inline="javascript">
 
+            var resetForm = $("#resetForm");
+
+            $('.btn-clear').click(function (e){
+
+                resetForm.empty().submit();
+
+            });
+        </script>
 
     </th:block>
 </th:block>

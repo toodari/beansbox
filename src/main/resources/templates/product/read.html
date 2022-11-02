@@ -60,11 +60,13 @@
     </div>
     <hr>
     <div class="row" >
-    <a th:href="@{/product/modify(pnum = ${dto.pnum}, page=${requestDTO.page})}" class="btn btn-info btn-icon-split col-1">
+    <a th:href="@{/product/modify(pnum = ${dto.pnum}, page=${requestDTO.page},
+    type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1">
       <span class="text">수정</span>
     </a>
       &nbsp;&nbsp;
-    <a th:href="@{/product/copy(pnum = ${dto.pnum}, page=${requestDTO.page})}" class="btn btn-info btn-icon-split col-1">
+    <a th:href="@{/product/copy(pnum = ${dto.pnum}, page=${requestDTO.page},
+     type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1">
      <span class="text">복제</span>
     </a>
       &nbsp;&nbsp;
@@ -72,7 +74,8 @@
         <span class="text">삭제</span>
       </button>
 
-    <a th:href="@{/product/list(page=${requestDTO.page})}" class="btn btn-primary btn-icon-split col-1 offset-7">
+    <a th:href="@{/product/list(page=${requestDTO.page},
+    type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-primary btn-icon-split col-1 offset-7">
       <span class="text">돌아가기</span>
     </a>
     </div>
