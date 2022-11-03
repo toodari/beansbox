@@ -6,7 +6,9 @@ import com.toodari.beansbox.dto.PageRequestDTO;
 import com.toodari.beansbox.dto.PageResultDTO;
 import com.toodari.beansbox.dto.ProductDTO;
 import com.toodari.beansbox.entity.Product;
+import com.toodari.beansbox.entity.ProductImage;
 import com.toodari.beansbox.entity.QProduct;
+import com.toodari.beansbox.repository.ProductImageRepository;
 import com.toodari.beansbox.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -15,7 +17,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -25,17 +31,23 @@ import java.util.function.Function;
 public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
+
+    private final ProductImageRepository imageRepository;
     private final ModelMapper modelMapper;
 
+    @Transactional
     @Override
     public Long register(ProductDTO productDTO) {
-        log.info("DTO......................");
-        log.info(productDTO);
 
-        Product product = modelMapper.map(productDTO, Product.class);
+        Map<String, Object> entityMap = dtoToEntity(productDTO);
+        Product product = (Product) entityMap.get("product");
+        List<ProductImage> productImageList = (List<ProductImage>) entityMap.get("imgList");
 
-        log.info(product);
         productRepository.save(product);
+
+        productImageList.forEach(productImage -> {
+            imageRepository.save(productImage);
+        });
 
         return product.getPnum();
     }
@@ -53,6 +65,22 @@ public class ProductServiceImpl implements ProductService{
 
         return new PageResultDTO<>(result, fn);
     }
+
+  /*  getList 잠시 수정
+    @Override
+    public PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO){
+
+        Pageable pageable = requestDTO.getPageable(Sort.by("pnum").descending());
+
+        Page<Object[]> result = productRepository.getListPage(pageable);
+
+        Function<Object[], ProductDTO> fn = (arr -> entitiesToDTO(
+                (Product)arr[0] ,
+                (List<ProductImage>)(Arrays.asList((ProductImage)arr[1])))
+        );
+
+        return new PageResultDTO<>(result, fn);
+    }*/
 
     @Override
     public ProductDTO read(Long pnum) {

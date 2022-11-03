@@ -1,20 +1,17 @@
 package com.toodari.beansbox.dto;
 
-import com.toodari.beansbox.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ProductDTO {
+public class ProductDTOcopy {
 
     private Long pnum;
     private String pname;
@@ -25,6 +22,5 @@ public class ProductDTO {
     private int pactive;
     private LocalDateTime regDate, modDate;
 
-    @Builder.Default
-    private List<ProductImageDTO> imageDTOList = new ArrayList<>();
+
 }
