@@ -25,12 +25,12 @@ public class ProductServiceTests {
         ProductImageDTO productImageDTO1 = ProductImageDTO.builder()
                 .imguuid(UUID.randomUUID().toString())
                 .imgpath("C:\\Users\\mit\\Desktop")
-                .imgName("zzzzz.png")
+                .imgname("zzzzz.png")
                 .build();
         ProductImageDTO productImageDTO2 = ProductImageDTO.builder()
                 .imguuid(UUID.randomUUID().toString())
                 .imgpath("C:\\Users\\mit\\Desktop")
-                .imgName("artworks-cDzKQJGISQrJvOrp-xc9rnA-t500x500.jpg")
+                .imgname("artworks-cDzKQJGISQrJvOrp-xc9rnA-t500x500.jpg")
                 .build();
 
         List<ProductImageDTO> productImageDTOList = new ArrayList<>();
@@ -58,7 +58,7 @@ public class ProductServiceTests {
                 .size(10)
                 .build();
 
-        PageResultDTO<ProductDTO, Product> resultDTO = service.getList(pageRequestDTO);
+        PageResultDTO<ProductDTO, Object[]> resultDTO = service.getList(pageRequestDTO);
 
         System.out.println("PREV: " + resultDTO.isPrev());
         System.out.println("NEXT: " + resultDTO.isNext());

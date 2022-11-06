@@ -17,7 +17,7 @@
 
                     <!-- Topbar Search -->
                     <form action="/product/list" method="get" id="searchForm"
-                            class="d-none d-sm-inline-block form-inline mr-5  my-2 my-md-0 mw-100 navbar-search ">
+                          class="d-none d-sm-inline-block form-inline mr-5  my-2 my-md-0 mw-100 navbar-search ">
                         <div class="input-group">
                             <input type="hidden" name="page" value="1">
                             <div class="input-group-prepend">
@@ -72,8 +72,8 @@
                                 type=${pageRequestDTO.type},
                              keyword= ${pageRequestDTO.keyword})}">
 
-                                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
-                                    th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
+                                    <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
+                                         th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
                                 </a>
                             </th>
 
@@ -82,7 +82,7 @@
                                 type=${pageRequestDTO.type},
                              keyword= ${pageRequestDTO.keyword})}">
                                     [[${dto.pname}]]
-                            </a>
+                                </a>
                             </td>
 
                             <td>[[${dto.pcat}]]</td>

@@ -1,5 +1,6 @@
 package com.toodari.beansbox.controller;
 
+import com.toodari.beansbox.dto.ProductImageDTO;
 import com.toodari.beansbox.dto.UploadResultDTO;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -56,7 +58,7 @@ public class UploadController {
             String uuid = UUID.randomUUID().toString();
 
             //저장할 파일 이름
-            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + fileName;
+            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
 
             Path savePath = Paths.get(saveName);
 
@@ -64,13 +66,13 @@ public class UploadController {
                 uploadFile.transferTo(savePath);// 실제 이미지 저장(원본 파일)
 
                 //섬네일 생성 -> 섬네일 파일 이름은 중간에 s_로 시작
-                String thubmnailSaveName = uploadPath + File.separator + folderPath + File.separator +"s_" + uuid +"_"+ fileName;
+                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator +"s_" + uuid +"_"+ fileName;
 
-                File thumbnailFile = new File(thubmnailSaveName);
+                File thumbnailFile = new File(thumbnailSaveName);
                 // 섬네일 생성
-                Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,100,100);
+                Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,40,40);
 
-                resultDTOList.add(new UploadResultDTO(fileName,uuid,folderPath));
+                resultDTOList.add(new UploadResultDTO(fileName, uuid, folderPath));
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -120,5 +122,27 @@ public class UploadController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return result;
+    }
+
+    @PostMapping("/removeFile")
+    public ResponseEntity<Boolean> removeFile(String fileName){
+        String srcFileName = null;
+
+        try {
+            srcFileName = URLDecoder.decode(fileName,"UTF-8");
+            File file = new File(uploadPath + File.separator + srcFileName);
+
+            boolean result = file.delete();
+
+            File thumbnail = new File(file.getParent(),"s_" + file.getName());
+
+            result = thumbnail.delete();
+
+            return new ResponseEntity<>(result,HttpStatus.OK);
+
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

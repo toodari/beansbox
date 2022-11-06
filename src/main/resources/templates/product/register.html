@@ -12,17 +12,17 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                    <!-- Topbar Search -->
-                    <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
+                <!-- Topbar Search -->
+                <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
                     <!--제품 추가 버튼(오른쪽 정렬)-->
-<!--                        <div class="d-sm-flex align-items-center justify-content-between float-right">-->
-<!--                            <button type="reset" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" form="regForm">초기화</button>-->
-<!--                        </div>-->
-                    </h3>
+                    <!--                        <div class="d-sm-flex align-items-center justify-content-between float-right">-->
+                    <!--                            <button type="reset" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" form="regForm">초기화</button>-->
+                    <!--                        </div>-->
+                </h3>
             </div>
 
             <div class="card-body">
-                <form action="/product/register" method="post">
+                <form th:action="@{/product/register}" th:method="post">
                     <div class="form-group">
                         <label>제품명</label>
                         <input type="text" class="form-control w-50" name="pname">
@@ -109,11 +109,11 @@
             </div>
         </div>
 
-<!--        <script-->
-<!--                src="https://code.jquery.com/jquery-3.5.1.min.js"-->
-<!--                integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="-->
-<!--                crossorigin="anonymous">-->
-<!--        </script>-->
+        <!--        <script-->
+        <!--                src="https://code.jquery.com/jquery-3.5.1.min.js"-->
+        <!--                integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="-->
+        <!--                crossorigin="anonymous">-->
+        <!--        </script>-->
 
 
         <script th:inline="javascript">
@@ -202,8 +202,6 @@
 
                     var uploadUL = $(".uploadResult ul");
 
-                    var divArea = $(".uploadResult");
-
                     var str ="";
 
                     $(uploadResultArr).each(function(i, obj) {
@@ -251,7 +249,7 @@
                     $(".uploadResult li").each(function(i,obj){
                         var target = $(obj);
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
+                        str += "<input type='hidden' name='imageDTOList["+i+"].imgname' value='"+target.data('name') +"'>";
 
                         str += "<input type='hidden' name='imageDTOList["+i+"].imgpath' value='"+target.data('path')+"'>";
 
