@@ -49,16 +49,16 @@ public class UploadController {
             // 실제 파일 이름 IE나 Edge는 전체 경로가 들어오므로
             String originalName = uploadFile.getOriginalFilename();
 
-            String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
+            String imgname = originalName.substring(originalName.lastIndexOf("\\") + 1);
 
             // 날짜 폴더 생성
-            String folderPath = makeFolder();
+            String imgpath = makeFolder();
 
             //UUID
-            String uuid = UUID.randomUUID().toString();
+            String imguuid = UUID.randomUUID().toString();
 
             //저장할 파일 이름
-            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
+            String saveName = uploadPath + File.separator + imgpath + File.separator + imguuid + "_" + imgname;
 
             Path savePath = Paths.get(saveName);
 
@@ -66,13 +66,13 @@ public class UploadController {
                 uploadFile.transferTo(savePath);// 실제 이미지 저장(원본 파일)
 
                 //섬네일 생성 -> 섬네일 파일 이름은 중간에 s_로 시작
-                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator +"s_" + uuid +"_"+ fileName;
+                String thumbnailSaveName = uploadPath + File.separator + imgpath + File.separator +"s_" + imguuid +"_"+ imgname;
 
                 File thumbnailFile = new File(thumbnailSaveName);
                 // 섬네일 생성
                 Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,40,40);
 
-                resultDTOList.add(new UploadResultDTO(fileName, uuid, folderPath));
+                resultDTOList.add(new UploadResultDTO(imgname, imguuid, imgpath));
             }catch (IOException e){
                 e.printStackTrace();
             }

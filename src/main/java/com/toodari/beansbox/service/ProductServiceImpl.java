@@ -20,11 +20,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 @Service
 @Log4j2
@@ -32,7 +30,6 @@ import java.util.function.Function;
 public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
-
     private final ProductImageRepository imageRepository;
     private final ModelMapper modelMapper;
 
@@ -87,42 +84,77 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductDTO read(Long pnum) {
-        Optional<Product> result = productRepository.findById(pnum);
-        return result.isPresent()? modelMapper.map(result.get(), ProductDTO.class): null; //modelmapper에서 entityToDto는 뒤에 DTO
+        List<Object[]> result = productRepository.getProductWithImage(pnum);
+
+        Product product = (Product) result.get(0)[0];
+
+        List<ProductImage> productImageList = new ArrayList<>();
+
+        result.forEach(arr -> {
+            ProductImage productImage = (ProductImage) arr[1];
+            productImageList.add(productImage);
+        });
+
+        return entitiesToDTO(product, productImageList);
     }
 
+    @Transactional
     @Override
-    public void modify(ProductDTO dto) {
-        Optional<Product> result = productRepository.findById(dto.getPnum());
+    public Long modify(ProductDTO dto) {
+        List<Object[]> result = productRepository.getProductWithImage(dto.getPnum());
 
-        ProductDTO productDTO = modelMapper.map(result.get(), ProductDTO.class);
-//            Product entity = result.get();
-        productDTO.setPname(dto.getPname());
-        productDTO.setPcat(dto.getPcat());
-        productDTO.setPcost(dto.getPcost());
-        productDTO.setPprice(dto.getPprice());
+        Product product = (Product) result.get(0)[0];
+        List<ProductImage> productImageList = new ArrayList<>();
+        result.forEach(arr -> {
+            ProductImage productImage = (ProductImage) arr[1];
+            productImageList.add(productImage);
+        });
 
-        Product product = modelMapper.map(productDTO, Product.class);
+        product.changeProduct(dto);
+        IntStream.rangeClosed(0, productImageList.size()).forEach(i -> {
+            productImageList.get(i).changeProductImage(dto.getImageDTOList().get(i));
+        });
+
+//        Map<String, Object> entityMap = dtoToEntity(dto);
+//        Product product = (Product) entityMap.get("product");
+//        List<ProductImage> productImageList = (List<ProductImage>) entityMap.get("imgList");
 
         productRepository.save(product);
+        productImageList.forEach(productImage -> {
+            imageRepository.save(productImage);
+        });
 
+        return product.getPnum();
     }
 
+    @Transactional
     @Override
     public Long copy(ProductDTO productDTO) {
-        log.info("DTO......................");
-        log.info(productDTO);
-        Product product = modelMapper.map(productDTO, Product.class);
+        Map<String, Object> entityMap = dtoToEntity(productDTO);
+        Product product = (Product) entityMap.get("product");
+        List<ProductImage> productImageList = (List<ProductImage>) entityMap.get("imgList");
 
-        log.info(product);
         productRepository.save(product);
 
-        return productDTO.getPnum();
+        productImageList.forEach(productImage -> {
+            imageRepository.save(productImage);
+        });
+
+        return product.getPnum();
     }
 
     @Override
     public void remove(Long pnum) {
         productRepository.deleteById(pnum);
+    }
+
+    @Transactional
+    @Override
+    public void removeWithImages(Long pnum) {
+
+        imageRepository.deleteByPnum(pnum); // 이미지를 삭제한다.
+        productRepository.deleteById(pnum); // 상품을 삭제한다.
+
     }
 
 //    private BooleanBuilder getSearch(PageRequestDTO requestDTO){

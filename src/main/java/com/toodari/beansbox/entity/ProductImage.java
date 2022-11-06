@@ -1,5 +1,6 @@
 package com.toodari.beansbox.entity;
 
+import com.toodari.beansbox.dto.ProductImageDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,4 +30,10 @@ public class ProductImage {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "p_num")
     private Product product;
+
+    public void changeProductImage(ProductImageDTO productImageDTO) {
+        this.imgname = productImageDTO.getImgname();
+        this.imgpath = productImageDTO.getImgpath();
+        this.imguuid = productImageDTO.getImguuid();
+    }
 }

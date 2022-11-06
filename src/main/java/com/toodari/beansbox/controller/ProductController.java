@@ -7,6 +7,7 @@ import com.toodari.beansbox.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,21 +29,17 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public String list(PageRequestDTO pageRequestDTO, Model model){
+    public void list(PageRequestDTO pageRequestDTO, Model model){
 
         log.info("list.............." + pageRequestDTO);
 
         model.addAttribute("result", service.getList(pageRequestDTO));
-
-        return "/product/list";
     }
 
     @GetMapping("/register")
-    public String register(){
+    public void register(){
 
         log.info("register get......");
-
-        return "/product/register";
     }
 
     @PostMapping("/register")
@@ -70,13 +67,13 @@ public class ProductController {
         log.info("post modify............");
         log.info("dto : " + dto);
 
-        service.modify(dto);
+        Long pnum = service.modify(dto);
 
         redirectAttributes.addAttribute("page", requestDTO.getPage());
         redirectAttributes.addAttribute("pnum", dto.getPnum());
         /*redirectAttributes.addAttribute("type", requestDTO.getType());
         redirectAttributes.addAttribute("keyword", requestDTO.getKeyword());*/
-        redirectAttributes.addFlashAttribute("modifymsg", dto);
+        redirectAttributes.addFlashAttribute("modifymsg", pnum);
 
         return "redirect:/product/read";
     }
@@ -100,14 +97,12 @@ public class ProductController {
         return "redirect:/product/read";
     }
 
-
-
     @PostMapping("/remove")
     public String remove(long pnum, RedirectAttributes redirectAttributes){
 
         log.info("pnum: " + pnum);
 
-        service.remove(pnum);
+        service.removeWithImages(pnum);
 
         redirectAttributes.addFlashAttribute("deletemsg", pnum);
 
