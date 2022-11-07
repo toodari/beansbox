@@ -6,6 +6,9 @@ import com.toodari.beansbox.dto.ProductDTO;
 import com.toodari.beansbox.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -15,6 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 @Controller
 @RequestMapping("/product")
 @Log4j2
@@ -22,6 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ProductController {
 
     private final ProductService service;
+
+    @Value("${org.zerock.upload.path}") // application.properties의 변수
+    private String uploadPath;
 
     @GetMapping("/")
     public String index(){
@@ -101,6 +111,29 @@ public class ProductController {
     public String remove(long pnum, RedirectAttributes redirectAttributes){
 
         log.info("pnum: " + pnum);
+
+        String srcFileName = null;
+        ProductDTO productDTO = service.read(pnum);
+        String fileName = productDTO.getImageDTOList().get(0).getImageURL();
+
+        try {
+            srcFileName = URLDecoder.decode(fileName,"UTF-8");
+            File file = new File(uploadPath + File.separator + srcFileName);
+
+            boolean result = file.delete();
+
+            File thumbnail = new File(file.getParent(),"s_" + file.getName());
+
+            result = thumbnail.delete();
+
+            ResponseEntity<Boolean> responseEntity = new ResponseEntity<>(result, HttpStatus.OK);
+            log.info(responseEntity);
+
+        } catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+            ResponseEntity<Boolean> responseEntity = new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+            log.info(responseEntity);
+        }
 
         service.removeWithImages(pnum);
 

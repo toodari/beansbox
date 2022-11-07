@@ -111,9 +111,9 @@ public class ProductServiceImpl implements ProductService{
         });
 
         product.changeProduct(dto);
-        IntStream.rangeClosed(0, productImageList.size()).forEach(i -> {
-            productImageList.get(i).changeProductImage(dto.getImageDTOList().get(i));
-        });
+//        IntStream.rangeClosed(0, productImageList.size()).forEach(i -> {
+//            productImageList.get(i).changeProductImage(dto.getImageDTOList().get(i));
+//        });
 
 //        Map<String, Object> entityMap = dtoToEntity(dto);
 //        Product product = (Product) entityMap.get("product");
