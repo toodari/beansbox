@@ -45,7 +45,7 @@ public class MemberController {
     @PreAuthorize("hasRole('OWNER')")
     @GetMapping("/")
     public String index(){
-        return "redirect:/product/list";
+        return "redirect:/member/list";
     }
 
     @PreAuthorize("hasRole('OWNER')")
@@ -140,6 +140,7 @@ public class MemberController {
         log.info("post myModify...");
         log.info("dto: " + memberMyPageDTO);
 
+        redirectAttributes.addAttribute("mid", memberMyPageDTO.getMid());
         if(errors.hasErrors()) {
             model.addAttribute("memberMyPageDTO", memberMyPageDTO);
             Map<String, String> validatorResult = memberService.validateHandling(errors);

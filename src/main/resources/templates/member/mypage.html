@@ -21,6 +21,7 @@
                 <form role="form" id="myModifyForm" th:action="@{/member/mypage}" th:method="post"
                       th:object="${memberMyPageDTO}" onsubmit="validateForm();">
                     <input type="hidden" name="mnum" th:value="${memberMyPageDTO.mnum}">
+                    <input type="hidden" name="mrole" th:value="${memberMyPageDTO.mrole}">
                     <div class="form-group">
                         <label th:for="mid">아이디</label>
                         <input type="text" class="form-control w-75" th:field="*{mid}" readonly>
