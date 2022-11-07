@@ -1,5 +1,6 @@
 package com.toodari.beansbox.entity;
 
+import com.toodari.beansbox.dto.ProductDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,28 +11,36 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name = "PRODUCT")
 public class Product extends BaseEntity {
 
     @Id
+    @Column(name = "p_num")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long p_num;
+    private Long pnum;
 
-    @Column(nullable = false)
-    private String p_name;
+    @Column(name = "p_name", nullable = false)
+    private String pname;
 
-    @Column(nullable = false)
-    private String p_cat;
+    @Column(name = "p_cat", nullable = false)
+    private String pcat;
 
-    @Column(nullable = false)
-    private Long p_quantity;
+    @Column(name = "p_quantity", nullable = false)
+    private Long pquantity;
 
-    @Column(columnDefinition = "BIGINT UNSIGNED")
-    private Long p_cost;
+    @Column(name = "p_cost", columnDefinition = "BIGINT UNSIGNED")
+    private Long pcost;
 
-    @Column(columnDefinition = "BIGINT UNSIGNED")
-    private Long p_price;
+    @Column(name = "p_price", columnDefinition = "BIGINT UNSIGNED")
+    private Long pprice;
 
-    @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
-    private int p_active;
+    @Column(name = "p_active", nullable = false, columnDefinition = "TINYINT", length = 1)
+    private int pactive;
 
+    public void changeProduct(ProductDTO productDTO) {
+        this.pname = productDTO.getPname();
+        this.pcat = productDTO.getPcat();
+        this.pcost = productDTO.getPcost();
+        this.pprice = productDTO.getPprice();
+    }
 }

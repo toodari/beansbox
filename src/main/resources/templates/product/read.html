@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">제품 상세 정보</h1>
+    <p class="mb-4">
+
+    </p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <!-- Topbar Search -->
+        <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
+          <!--제품 추가 버튼(오른쪽 정렬)-->
+          <div class="d-sm-flex align-items-center justify-content-between float-right">
+          </div>
+        </h3>
+      </div>
+    </div>
+    <div class="card-body">
+      <form role="form">
+        <div class="form-group col-3 float-left">
+          <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
+               th:src="|/display?fileName=${dto.imageDTOList[0].getImageURL()}|" width="250" height="250">
+        </div>
+        <div class="row">
+          <input type="hidden"  name="pnum" th:value="${dto.pnum}">
+          <div class="form-group col-6">
+            <label>제품명</label>
+            <input type="text" class="form-control w-75" name="pname" th:value="${dto.pname}" readonly>
+          </div>
+          <div class="form-group col-6">
+            <label>분류</label>
+            <input type="text" class="form-control w-75" name="pcat" th:value="${dto.pcat}" readonly>
+          </div>
+          <div class="form-group col-6">
+            <label>구매가</label>
+            <input type="text" class="form-control w-75" name="pcost" th:value="${dto.pcost}" readonly>
+          </div>
+          <div class="form-group col-6">
+            <label>판매가</label>
+            <input type="text" class="form-control w-75" name="pprice" th:value="${dto.pprice}" readonly>
+          </div>
+          <hr>
+          <div class="form-group col-6">
+            <label>상품등록일</label>
+            <input type="text" class="form-control w-75" name="pregdate" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+          </div>
+          <div class="form-group col-6">
+            <label>등록수정일</label>
+            <input type="text" class="form-control w-75" name="pmoddate" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+          </div>
+
+          <input type="hidden" name="pnum" th:value="${dto.pnum}">
+
+        </div>
+      </form>
+    </div>
+    <hr>
+    <div class="row" >
+      <a th:href="@{/product/modify(pnum = ${dto.pnum}, page=${requestDTO.page},
+    type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1">
+        <span class="text">수정</span>
+      </a>
+      &nbsp;&nbsp;
+      <a th:href="@{/product/copy(pnum = ${dto.pnum}, page=${requestDTO.page},
+     type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1">
+        <span class="text">복제</span>
+      </a>
+      &nbsp;&nbsp;
+      <button type="button" href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-info btn-icon-split w-10">
+        <span class="text">삭제</span>
+      </button>
+
+      <a th:href="@{/product/list(page=${requestDTO.page},
+    type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-primary btn-icon-split col-1 offset-7">
+        <span class="text">돌아가기</span>
+      </a>
+    </div>
+
+    <!-- Modify Modal-->
+    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="modModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modModalLabel">BeansBox</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">제품 수정이 완료되었습니다.</div>
+          <div class="modal-footer">
+            <a class="btn btn-primary" data-dismiss="modal" href="read">확인</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copy Modal-->
+    <div class="modal fade" id="copyModal" tabindex="-1" role="dialog" aria-labelledby="copyModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="copyModalLabel">BeansBox</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">제품 복제가 완료되었습니다.</div>
+          <div class="modal-footer">
+            <a class="btn btn-primary" data-dismiss="modal" href="read">확인</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--delete Modal-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">BeansBox</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">정말 삭제하시겠습니까?</div>
+          <div class="modal-footer">
+            <button class="btn btn-primary removeBtn">확인</button>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script th:inline="javascript">
+
+      var modifymsg = [[${modifymsg}]];
+
+      console.log(modifymsg);
+
+      if(modifymsg){
+        $("#modModal").modal();
+      }
+    </script>
+
+    <script th:inline="javascript">
+
+      var copymsg = [[${copymsg}]];
+
+      console.log(copymsg);
+
+      if(copymsg){
+        $("#copyModal").modal();
+      }
+    </script>
+
+
+    <!--    <script th:inline="javascript">-->
+
+    <!--      var deletemsg = [[${deletemsg}]];-->
+
+    <!--      console.log(deletemsg);-->
+
+    <!--      if(deletemsg){-->
+    <!--        $(".deleteModal").modal();-->
+    <!--      }-->
+    <!--    </script>-->
+
+
+    <script th:inline="javascript">
+
+      var actionForm = $("form");
+
+      $(".removeBtn").click(function (){
+
+        actionForm
+                .attr("action", "/product/remove")
+                .attr("method","post");
+
+        actionForm.submit();
+
+      });
+    </script>
+
+  </th:block>
+</th:block>
+</html>

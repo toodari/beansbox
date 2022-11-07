@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">제품 수정</h1>
+    <p class="mb-4">
+
+    </p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <!-- Topbar Search -->
+        <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
+          <!--제품 추가 버튼(오른쪽 정렬)-->
+          <!--          <div class="d-sm-flex align-items-center justify-content-between float-right">-->
+          <!--            <button type="reset" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" form="modForm">초기화</button>-->
+          <!--          </div>-->
+        </h3>
+      </div>
+
+      <div class="card-body">
+        <form action="/product/modify" method="post">
+          <input type="hidden"  name="pnum" th:value="${dto.pnum}">
+          <input type="hidden" name="imageDTOList[0].imgname" th:value="${dto.imageDTOList[0].imgname}">
+          <input type="hidden" name="imageDTOList[0].imgpath" th:value="${dto.imageDTOList[0].imgpath}">
+          <input type="hidden" name="imageDTOList[0].imguuid" th:value="${dto.imageDTOList[0].imguuid}">
+          <!--<input type="hidden"  name="page" th:value="${requestDTO.page}">
+          <input type="hidden"  name="type" th:value="${requestDTO.type}">
+          <input type="hidden"  name="keyword" th:value="${#requestDTO.keyword}">-->
+          <div class="form-group">
+            <label>제품명</label>
+            <input type="text" class="form-control w-50" name="pname" th:value="${dto.pname}">
+          </div>
+          <div class="form-group">
+            <label>분류</label>
+            <input type="text" class="form-control w-50" name="pcat" th:value="${dto.pcat}">
+          </div>
+          <div class="form-group">
+            <label>구매가</label>
+            <input type="text" class="form-control w-50" name="pcost" th:value="${dto.pcost}">
+          </div>
+          <div class="form-group">
+            <label>판매가</label>
+            <input type="text" class="form-control w-50" name="pprice" th:value="${dto.pprice}">
+          </div>
+
+          <button type="submit" class="btn btn-info btn-icon-split w-10">
+            <span class="text">수정</span>
+          </button>
+
+          <button type="button" onclick="history.back()" class="btn btn-primary btn-icon-split w-10">
+            <span class="text">취소</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+
+      var msg = [[${msg}]];
+
+      console.log(msg);
+
+      if(msg){
+        $(".modal").modal();
+      }
+
+      var searchForm = $("#searchForm");
+
+      $('.btn-search').click(function (e){
+
+        searchForm.submit();
+      });
+
+
+      $('.btn-clear').click(function (e){
+
+        searchForm.empty().submit();
+
+      });
+    </script>
+
+    <script th:inline="javascript">
+
+      var resetForm = $("#resetForm");
+
+      $('.btn-clear').click(function (e){
+
+        resetForm.empty().submit();
+
+      });
+    </script>
+
+  </th:block>
+</th:block>
+</html>

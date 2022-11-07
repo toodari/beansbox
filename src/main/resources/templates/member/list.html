@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">직원 관리</h1>
+        <p class="mb-4">
+
+        </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary align-items-center">
+
+
+                    <!--                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm w-10">-->
+                    <!--                        <option value="전체">전체</option>-->
+                    <!--                        <option value="제품명">제품명</option>-->
+                    <!--                        <option value="분류">분류</option>-->
+                    <!--                    </select>-->
+
+
+                    <!-- Topbar Search -->
+                    <form action="/member/list" method="get" id="searchForm"
+                          class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="hidden" name="page" value="1">
+
+                            <input type="text" class="form-control bg-light border-0 small" name="keyword" th:value="${pageRequestDTO.keyword}"
+                                   placeholder="아이디,이름,직급으로 검색" aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary btn-search" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                            <div class="input-group-append">
+                                <a href="#" class="btn btn-primary btn-icon-split btn-clear">
+                                        <span class="icon text-white-50">
+                                            <i class="fa fa-undo" aria-hidden="true"></i>
+                                        </span>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                    <!--제품 추가 버튼(오른쪽 정렬)-->
+                    <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
+                        <a th:href="@{/member/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa fa-plus fa-sm text-white-50"></i> 직원 등록</a>
+                    </div>
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>아이디</th>
+                            <th>이름</th>
+                            <th>직급</th>
+                            <th>휴대전화</th>
+                            <th>입사일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto : ${result.dtoList}">
+                            <th scope="row"><a th:href="@{/member/modify(mid=${dto.mid}, page=${result.page}, keyword = ${pageRequestDTO.keyword})}">[[${dto.mid}]]</a></th>
+                            <td><a th:href="@{/member/modify(mid=${dto.mid}, page=${result.page})}">[[${dto.mname}]]</a></td>
+                            <td th:if="${dto.roleSet.size() == 3}">점장</td>
+                            <td th:if="${dto.roleSet.size() == 2}">매니저</td>
+                            <td th:if="${dto.roleSet.size() == 1}">직원</td>
+                            <td>[[${dto.mphone}]]</td>
+                            <td>[[${dto.myear}]]/[[${dto.mmonth}]]/[[${dto.mday}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="col-sm-8 col-md-2-5 float-right">
+                        <ul class="pagination h-100 justify-content-end align-items-center">
+                            <li class="page-item" th:if="${result.prev}">
+                                <a class="page-link" th:href="@{/member/list(page=${result.start - 1}, keyword = ${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
+                            </li>
+                            <li th:class="'page-item ' + ${result.page == page?'active':''}"
+                                th:each="page: ${result.pageList}">
+                                <a class="page-link" th:href="@{/member/list(page=${page}, keyword = ${pageRequestDTO.keyword})}">[[${page}]]</a>
+                            </li>
+                            <li class="page-item" th:if="${result.next}">
+                                <a class="page-link" th:href="@{/member/list(page=${result.end + 1}, keyword = ${pageRequestDTO.keyword})}">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="registeredModal modal fade" id="registeredModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="registerModalLabel">BeansBox</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">직원 등록이 완료되었습니다.</div>
+                                <div class="modal-footer">
+                                    <!--                        <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal" data-toggle="modal" data-target="#successModal">확인</button>-->
+                                    <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal">확인
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modifiedModal modal fade" id="modifiedModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modifiedModalLabel">BeansBox</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">직원 수정이 완료되었습니다.</div>
+                                <div class="modal-footer">
+                                    <!--                        <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal" data-toggle="modal" data-target="#successModal">확인</button>-->
+                                    <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal">확인
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deletedModal modal fade" id="deletedModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deletedModalLabel">BeansBox</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">직원 삭제가 완료되었습니다.</div>
+                                <div class="modal-footer">
+                                    <!--                        <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal" data-toggle="modal" data-target="#successModal">확인</button>-->
+                                    <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal">확인
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+
+<script th:inline="javascript">
+    // $(document).ready(function(){
+    //     var result = [[${result}]];
+    //
+    //     console.log(result);
+    //
+    //     if(result == "success") {
+    //         $(".successModal").modal("show");
+    //     }
+    // });
+    var registered = [[${registered}]];
+    var modified = [[${modified}]];
+    var deleted = [[${deleted}]];
+    console.log(registered);
+    console.log(modified);
+    console.log(deleted);
+    if (registered) {
+        $(".registeredModal").modal();
+    }
+    if (modified) {
+        $(".modifiedModal").modal();
+    }
+    if (deleted) {
+        $(".deletedModal").modal();
+    }
+
+    var searchForm = $("#searchForm");
+    $('.btn-search').click(function (e){
+        searchForm.submit();
+    });
+    $('.btn-clear').click(function (e){
+        searchForm.empty().submit();
+    });
+</script>
+
+</html>
