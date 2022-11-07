@@ -33,11 +33,11 @@
         <script th:src="@{/js/sb-admin-2.min.js}"></script>
 
         <!-- Page level plugins -->
-<!--        <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>-->
+        <!--        <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>-->
 
         <!-- Page level custom scripts -->
-<!--        <script th:src="@{/js/demo/chart-area-demo.js}"></script>-->
-<!--        <script th:src="@{/js/demo/chart-pie-demo.js}"></script>-->
+        <!--        <script th:src="@{/js/demo/chart-area-demo.js}"></script>-->
+        <!--        <script th:src="@{/js/demo/chart-pie-demo.js}"></script>-->
 
     </head>
 
@@ -50,8 +50,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-<!--                <div class="sidebar-brand-icon rotate-n-15">-->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/product/list}">
+                <!--                <div class="sidebar-brand-icon rotate-n-15">-->
                 <div class="sidebar-brand-icon">
                     <i class="fa fa-coffee" aria-hidden="true"></i>
                 </div>
@@ -71,7 +71,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="../board/index.html">
+                <a class="nav-link" th:href="@{/product/list}">
                     <i class="fa fa-list" aria-hidden="true"></i>
                     <span>제품목록</span></a>
             </li>
@@ -131,7 +131,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" th:href="@{/member/list}">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <span>직원관리</span></a>
             </li>
@@ -164,46 +164,46 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-<!--                    &lt;!&ndash; Topbar Search &ndash;&gt;-->
-<!--                    <form-->
-<!--                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
-<!--                        <div class="input-group">-->
-<!--                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."-->
-<!--                                   aria-label="Search" aria-describedby="basic-addon2">-->
-<!--                            <div class="input-group-append">-->
-<!--                                <button class="btn btn-primary" type="button">-->
-<!--                                    <i class="fas fa-search fa-sm"></i>-->
-<!--                                </button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </form>-->
+                    <!--                    &lt;!&ndash; Topbar Search &ndash;&gt;-->
+                    <!--                    <form-->
+                    <!--                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
+                    <!--                        <div class="input-group">-->
+                    <!--                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."-->
+                    <!--                                   aria-label="Search" aria-describedby="basic-addon2">-->
+                    <!--                            <div class="input-group-append">-->
+                    <!--                                <button class="btn btn-primary" type="button">-->
+                    <!--                                    <i class="fas fa-search fa-sm"></i>-->
+                    <!--                                </button>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </form>-->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-<!--                        &lt;!&ndash; Nav Item - Search Dropdown (Visible Only XS) &ndash;&gt;-->
-<!--                        <li class="nav-item dropdown no-arrow d-sm-none">-->
-<!--                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"-->
-<!--                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                                <i class="fas fa-search fa-fw"></i>-->
-<!--                            </a>-->
-                            <!-- Dropdown - Messages -->
-<!--                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated&#45;&#45;grow-in"-->
-<!--                                 aria-labelledby="searchDropdown">-->
-<!--                                <form class="form-inline mr-auto w-100 navbar-search">-->
-<!--                                    <div class="input-group">-->
-<!--                                        <input type="text" class="form-control bg-light border-0 small"-->
-<!--                                               placeholder="Search for..." aria-label="Search"-->
-<!--                                               aria-describedby="basic-addon2">-->
-<!--                                        <div class="input-group-append">-->
-<!--                                            <button class="btn btn-primary" type="button">-->
-<!--                                                <i class="fas fa-search fa-sm"></i>-->
-<!--                                            </button>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                        </li>-->
+                        <!--                        &lt;!&ndash; Nav Item - Search Dropdown (Visible Only XS) &ndash;&gt;-->
+                        <!--                        <li class="nav-item dropdown no-arrow d-sm-none">-->
+                        <!--                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"-->
+                        <!--                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                        <!--                                <i class="fas fa-search fa-fw"></i>-->
+                        <!--                            </a>-->
+                        <!-- Dropdown - Messages -->
+                        <!--                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated&#45;&#45;grow-in"-->
+                        <!--                                 aria-labelledby="searchDropdown">-->
+                        <!--                                <form class="form-inline mr-auto w-100 navbar-search">-->
+                        <!--                                    <div class="input-group">-->
+                        <!--                                        <input type="text" class="form-control bg-light border-0 small"-->
+                        <!--                                               placeholder="Search for..." aria-label="Search"-->
+                        <!--                                               aria-describedby="basic-addon2">-->
+                        <!--                                        <div class="input-group-append">-->
+                        <!--                                            <button class="btn btn-primary" type="button">-->
+                        <!--                                                <i class="fas fa-search fa-sm"></i>-->
+                        <!--                                            </button>-->
+                        <!--                                        </div>-->
+                        <!--                                    </div>-->
+                        <!--                                </form>-->
+                        <!--                            </div>-->
+                        <!--                        </li>-->
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -216,13 +216,13 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" th:href="@{/member/mypage}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     마이페이지
                                 </a>
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" th:href="@{/logout}"><!-- data-toggle="modal" data-target="#logoutModal"-->
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     로그아웃
                                 </a>
@@ -240,16 +240,16 @@
 
                     </th:block>
 
-<!--                    &lt;!&ndash; Content Row &ndash;&gt;-->
-<!--                    <div class="row">-->
+                    <!--                    &lt;!&ndash; Content Row &ndash;&gt;-->
+                    <!--                    <div class="row">-->
 
-<!--                        &lt;!&ndash; Content Column &ndash;&gt;-->
-<!--                        <div class="col-lg-6 mb-4">-->
+                    <!--                        &lt;!&ndash; Content Column &ndash;&gt;-->
+                    <!--                        <div class="col-lg-6 mb-4">-->
 
 
-<!--                        </div>-->
+                    <!--                        </div>-->
 
-<!--                    </div>-->
+                    <!--                    </div>-->
 
                 </div>
                 <!-- /.container-fluid -->

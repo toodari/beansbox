@@ -1,5 +1,6 @@
 package com.toodari.beansbox.entity;
 
+import com.toodari.beansbox.dto.ProductDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,17 +37,10 @@ public class Product extends BaseEntity {
     @Column(name = "p_active", nullable = false, columnDefinition = "TINYINT", length = 1)
     private int pactive;
 
-    public void changePName(String pname){
-        this.pname = pname;
+    public void changeProduct(ProductDTO productDTO) {
+        this.pname = productDTO.getPname();
+        this.pcat = productDTO.getPcat();
+        this.pcost = productDTO.getPcost();
+        this.pprice = productDTO.getPprice();
     }
-    public void changePCat(String pcat){
-        this.pcat = pcat;
-    }
-    public void changePCost(Long pcost){
-        this.pcost = pcost;
-    }
-    public void changePPrice(Long pprice){
-        this.pprice = pprice;
-    }
-
 }

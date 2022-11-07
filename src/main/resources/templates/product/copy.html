@@ -14,12 +14,12 @@
       <div class="card-header py-3">
         <!-- Topbar Search -->
         <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
-<!--          &lt;!&ndash;제품 추가 버튼(오른쪽 정렬)&ndash;&gt;-->
-<!--          <div class="d-sm-flex align-items-center justify-content-between float-right">-->
-<!--            <div class="d-sm-flex align-items-center justify-content-between float-right">-->
-<!--              <button type="reset" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" form="copyForm">초기화</button>-->
-<!--            </div>-->
-<!--          </div>-->
+          <!--          &lt;!&ndash;제품 추가 버튼(오른쪽 정렬)&ndash;&gt;-->
+          <!--          <div class="d-sm-flex align-items-center justify-content-between float-right">-->
+          <!--            <div class="d-sm-flex align-items-center justify-content-between float-right">-->
+          <!--              <button type="reset" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" form="copyForm">초기화</button>-->
+          <!--            </div>-->
+          <!--          </div>-->
         </h3>
       </div>
 
@@ -87,7 +87,6 @@
             </div>
           </div>
           <hr>
-
           <div class="form-group">
             <label>초기수량</label>
             <input type="text" class="form-control w-50" name="pquantity" th:value="${dto.pquantity}">
@@ -236,11 +235,11 @@
           $(".uploadResult li").each(function(i,obj){
             var target = $(obj);
 
-            str += "<input type='hidden' name='imageDTOList["+i+"].imgname' value='"+target.data('imgname') +"'>";
+            str += "<input type='hidden' name='imageDTOList["+i+"].imgname' value='"+target.data('name') +"'>";
 
-            str += "<input type='hidden' name='imageDTOList["+i+"].imgpath' value='"+target.data('imgpath')+"'>";
+            str += "<input type='hidden' name='imageDTOList["+i+"].imgpath' value='"+target.data('path')+"'>";
 
-            str += "<input type='hidden' name='imageDTOList["+i+"].imguuid' value='"+target.data('imguuid')+"'>";
+            str += "<input type='hidden' name='imageDTOList["+i+"].imguuid' value='"+target.data('uuid')+"'>";
 
           });
 

@@ -17,16 +17,18 @@ public interface ProductService {
 
     ProductDTO read(Long pnum);
 
-    void modify(ProductDTO dto);
+    Long modify(ProductDTO dto);
 
     Long copy(ProductDTO dto);
 
     void remove(Long pnum);
 
+    void removeWithImages(Long pnum); // bno로 삭제처리를 진행한다.
 
 
 
-//    PageResultDTO<ProductDTO, Product> getList(PageRequestDTO requestDTO);
+
+    //    PageResultDTO<ProductDTO, Product> getList(PageRequestDTO requestDTO);
     PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO);
 
     default ProductDTO entitiesToDTO(Product product, List<ProductImage> productImages){
@@ -73,12 +75,12 @@ public interface ProductService {
         List<ProductImageDTO> imageDTOList = productDTO.getImageDTOList();
 
         if(imageDTOList != null && imageDTOList.size() > 0){
-            List<ProductImage> productImageList = imageDTOList.stream().map(productImageDTO ->{
+            List<ProductImage> productImageList = imageDTOList.stream().map(productImageDTO -> {
 
                 ProductImage productImage = ProductImage.builder()
                         .imgpath(productImageDTO.getImgpath())
-                        .imguuid(productImageDTO.getImguuid())
                         .imgname(productImageDTO.getImgname())
+                        .imguuid(productImageDTO.getImguuid())
                         .product(product)
                         .build();
                 return productImage;

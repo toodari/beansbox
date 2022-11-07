@@ -23,35 +23,36 @@
     <div class="card-body">
       <form role="form">
         <div class="form-group col-3 float-left">
-          <img src="https://mblogthumb-phinf.pstatic.net/MjAxOTEwMjdfMjgy/MDAxNTcyMTU4OTA1NzA2.33uR9qrel18FzLKr4A6_nbWvt2GZCK4SiDk5WAf6nqIg.7wl_IpKoPwxJPCjpQ0fm6ZxmITATZfMcFUammEx3T9gg.JPEG.msjin93/IMG_8410.JPG?type=w800" alt="My Image" width="150" height="150">
+          <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
+               th:src="|/display?fileName=${dto.imageDTOList[0].getImageURL()}|" width="250" height="250">
         </div>
         <div class="row">
           <input type="hidden"  name="pnum" th:value="${dto.pnum}">
-        <div class="form-group col-6">
-          <label>제품명</label>
-          <input type="text" class="form-control w-75" name="pname" th:value="${dto.pname}" readonly>
-        </div>
-        <div class="form-group col-6">
-          <label>분류</label>
-          <input type="text" class="form-control w-75" name="pcat" th:value="${dto.pcat}" readonly>
-        </div>
-        <div class="form-group col-6">
-          <label>구매가</label>
-          <input type="text" class="form-control w-75" name="pcost" th:value="${dto.pcost}" readonly>
-        </div>
-        <div class="form-group col-6">
-          <label>판매가</label>
-          <input type="text" class="form-control w-75" name="pprice" th:value="${dto.pprice}" readonly>
-        </div>
-        <hr>
-        <div class="form-group col-6">
-          <label>상품등록일</label>
-          <input type="text" class="form-control w-75" name="pregdate" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
-        <div class="form-group col-6">
-          <label>등록수정일</label>
-          <input type="text" class="form-control w-75" name="pmoddate" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
+          <div class="form-group col-6">
+            <label>제품명</label>
+            <input type="text" class="form-control w-75" name="pname" th:value="${dto.pname}" readonly>
+          </div>
+          <div class="form-group col-6">
+            <label>분류</label>
+            <input type="text" class="form-control w-75" name="pcat" th:value="${dto.pcat}" readonly>
+          </div>
+          <div class="form-group col-6">
+            <label>구매가</label>
+            <input type="text" class="form-control w-75" name="pcost" th:value="${dto.pcost}" readonly>
+          </div>
+          <div class="form-group col-6">
+            <label>판매가</label>
+            <input type="text" class="form-control w-75" name="pprice" th:value="${dto.pprice}" readonly>
+          </div>
+          <hr>
+          <div class="form-group col-6">
+            <label>상품등록일</label>
+            <input type="text" class="form-control w-75" name="pregdate" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+          </div>
+          <div class="form-group col-6">
+            <label>등록수정일</label>
+            <input type="text" class="form-control w-75" name="pmoddate" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+          </div>
 
           <input type="hidden" name="pnum" th:value="${dto.pnum}">
 
@@ -60,24 +61,24 @@
     </div>
     <hr>
     <div class="row" >
-    <a th:href="@{/product/modify(pnum = ${dto.pnum}, page=${requestDTO.page},
+      <a th:href="@{/product/modify(pnum = ${dto.pnum}, page=${requestDTO.page},
     type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1">
-      <span class="text">수정</span>
-    </a>
+        <span class="text">수정</span>
+      </a>
       &nbsp;&nbsp;
-    <a th:href="@{/product/copy(pnum = ${dto.pnum}, page=${requestDTO.page},
+      <a th:href="@{/product/copy(pnum = ${dto.pnum}, page=${requestDTO.page},
      type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1">
-     <span class="text">복제</span>
-    </a>
+        <span class="text">복제</span>
+      </a>
       &nbsp;&nbsp;
       <button type="button" href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-info btn-icon-split w-10">
         <span class="text">삭제</span>
       </button>
 
-    <a th:href="@{/product/list(page=${requestDTO.page},
+      <a th:href="@{/product/list(page=${requestDTO.page},
     type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-primary btn-icon-split col-1 offset-7">
-      <span class="text">돌아가기</span>
-    </a>
+        <span class="text">돌아가기</span>
+      </a>
     </div>
 
     <!-- Modify Modal-->
@@ -162,33 +163,32 @@
     </script>
 
 
-<!--    <script th:inline="javascript">-->
+    <!--    <script th:inline="javascript">-->
 
-<!--      var deletemsg = [[${deletemsg}]];-->
+    <!--      var deletemsg = [[${deletemsg}]];-->
 
-<!--      console.log(deletemsg);-->
+    <!--      console.log(deletemsg);-->
 
-<!--      if(deletemsg){-->
-<!--        $(".deleteModal").modal();-->
-<!--      }-->
-<!--    </script>-->
+    <!--      if(deletemsg){-->
+    <!--        $(".deleteModal").modal();-->
+    <!--      }-->
+    <!--    </script>-->
 
 
     <script th:inline="javascript">
 
       var actionForm = $("form");
 
-     $(".removeBtn").click(function (){
+      $(".removeBtn").click(function (){
 
-       actionForm
-               .attr("action", "/product/remove")
-               .attr("method","post");
+        actionForm
+                .attr("action", "/product/remove")
+                .attr("method","post");
 
-       actionForm.submit();
+        actionForm.submit();
 
-     });
+      });
     </script>
-
 
   </th:block>
 </th:block>

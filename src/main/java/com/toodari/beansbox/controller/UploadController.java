@@ -1,6 +1,7 @@
 package com.toodari.beansbox.controller;
 
 import com.toodari.beansbox.dto.ProductImageDTO;
+import com.toodari.beansbox.dto.UploadResultDTO;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,9 +35,9 @@ public class UploadController {
     private String uploadPath;
 
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<ProductImageDTO>> uploadFile(MultipartFile[] uploadFiles){
+    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles){
 
-        List<ProductImageDTO> resultDTOList = new ArrayList<>();
+        List<UploadResultDTO> resultDTOList = new ArrayList<>();
         for (MultipartFile uploadFile : uploadFiles) {
 
             // 이미지 파일만 업로드 가능
@@ -69,9 +70,9 @@ public class UploadController {
 
                 File thumbnailFile = new File(thumbnailSaveName);
                 // 섬네일 생성
-                Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,100,100);
+                Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,40,40);
 
-                resultDTOList.add(new ProductImageDTO(imguuid, imgname,imgpath));
+                resultDTOList.add(new UploadResultDTO(imgname, imguuid, imgpath));
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -144,4 +145,5 @@ public class UploadController {
             return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

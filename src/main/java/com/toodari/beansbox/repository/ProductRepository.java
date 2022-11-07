@@ -17,4 +17,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> , Queryd
             "left outer join ProductImage i on i.product = p " +
             "group by p ")
     Page<Object[]> getListPage(Pageable pageable);
+
+    @Query("select p, i from Product p " +
+            " left outer join ProductImage i on i.product = p " +
+            " where p.pnum = :pnum group by i")
+    List<Object[]> getProductWithImage(Long pnum);
 }

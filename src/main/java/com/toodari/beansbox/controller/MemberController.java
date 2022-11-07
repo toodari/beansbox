@@ -140,6 +140,7 @@ public class MemberController {
         log.info("post myModify...");
         log.info("dto: " + memberMyPageDTO);
 
+        redirectAttributes.addAttribute("mid", memberMyPageDTO.getMid());
         if(errors.hasErrors()) {
             model.addAttribute("memberMyPageDTO", memberMyPageDTO);
             Map<String, String> validatorResult = memberService.validateHandling(errors);
@@ -150,7 +151,7 @@ public class MemberController {
         }
         memberService.myModify(memberMyPageDTO);
         redirectAttributes.addFlashAttribute("modified","modified");
-        return "redirect:/";
+        return "redirect:/product/list";
         // 원래는 상품 목록(/product/list)으로 보내야함
     }
 
