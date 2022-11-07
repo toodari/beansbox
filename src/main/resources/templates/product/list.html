@@ -147,19 +147,39 @@
             </div>
         </div>
 
-
-
-
-
+        <div class="modifiedModal modal fade" id="modifiedModal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modifiedModalLabel">BeansBox</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">마이페이지 수정이 완료되었습니다.</div>
+                    <div class="modal-footer">
+                        <!--                        <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal" data-toggle="modal" data-target="#successModal">확인</button>-->
+                        <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal">확인
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script th:inline="javascript">
-
             var msg = [[${msg}]];
+            var modified = [[${modified}]];
 
             console.log(msg);
+            console.log(modified);
 
             if(msg){
                 $(".modal").modal();
+            }
+            if (modified) {
+                $(".modifiedModal").modal();
             }
 
             var searchForm = $("#searchForm");
@@ -173,7 +193,6 @@
             $('.btn-clear').click(function (e){
 
                 searchForm.empty().submit();
-
             });
         </script>
 
