@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+
+        <!-- 사용자 CSS 추가 -->
+        <style>
+            .fieldError {
+                color: #bd2130;
+            }
+        </style>
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">직원 정보</h1>
+        <p class="mb-4"></p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+
+            <div class="card-body">
+                <form role="form" id="modifyForm" th:action="@{/member/modify}" th:method="post"
+                      th:object="${memberModifyDTO}">
+                    <input type="hidden" name="page" th:value="${requestDTO.page}">
+                    <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+                    <input type="hidden" name="mnum" th:value="${memberModifyDTO.mnum}">
+                    <input type="hidden" name="mpw" th:value="${memberModifyDTO.mpw}">
+                    <div class="form-group">
+                        <label th:for="mid">아이디</label>
+                        <input type="text" class="form-control w-75" th:field="*{mid}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label th:for="mname">이름</label>
+                        <input type="text" th:field="*{mname}" class="form-control w-75">
+                        <p th:if="${#fields.hasErrors('mname')}" th:errors="*{mname}"  class="fieldError">Incorrect
+                            data</p>
+                    </div>
+                    <div class="form-group">
+                        <label th:for="mphone">휴대전화</label>
+                        <input type="text" th:field="*{mphone}" class="form-control w-75">
+                        <p th:if="${#fields.hasErrors('mphone')}" th:errors="*{mphone}"  class="fieldError">Incorrect
+                            data</p>
+                    </div>
+                    <div class="form-group">
+                        <label th:for="mrole">직급</label>
+                        <th:block th:if="${memberModifyDTO.getMrole() == 'EMPLOYEE'}">
+                        <select th:field="*{mrole}" class="form-control w-25">
+                            <option selected value="EMPLOYEE">직원</option>
+                            <option value="MANAGER">매니저</option>
+                            <option value="OWNER">점장</option>
+                        </select>
+                        </th:block>
+                        <th:block th:if="${memberModifyDTO.getMrole() == 'MANAGER'}">
+                            <select th:field="*{mrole}" class="form-control w-25">
+                            <option value="EMPLOYEE">직원</option>
+                            <option selected value="MANAGER">매니저</option>
+                            <option value="OWNER">점장</option>
+                        </select>
+                        </th:block>
+                        <th:block th:if="${memberModifyDTO.getMrole() == 'OWNER'}">
+                            <select th:field="*{mrole}" class="form-control w-25">
+                            <option value="EMPLOYEE">직원</option>
+                            <option value="MANAGER">매니저</option>
+                            <option selected value="OWNER">점장</option>
+                        </select>
+                        </th:block>
+                    </div>
+                    <div class="form-group">
+                        <label th:class="d-block">입사일</label>
+                        <input type="text" th:field="*{myear}"  class="form-control w-25 d-inline-block"
+                               th:value="${memberModifyDTO.myear}">
+                        <input type="text" th:field="*{mmonth}"  class="form-control w-25 d-inline-block"
+                               th:value="${memberModifyDTO.mmonth}">
+                        <input type="text" th:field="*{mday}"  class="form-control w-25 d-inline-block"
+                               th:value="${memberModifyDTO.mday}">
+                        <br><span th:if="${#fields.hasErrors('myear')}" th:errors="*{myear}" class="fieldError">Incorrect
+                            data</span>
+                        <br><span th:if="${#fields.hasErrors('mmonth')}" th:errors="*{mmonth}" class="fieldError">Incorrect
+                            data</span>
+                        <br><span th:if="${#fields.hasErrors('mday')}" th:errors="*{mday}" class="fieldError">Incorrect
+                            data</span>
+                    </div>
+
+                    <button type="button" href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-icon-split p-2 pl-5 pr-5">
+                        삭제</button>
+                    <span class="float-right">
+                    <button type="button" class="btn btn-info btn-icon-split p-2 pl-5 pr-5 modifyBtn" >수정</button>
+                    <button type="button" class="btn btn-primary btn-icon-split p-2 pl-5 pr-5 cancelBtn">취소</button>
+                    </span>
+                </form>
+
+                <!-- Delete modal -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">BeansBox</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h4>삭제된 데이터는 복구할 수 없습니다.</h4>
+                                정말 삭제하시겠습니까?</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary removeBtn">확인</button>
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <script th:inline="javascript">
+            $(document).ready(function() {
+                $('#mname').focus();
+            });
+
+            var actionForm = $("form");
+
+            $(".removeBtn").click(function(){
+
+                actionForm
+                    .attr("action", "/member/remove")
+                    .attr("method", "post");
+                actionForm.submit();
+            });
+
+            $(".modifyBtn").click(function(){
+                // validateForm();
+
+                var page = $("input[name='page']");
+                var keyword = $("input[name='keyword']");
+                actionForm.append(page);
+                actionForm.append(keyword);
+                actionForm
+                    .attr("action", "/member/modify")
+                    .attr("method", "post")
+                    .submit();
+            });
+
+            $(".cancelBtn").click(function(){
+
+                var page = $("input[name='page']");
+                var keyword = $("input[name='keyword']");
+
+                actionForm.empty();
+                actionForm.append(page);
+                actionForm.append(keyword);
+                actionForm
+                    .attr("action", "/member/list")
+                    .attr("method", "get");
+
+                actionForm.submit();
+            });
+        </script>
+    </th:block>
+</th:block>
+</html>

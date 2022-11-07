@@ -1,5 +1,8 @@
 package com.toodari.beansbox.entity;
 
+import com.toodari.beansbox.dto.MemberModifyDTO;
+import com.toodari.beansbox.dto.MemberMyPageDTO;
+import com.toodari.beansbox.dto.MemberRegisterDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -51,4 +54,22 @@ public class Member extends BaseEntity {
     public void changePassword(String mpw){
         this.mpw = mpw;
     }
+    public void changeMember(MemberModifyDTO memberModifyDTO) {
+        this.mname = memberModifyDTO.getMname();
+        this.mphone = memberModifyDTO.getMphone();
+        this.myear = memberModifyDTO.getMyear();
+        this.mmonth = memberModifyDTO.getMmonth();
+        this.mday = memberModifyDTO.getMday();
+        this.roleSet = memberModifyDTO.getRoleSet();
+    }
+
+    public void changeMyPage(MemberMyPageDTO memberMyPageDTO) {
+        this.mname = memberMyPageDTO.getMname();
+        this.mphone = memberMyPageDTO.getMphone();
+        this.myear = memberMyPageDTO.getMyear();
+        this.mmonth = memberMyPageDTO.getMmonth();
+        this.mday = memberMyPageDTO.getMday();
+        this.roleSet = memberMyPageDTO.getRoleSet();
+    }
+
 }

@@ -3,12 +3,14 @@ package com.toodari.beansbox.controller;
 import com.toodari.beansbox.dto.PageRequestDTO;
 import com.toodari.beansbox.dto.PageResultDTO;
 import com.toodari.beansbox.dto.ProductDTO;
+import com.toodari.beansbox.service.MemberService;
 import com.toodari.beansbox.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -33,11 +35,13 @@ public class ProductController {
     @Value("${org.zerock.upload.path}") // application.properties의 변수
     private String uploadPath;
 
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/")
     public String index(){
         return "redirect:/product/list";
     }
 
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){
 
@@ -46,12 +50,14 @@ public class ProductController {
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
 
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/register")
     public void register(){
 
         log.info("register get......");
     }
 
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/register")
     public String registerPost(ProductDTO dto, RedirectAttributes redirectAttributes){
 
@@ -63,6 +69,8 @@ public class ProductController {
 
         return "redirect:/product/list";
     }
+
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping({"/read", "/modify", "/copy"})
     public void read(long pnum, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
         log.info("pnum : " + pnum);
@@ -72,6 +80,7 @@ public class ProductController {
         model.addAttribute("dto", dto);
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @PostMapping("/modify")
     public String modify(ProductDTO dto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes){
         log.info("post modify............");
@@ -88,6 +97,7 @@ public class ProductController {
         return "redirect:/product/read";
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @PostMapping("/copy")
     public String copy(ProductDTO dto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes){
         log.info("post copy............");
@@ -107,6 +117,7 @@ public class ProductController {
         return "redirect:/product/read";
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @PostMapping("/remove")
     public String remove(long pnum, RedirectAttributes redirectAttributes){
 
