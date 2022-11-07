@@ -27,7 +27,7 @@ public interface ProductService {
 
 
 //    PageResultDTO<ProductDTO, Product> getList(PageRequestDTO requestDTO);
-    PageResultDTO<ProductDTO, Product> getList(PageRequestDTO requestDTO);
+    PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO);
 
     default ProductDTO entitiesToDTO(Product product, List<ProductImage> productImages){
         ProductDTO productDTO = ProductDTO.builder()
@@ -44,7 +44,7 @@ public interface ProductService {
 
         List<ProductImageDTO> productImageDTOList = productImages.stream().map(productImage -> {
             return ProductImageDTO.builder()
-                    .imgName(productImage.getImgname())
+                    .imgname(productImage.getImgname())
                     .imgpath(productImage.getImgpath())
                     .imguuid(productImage.getImguuid())
                     .build();
@@ -77,8 +77,8 @@ public interface ProductService {
 
                 ProductImage productImage = ProductImage.builder()
                         .imgpath(productImageDTO.getImgpath())
-                        .imgname(productImageDTO.getImgName())
                         .imguuid(productImageDTO.getImguuid())
+                        .imgname(productImageDTO.getImgname())
                         .product(product)
                         .build();
                 return productImage;

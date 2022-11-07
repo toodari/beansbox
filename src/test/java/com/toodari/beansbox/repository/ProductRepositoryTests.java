@@ -51,4 +51,19 @@ public class ProductRepositoryTests {
         productRepository.getListPage(pageable);
     }
 
+    @Test
+    public void  testSearch1(){
+
+        productRepository.search1();
+    }
+
+    @Test
+    public void testSearchPage(){
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("pnum").descending()
+                .and(Sort.by("pname").ascending()));
+
+        Page<Object[]> result = productRepository.searchPage("nc", "Sample", pageable);
+    }
+
 }

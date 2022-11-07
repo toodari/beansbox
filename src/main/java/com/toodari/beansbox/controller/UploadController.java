@@ -1,6 +1,6 @@
 package com.toodari.beansbox.controller;
 
-import com.toodari.beansbox.dto.UploadResultDTO;
+import com.toodari.beansbox.dto.ProductImageDTO;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,9 +34,9 @@ public class UploadController {
     private String uploadPath;
 
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles){
+    public ResponseEntity<List<ProductImageDTO>> uploadFile(MultipartFile[] uploadFiles){
 
-        List<UploadResultDTO> resultDTOList = new ArrayList<>();
+        List<ProductImageDTO> resultDTOList = new ArrayList<>();
         for (MultipartFile uploadFile : uploadFiles) {
 
             // 이미지 파일만 업로드 가능
@@ -47,16 +48,16 @@ public class UploadController {
             // 실제 파일 이름 IE나 Edge는 전체 경로가 들어오므로
             String originalName = uploadFile.getOriginalFilename();
 
-            String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
+            String imgname = originalName.substring(originalName.lastIndexOf("\\") + 1);
 
             // 날짜 폴더 생성
-            String folderPath = makeFolder();
+            String imgpath = makeFolder();
 
             //UUID
-            String uuid = UUID.randomUUID().toString();
+            String imguuid = UUID.randomUUID().toString();
 
             //저장할 파일 이름
-            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + fileName;
+            String saveName = uploadPath + File.separator + imgpath + File.separator + imguuid + "_" + imgname;
 
             Path savePath = Paths.get(saveName);
 
@@ -64,13 +65,13 @@ public class UploadController {
                 uploadFile.transferTo(savePath);// 실제 이미지 저장(원본 파일)
 
                 //섬네일 생성 -> 섬네일 파일 이름은 중간에 s_로 시작
-                String thubmnailSaveName = uploadPath + File.separator + folderPath + File.separator +"s_" + uuid +"_"+ fileName;
+                String thumbnailSaveName = uploadPath + File.separator + imgpath + File.separator +"s_" + imguuid +"_"+ imgname;
 
-                File thumbnailFile = new File(thubmnailSaveName);
+                File thumbnailFile = new File(thumbnailSaveName);
                 // 섬네일 생성
                 Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,100,100);
 
-                resultDTOList.add(new UploadResultDTO(fileName,uuid,folderPath));
+                resultDTOList.add(new ProductImageDTO(imguuid, imgname,imgpath));
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -120,5 +121,27 @@ public class UploadController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return result;
+    }
+
+    @PostMapping("/removeFile")
+    public ResponseEntity<Boolean> removeFile(String fileName){
+        String srcFileName = null;
+
+        try {
+            srcFileName = URLDecoder.decode(fileName,"UTF-8");
+            File file = new File(uploadPath + File.separator + srcFileName);
+
+            boolean result = file.delete();
+
+            File thumbnail = new File(file.getParent(),"s_" + file.getName());
+
+            result = thumbnail.delete();
+
+            return new ResponseEntity<>(result,HttpStatus.OK);
+
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

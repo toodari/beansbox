@@ -4,13 +4,11 @@ import com.toodari.beansbox.dto.PageRequestDTO;
 import com.toodari.beansbox.dto.PageResultDTO;
 import com.toodari.beansbox.dto.ProductDTO;
 import com.toodari.beansbox.dto.ProductImageDTO;
-import com.toodari.beansbox.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,12 +23,12 @@ public class ProductServiceTests {
         ProductImageDTO productImageDTO1 = ProductImageDTO.builder()
                 .imguuid(UUID.randomUUID().toString())
                 .imgpath("C:\\Users\\mit\\Desktop")
-                .imgName("zzzzz.png")
+                .imgname("zzzzz.png")
                 .build();
         ProductImageDTO productImageDTO2 = ProductImageDTO.builder()
                 .imguuid(UUID.randomUUID().toString())
                 .imgpath("C:\\Users\\mit\\Desktop")
-                .imgName("artworks-cDzKQJGISQrJvOrp-xc9rnA-t500x500.jpg")
+                .imgname("artworks-cDzKQJGISQrJvOrp-xc9rnA-t500x500.jpg")
                 .build();
 
         List<ProductImageDTO> productImageDTOList = new ArrayList<>();
@@ -58,7 +56,7 @@ public class ProductServiceTests {
                 .size(10)
                 .build();
 
-        PageResultDTO<ProductDTO, Product> resultDTO = service.getList(pageRequestDTO);
+        PageResultDTO<ProductDTO, Object[]> resultDTO = service.getList(pageRequestDTO);
 
         System.out.println("PREV: " + resultDTO.isPrev());
         System.out.println("NEXT: " + resultDTO.isNext());

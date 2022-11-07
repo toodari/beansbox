@@ -28,16 +28,21 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
+    public String list(PageRequestDTO pageRequestDTO, Model model){
 
         log.info("list.............." + pageRequestDTO);
 
         model.addAttribute("result", service.getList(pageRequestDTO));
+
+        return "/product/list";
     }
 
     @GetMapping("/register")
-    public void register(){
+    public String register(){
+
         log.info("register get......");
+
+        return "/product/register";
     }
 
     @PostMapping("/register")

@@ -22,7 +22,7 @@
             </div>
 
             <div class="card-body">
-                <form action="/product/register" method="post">
+                <form th:action="@{/product/register}" th:method="post">
                     <div class="form-group">
                         <label>제품명</label>
                         <input type="text" class="form-control w-50" name="pname">
@@ -89,7 +89,7 @@
                     <hr>
                     <div class="form-group">
                         <label>초기수량</label>
-                        <input type="text" class="form-control w-50" name="pquantity">
+                        <input type="text" class="form-control w-50" name="pquantity" >
                     </div>
 
                     <button type="submit" class="btn btn-info btn-icon-split w-10" >
@@ -202,8 +202,6 @@
 
                     var uploadUL = $(".uploadResult ul");
 
-                    var divArea = $(".uploadResult");
-
                     var str ="";
 
                     $(uploadResultArr).each(function(i, obj) {
@@ -251,11 +249,11 @@
                     $(".uploadResult li").each(function(i,obj){
                         var target = $(obj);
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
+                        str += "<input type='hidden' name='imageDTOList["+i+"].imgname' value='"+target.data('imgname') +"'>";
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imgpath' value='"+target.data('path')+"'>";
+                        str += "<input type='hidden' name='imageDTOList["+i+"].imgpath' value='"+target.data('imgpath')+"'>";
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imguuid' value='"+target.data('uuid')+"'>";
+                        str += "<input type='hidden' name='imageDTOList["+i+"].imguuid' value='"+target.data('imguuid')+"'>";
 
                     });
 
