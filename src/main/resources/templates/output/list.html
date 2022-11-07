@@ -45,7 +45,7 @@
           </form>
           <!--제품 추가 버튼(오른쪽 정렬)-->
           <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
-            <a th:href="@{/product/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            <a th:href="@{/output/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                     class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</a>
           </div>
         </h6>
@@ -64,15 +64,15 @@
             </thead>
             <tbody>
 
-            <tr>
+            <tr th:each="dto : ${result.dtoList}">
               <th scope="row"><input type="checkbox"></th>
               <td>
-<!--                  <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"-->
-<!--                       th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >-->
+                  <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
+                       th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
               </td>
-              <td></td>
-              <td></td>
-              <td></td>
+                <td>[[${dto.pname}]]</td>
+                <td>[[${dto.pcat}]]</td>
+                <td>[[${dto.pquantity}]]</td>
             </tr>
             </tbody>
           </table>
