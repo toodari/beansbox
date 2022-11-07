@@ -22,6 +22,23 @@
     <!-- Custom styles for this template-->
     <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+    <!-- Page level plugins -->
+    <!--        <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>-->
+
+    <!-- Page level custom scripts -->
+    <!--        <script th:src="@{/js/demo/chart-area-demo.js}"></script>-->
+    <!--        <script th:src="@{/js/demo/chart-pie-demo.js}"></script>-->
+
   </head>
 
   <body id="page-top">
@@ -33,7 +50,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/product/list}">
         <!--                <div class="sidebar-brand-icon rotate-n-15">-->
         <div class="sidebar-brand-icon">
           <i class="fa fa-coffee" aria-hidden="true"></i>
@@ -54,7 +71,7 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="../product/list.html">
+        <a class="nav-link" th:href="@{/product/list}">
           <i class="fa fa-list" aria-hidden="true"></i>
           <span>제품목록</span></a>
       </li>
@@ -114,7 +131,7 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" th:href="@{/member/list}">
           <i class="fa fa-user" aria-hidden="true"></i>
           <span>직원관리</span></a>
       </li>
@@ -199,13 +216,13 @@
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                    aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" th:href="@{/member/mypage}">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   마이페이지
                 </a>
 
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" th:href="@{/logout}"><!-- data-toggle="modal" data-target="#logoutModal"-->
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   로그아웃
                 </a>
