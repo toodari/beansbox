@@ -2,135 +2,123 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
-  <th:block th:fragment="content">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">입고 - 수량 결정</h1>
-    <p class="mb-4">
+    <th:block th:fragment="content">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">입고 - 수량 결정</h1>
+        <p class="mb-4">
 
-    </p>
+        </p>
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary align-items-center">
-          <!--제품 추가 버튼(오른쪽 정렬)-->
-          <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
-            <a th:href="@{/input/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa fa-plus fa-sm text-white-50"></i> 입고 </a>
-          </div>
-        </h6>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
-            <thead>
-            <tr>
-              <th>이미지</th>
-              <th>제품명</th>
-              <th>분류</th>
-              <th>수량</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="chk : ${checked}">
-              <th>
-                <!--                  <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"-->
-                <!--                       th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >-->
-              </th>
-              <td></td>
-              <td></td>
-              <td>
-                10         +
-                <input type="number" id="tentacles" name="tentacles" value="1"
-                       min="1" max="100"></td>
-            </tr>
-            </tbody>
-          </table>
-
-          <div>
-            <div> <h6>총 품목 수 : </h6>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary align-items-center">
+                    <!--제품 추가 버튼(오른쪽 정렬)-->
+                    <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
+                        <a th:href="@{/input/register}"
+                           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa fa-plus fa-sm text-white-50"></i> 입고 </a>
+                    </div>
+                </h6>
             </div>
-            <div> <h6> 총 수량 :   </h6>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>이미지</th>
+                            <th>제품명</th>
+                            <th>분류</th>
+                            <th>수량</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="dto : ${resultSet}">
+                            <th scope="row">
+                                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
+                                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
+                            </th>
+                            <td>[[${dto.pname}]]</td>
+                            <td>[[${dto.pcat}]]</td>
+                            <td>[[${dto.pquantity}]] +
+                                <input type="number" id="tentacles" name="tentacles" value="1"
+                                       min="1" max="100"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <div><h6 th:text="${'총 품목 수: ' + resultSet.size()}"></h6>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-          </div>
-
-
         </div>
-      </div>
-    </div>
 
 
-
-
-
-
-
-    <!-- Register Modal-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">제품 등록이 완료되었습니다.</div>
-          <div class="modal-footer">
-            <a class="btn btn-primary" href="list">확인</a>
-          </div>
+        <!-- Register Modal-->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">제품 등록이 완료되었습니다.</div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" href="list">확인</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
 
+        <script th:inline="javascript">
+
+            var input = [[${input}]];
+
+            console.log(input);
+
+            if (input) {
+                $(".modal").modal();
+            }
+
+            var searchForm = $("#searchForm");
+
+            $('.btn-search').click(function (e) {
+
+                searchForm.submit();
+            });
 
 
+            $('.btn-clear').click(function (e) {
+
+                searchForm.empty().submit();
+
+            });
+        </script>
+
+        <script>
+            function showUploadedImages(arr) {
+
+                console.log(arr);
+
+                var divArea = $(".uploadResult");
+
+                for (var i = 0; i < arr.length; i++) {
+                    divArea.append("<img src='/img src='/display?fileName=" + arr[i].thumbnailURL + "'>");
+                }
+            }
+        </script>
 
 
-    <script th:inline="javascript">
-
-      var input = [[${input}]];
-
-      console.log(input);
-
-      if(input){
-        $(".modal").modal();
-      }
-
-      var searchForm = $("#searchForm");
-
-      $('.btn-search').click(function (e){
-
-        searchForm.submit();
-      });
-
-
-      $('.btn-clear').click(function (e){
-
-        searchForm.empty().submit();
-
-      });
-    </script>
-
-    <script>
-      function showUploadedImages(arr) {
-
-        console.log(arr);
-
-        var divArea = $(".uploadResult");
-
-        for(var i = 0; i < arr.length; i++){
-          divArea.append("<img src='/img src='/display?fileName="+arr[i].thumbnailURL+"'>");
-        }
-      }
-    </script>
-
-
-
-  </th:block>
+    </th:block>
 </th:block>
 
 </html>

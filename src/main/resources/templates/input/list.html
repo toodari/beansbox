@@ -76,7 +76,7 @@
 
                             <tr th:each="dto : ${result.dtoList}">
 <!--                                field="*{dto.pnum}"-->
-                                <th scope="row"><input type="checkbox" th:name="pnum" th:value="${dto.pnum}"></th>
+                                <th scope="row"><input type="checkbox" th:name="pnumList" th:value="${dto.pnum}"></th>
                                 <td>
                                     <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
                                          th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">

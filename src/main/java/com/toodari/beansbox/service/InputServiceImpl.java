@@ -23,7 +23,6 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class InputServiceImpl implements InputService{
 
-    private final InputRepository inputRepository;
     private final ProductRepository productRepository;
 
     @Override
@@ -39,7 +38,7 @@ public class InputServiceImpl implements InputService{
                 (List<ProductImage>)(Arrays.asList((ProductImage)arr[1])))
         );
 
-        Page<Object[]> result = inputRepository.searchPage(
+        Page<Object[]> result = productRepository.searchPage(
                 requestDTO.getType(),
                 requestDTO.getKeyword(),
                 requestDTO.getPageable(Sort.by("pnum").descending()));
@@ -48,19 +47,23 @@ public class InputServiceImpl implements InputService{
     }
 
     @Override
-    public ProductDTO read(Long pnum) {
-        List<Object[]> result = productRepository.getProductWithImage(pnum);
+    public List<ProductDTO> getChkList(List<String> pnumList) {
 
-        Product product = (Product) result.get(0)[0];
+        List<ProductDTO> resultSet = new ArrayList<>();
 
-        List<ProductImage> productImageList = new ArrayList<>();
+        for (String pnum : pnumList) {
+            List<Object[]> result = productRepository.getProductWithImage(Long.parseLong(pnum));
+            Product product = (Product) result.get(0)[0];
+            List<ProductImage> productImageList = new ArrayList<>();
+            result.forEach(arr -> {
+                ProductImage productImage = (ProductImage) arr[1];
+                productImageList.add(productImage);
+            });
+            ProductDTO dto = entitiesToDTO(product, productImageList);
+            resultSet.add(dto);
+        }
 
-        result.forEach(arr -> {
-            ProductImage productImage = (ProductImage) arr[1];
-            productImageList.add(productImage);
-        });
-
-        return entitiesToDTO(product, productImageList);
+        return resultSet;
     }
 
     @Override

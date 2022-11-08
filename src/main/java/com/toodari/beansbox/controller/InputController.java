@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -43,29 +40,12 @@ public class InputController {
 
     }
 
-//    @PostMapping("/list")
-//    public String listPost(RedirectAttributes redirectAttributes) {
-//        redirectAttributes.addFlashAttribute("msg", "success");
-//
-//        return "redirect:/input/register";
-//    }
-
-//    @RequestMapping("/list")
-//    public Map<String, Object> insert(@RequestParam("chkArr[]") List<String> chkArr) throws Exception {
-//        Iterator<String> it =  chkArr.iterator();
-//
-//        //DB <- Genre processing
-//        //controller processing
-//    }
-
-
     @GetMapping("/register")
-    public void register(@RequestParam List<String> pnum, Model model){
-
-        log.info(pnum);
+    public void register(@RequestParam @ModelAttribute("checked") List<String> pnumList, Model model){
         log.info("register..............");
+        log.info(pnumList);
 
-        model.addAttribute("checked", pnum);
+        model.addAttribute("resultSet", service.getChkList(pnumList));
     }
 
     @PostMapping("/register")
