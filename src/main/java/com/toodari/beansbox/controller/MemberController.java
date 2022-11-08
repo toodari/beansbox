@@ -152,7 +152,6 @@ public class MemberController {
         memberService.myModify(memberMyPageDTO);
         redirectAttributes.addFlashAttribute("modified","modified");
         return "redirect:/product/list";
-        // 원래는 상품 목록(/product/list)으로 보내야함
     }
 
     @PreAuthorize("hasRole('OWNER')")
