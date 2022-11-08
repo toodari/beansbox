@@ -47,6 +47,6 @@ public class OutputController {
 
         redirectAttributes.addFlashAttribute("msg", pnum);
 
-        return "redirect:/product/list";
+        return "redirect:/output/list";
     }
 }

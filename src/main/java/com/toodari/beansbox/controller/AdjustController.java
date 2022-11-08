@@ -47,6 +47,6 @@ public class AdjustController {
 
         redirectAttributes.addFlashAttribute("msg", pnum);
 
-        return "redirect:/product/list";
+        return "redirect:/adjust/list";
     }
 }

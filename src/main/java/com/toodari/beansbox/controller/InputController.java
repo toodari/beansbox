@@ -47,6 +47,6 @@ public class InputController {
 
         redirectAttributes.addFlashAttribute("msg", pnum);
 
-        return "redirect:/product/list";
+        return "redirect:/input/list";
     }
 }
