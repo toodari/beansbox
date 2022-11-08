@@ -1,5 +1,6 @@
 package com.toodari.beansbox.controller;
 
+
 import com.toodari.beansbox.dto.PageRequestDTO;
 import com.toodari.beansbox.dto.ProductDTO;
 import com.toodari.beansbox.service.InputService;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 @Controller
 @RequestMapping("/input")
 @Log4j2
 @RequiredArgsConstructor
 public class InputController {
+
 
     private final InputService service;
 
@@ -49,4 +52,5 @@ public class InputController {
 
         return "redirect:/input/list";
     }
+
 }
