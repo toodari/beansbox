@@ -18,6 +18,11 @@ public class HistoryController {
 
     private final AdjustService service;
 
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/history/list";
+    }
+
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){
 

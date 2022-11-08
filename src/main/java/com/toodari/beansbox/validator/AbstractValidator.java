@@ -17,6 +17,7 @@ public abstract class AbstractValidator<T> implements Validator {
     public void validate(Object target, Errors errors){
         try {
             doValidate((T) target, errors);
+            log.info("중복 검증 완료");
         } catch (RuntimeException e){
             log.info("중복 검증 에러", e);
             throw e;

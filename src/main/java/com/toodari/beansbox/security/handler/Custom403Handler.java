@@ -18,12 +18,7 @@ public class Custom403Handler implements AccessDeniedHandler {
         log.info("----ACCESS DENIED----");
         response.setStatus(HttpStatus.FORBIDDEN.value());
 
-//        String contentType = request.getHeader("Content-Type");
-//
-//        boolean jsonRequest = contentType.startsWith("application/json");
-//
-//        if(!jsonRequest) {
-            response.sendRedirect("/member/403");
-//        }
+            response.sendRedirect("/403");
+
     }
 }

@@ -164,9 +164,9 @@ public class MemberController {
         return "redirect:/member/list";
     }
 
-    @PreAuthorize("hasRole('EMPLOYEE')")
-    @GetMapping("/403")
-    public void accessDenied(){
-        log.info("accessDenied...");
-    }
+//    @PreAuthorize("hasRole('EMPLOYEE')")
+//    @GetMapping("/403")
+//    public void accessDenied(){
+//        log.info("accessDenied...");
+//    }
 }

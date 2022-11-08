@@ -21,6 +21,11 @@ public class AdjustController {
 
     private final AdjustService service;
 
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/adjust/list";
+    }
+
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){
 
@@ -28,8 +33,6 @@ public class AdjustController {
 
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
-
-    @PostMapping("/list")
 
     @GetMapping("/register")
     public void register(){

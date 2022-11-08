@@ -15,6 +15,8 @@ public interface InputService {
 
     PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO);
 
+    ProductDTO read(Long pnum);
+
     default ProductDTO entitiesToDTO(Product product, List<ProductImage> productImages){
         ProductDTO productDTO = ProductDTO.builder()
                 .pnum(product.getPnum())

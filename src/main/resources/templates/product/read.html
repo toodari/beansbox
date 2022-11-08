@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
   <th:block th:fragment="content">
 
@@ -62,19 +62,18 @@
     <hr>
     <div class="row" >
       <a th:href="@{/product/modify(pnum = ${dto.pnum}, page=${requestDTO.page},
-    type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1">
+    type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1" sec:authorize="hasRole('ROLE_MANAGER')">
         <span class="text">수정</span>
       </a>
       &nbsp;&nbsp;
       <a th:href="@{/product/copy(pnum = ${dto.pnum}, page=${requestDTO.page},
-     type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1">
+     type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-info btn-icon-split col-1" sec:authorize="hasRole('ROLE_MANAGER')">
         <span class="text">복제</span>
       </a>
       &nbsp;&nbsp;
-      <button type="button" href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-info btn-icon-split w-10">
+      <button type="button" href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-info btn-icon-split w-10" sec:authorize="hasRole('ROLE_MANAGER')">
         <span class="text">삭제</span>
       </button>
-
       <a th:href="@{/product/list(page=${requestDTO.page},
     type=${requestDTO.type},  keyword= ${requestDTO.keyword})}" class="btn btn-primary btn-icon-split col-1 offset-7">
         <span class="text">돌아가기</span>

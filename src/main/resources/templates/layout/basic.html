@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
 <th:block th:fragment="setContent(content)">
@@ -32,13 +32,6 @@
         <!-- Custom scripts for all pages-->
         <script th:src="@{/js/sb-admin-2.min.js}"></script>
 
-        <!-- Page level plugins -->
-        <!--        <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>-->
-
-        <!-- Page level custom scripts -->
-        <!--        <script th:src="@{/js/demo/chart-area-demo.js}"></script>-->
-        <!--        <script th:src="@{/js/demo/chart-pie-demo.js}"></script>-->
-
     </head>
 
     <body id="page-top">
@@ -51,7 +44,6 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/product/list}">
-                <!--                <div class="sidebar-brand-icon rotate-n-15">-->
                 <div class="sidebar-brand-icon">
                     <i class="fa fa-coffee" aria-hidden="true"></i>
                 </div>
@@ -79,11 +71,12 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            <div sec:authorize="hasRole('ROLE_MANAGER')"> <!--th 조건문을 위한 li 테스트-->
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 management
             </div>
-
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -124,6 +117,10 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            </div> <!--th 조건문 테스트를 위한 li 닫기-->
+
+            <div sec:authorize="hasRole('ROLE_OWNER')">
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 member
@@ -138,6 +135,8 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+
+            </div>
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -164,46 +163,8 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!--                    &lt;!&ndash; Topbar Search &ndash;&gt;-->
-                    <!--                    <form-->
-                    <!--                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
-                    <!--                        <div class="input-group">-->
-                    <!--                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."-->
-                    <!--                                   aria-label="Search" aria-describedby="basic-addon2">-->
-                    <!--                            <div class="input-group-append">-->
-                    <!--                                <button class="btn btn-primary" type="button">-->
-                    <!--                                    <i class="fas fa-search fa-sm"></i>-->
-                    <!--                                </button>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </form>-->
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!--                        &lt;!&ndash; Nav Item - Search Dropdown (Visible Only XS) &ndash;&gt;-->
-                        <!--                        <li class="nav-item dropdown no-arrow d-sm-none">-->
-                        <!--                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"-->
-                        <!--                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--                                <i class="fas fa-search fa-fw"></i>-->
-                        <!--                            </a>-->
-                        <!-- Dropdown - Messages -->
-                        <!--                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated&#45;&#45;grow-in"-->
-                        <!--                                 aria-labelledby="searchDropdown">-->
-                        <!--                                <form class="form-inline mr-auto w-100 navbar-search">-->
-                        <!--                                    <div class="input-group">-->
-                        <!--                                        <input type="text" class="form-control bg-light border-0 small"-->
-                        <!--                                               placeholder="Search for..." aria-label="Search"-->
-                        <!--                                               aria-describedby="basic-addon2">-->
-                        <!--                                        <div class="input-group-append">-->
-                        <!--                                            <button class="btn btn-primary" type="button">-->
-                        <!--                                                <i class="fas fa-search fa-sm"></i>-->
-                        <!--                                            </button>-->
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
-                        <!--                                </form>-->
-                        <!--                            </div>-->
-                        <!--                        </li>-->
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -239,17 +200,6 @@
                     <th:block th:replace="${content}">
 
                     </th:block>
-
-                    <!--                    &lt;!&ndash; Content Row &ndash;&gt;-->
-                    <!--                    <div class="row">-->
-
-                    <!--                        &lt;!&ndash; Content Column &ndash;&gt;-->
-                    <!--                        <div class="col-lg-6 mb-4">-->
-
-
-                    <!--                        </div>-->
-
-                    <!--                    </div>-->
 
                 </div>
                 <!-- /.container-fluid -->
