@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
-  <th:block th:fragment="content">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">입고 - 품목 선택</h1>
-    <p class="mb-4">
+    <th:block th:fragment="content">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">입고 - 품목 선택</h1>
+        <p class="mb-4">
 
-    </p>
+        </p>
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary align-items-center">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary align-items-center">
 
 
           <!-- Topbar Search -->
@@ -35,131 +35,127 @@
                   <i class="fas fa-search fa-sm"></i>
                 </button>
 
-                <button type="button" class="btn btn-clear btn-primary btn-icon-split">
+
+                                <button type="button" class="btn btn-clear btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fa fa-undo" aria-hidden="true"></i>
                                         </span>
-                </button>
-              </div>
-            </div>
-          </form>
-          <!--제품 추가 버튼(오른쪽 정렬)-->
-          <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
-            <a th:href="@{/input/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</a>
-          </div>
-        </h6>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
-            <thead>
-            <tr>
-              <th>체크박스</th>
-              <th>이미지</th>
-              <th>제품명</th>
-              <th>분류</th>
-              <th>수량</th>
-            </tr>
-            </thead>
-            <tbody>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+            <!--제품 추가 버튼(오른쪽 정렬)-->
 
-            <tr th:each="dto : ${result.dtoList}">
-              <th scope="row"><input type="checkbox"></th>
-              <td>
-                     <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
-                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
-              </td>
-              <td>[[${dto.pname}]]</td>
-              <td>[[${dto.pcat}]]</td>
-              <td>[[${dto.pquantity}]]</td>
-            </tr>
-            </tbody>
-          </table>
-
-          <div>
-            <div> <h6>총 품목 수 : </h6>
+                    <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
+                        <a th:href="@{/input/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm inputBtn"><i
+                                class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</a>
+                    </div>
+                </h6>
             </div>
-            <div> <h6> 총 수량 :   </h6>
-            </div>
-          </div>
 
+
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form action="/input/register" method="get" id="inputForm">
+                            <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
+                                <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i
+                                        class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</button>
+                            </div>
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>체크박스</th>
+                                <th>이미지</th>
+                                <th>제품명</th>
+                                <th>분류</th>
+                                <th>수량</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="dto : ${result.dtoList}">
+<!--                                field="*{dto.pnum}"-->
+                                <th scope="row"><input type="checkbox" th:name="pnum" th:value="${dto.pnum}"></th>
+                                <td>
+                                    <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
+                                         th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
+                                </td>
+                                <td>[[${dto.pname}]]</td>
+                                <td>[[${dto.pcat}]]</td>
+                                <td>[[${dto.pquantity}]]</td>
+                            </tr>
+                            </tbody>
+                        </table>
+            </form>
 
         </div>
-      </div>
-    </div>
-
-
-
-
-
-
-
-    <!-- Register Modal-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">제품 등록이 완료되었습니다.</div>
-          <div class="modal-footer">
-            <a class="btn btn-primary" href="list">확인</a>
-          </div>
         </div>
-      </div>
-    </div>
+        </div>
+
+
+        <!-- Register Modal-->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">제품 등록이 완료되었습니다.</div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" href="list">확인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script th:inline="javascript">
+
+            var searchForm = $("#searchForm");
+            var actionForm = $("#inputForm");
+
+            $('.btn-search').click(function (e) {
+
+                searchForm.submit();
+            });
+
+
+            $('.btn-clear').click(function (e) {
+
+                searchForm.empty().submit();
+
+            });
+
+            $(".inputBtn").click(function(){
+
+                var chkArr = new Array();
+                $("input:checkbox[name=pnum]:checked").each(function (){
+                    var chk = $(this).val();
+                    chkArr.push(chk);
+                });
+
+                var keyword = $("input[name='keyword']");
+                actionForm.append(keyword);
+                actionForm.append(chkArr);
+                actionForm
+                    .attr("action", "/input/register")
+                    .attr("method", "post")
+                    .submit();
+            });
 
 
 
 
-
-
-    <script th:inline="javascript">
-
-      var msg = [[${msg}]];
-
-      console.log(msg);
-
-      if(msg){
-        $(".modal").modal();
-      }
-
-      var searchForm = $("#searchForm");
-
-      $('.btn-search').click(function (e){
-
-        searchForm.submit();
-      });
-
-
-      $('.btn-clear').click(function (e){
-
-        searchForm.empty().submit();
-
-      });
-    </script>
-
-    <script>
-      function showUploadedImages(arr) {
-
-        console.log(arr);
-
-        var divArea = $(".uploadResult");
-
-        for(var i = 0; i < arr.length; i++){
-          divArea.append("<img src='/img src='/display?fileName="+arr[i].thumbnailURL+"'>");
-        }
-      }
-    </script>
+        </script>
 
 
 
-  </th:block>
+    </th:block>
 </th:block>
 
 </html>
