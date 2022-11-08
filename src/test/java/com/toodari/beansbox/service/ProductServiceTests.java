@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 public class ProductServiceTests {
@@ -20,25 +21,26 @@ public class ProductServiceTests {
 
     @Test
     public void testRegister(){
+        IntStream.rangeClosed(1,100).forEach(i -> {
         ProductImageDTO productImageDTO1 = ProductImageDTO.builder()
                 .imguuid(UUID.randomUUID().toString())
                 .imgpath("C:\\Users\\mit\\Desktop")
-                .imgname("zzzzz.png")
+                .imgname("hodoo.jpg")
                 .build();
-        ProductImageDTO productImageDTO2 = ProductImageDTO.builder()
-                .imguuid(UUID.randomUUID().toString())
-                .imgpath("C:\\Users\\mit\\Desktop")
-                .imgname("artworks-cDzKQJGISQrJvOrp-xc9rnA-t500x500.jpg")
-                .build();
+//        ProductImageDTO productImageDTO2 = ProductImageDTO.builder()
+//                .imguuid(UUID.randomUUID().toString())
+//                .imgpath("C:\\Users\\mit\\Desktop")
+//                .imgname("dew.jpg")
+//                .build();
 
         List<ProductImageDTO> productImageDTOList = new ArrayList<>();
 
         productImageDTOList.add(productImageDTO1);
-        productImageDTOList.add(productImageDTO2);
+//        productImageDTOList.add(productImageDTO2);
 
         ProductDTO productDTO = ProductDTO.builder()
-                .pname("Sample Name...")
-                .pcat("Sample Category...")
+                .pname("Sample Name..." + i)
+                .pcat("Sample Category..." + i)
                 .pquantity(100L)
                 .pcost(1000L)
                 .pprice(10000L)
@@ -47,6 +49,8 @@ public class ProductServiceTests {
                 .build();
 
         System.out.println(service.register(productDTO));
+        });
+
     }
 
     @Test

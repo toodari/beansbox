@@ -26,6 +26,9 @@ public class InputServiceImpl implements InputService{
     @Override
     public PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO){
 
+        requestDTO.setPage(1);
+        requestDTO.setSize(1000);
+
         log.info(requestDTO);
 
         Function<Object[], ProductDTO> fn = (arr -> entitiesToDTO(

@@ -1,10 +1,9 @@
 package com.toodari.beansbox.repository;
 
-import com.toodari.beansbox.dto.PageRequestDTO;
-import com.toodari.beansbox.dto.PageResultDTO;
-import com.toodari.beansbox.dto.ProductDTO;
+import com.toodari.beansbox.dto.*;
 import com.toodari.beansbox.entity.Product;
 import com.toodari.beansbox.entity.ProductImage;
+import net.coobird.thumbnailator.Thumbnailator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,10 +12,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -24,9 +25,11 @@ public class ProductRepositoryTests {
 
     @Autowired
     private ProductRepository productRepository;
+    private ProductImageRepository imageRepository;
 
     @Test
     public void insertDummies(){
+
         IntStream.rangeClosed(1,100).forEach(i -> {
             Product product = Product.builder()
                     .pname("My Name..." + i)
@@ -37,7 +40,20 @@ public class ProductRepositoryTests {
                     .pactive(1)
                     .build();
 
-            System.out.println(productRepository.save(product));
+            ProductImage productImage = ProductImage.builder()
+                    .imgname("hodoo.jpg")
+                    .imguuid(UUID.randomUUID().toString())
+                    .imgpath("C:\\Users\\mit\\Desktop")
+                    .build();
+
+            System.out.println("------------------------");
+            System.out.println(product);
+            System.out.println("------------------------");
+            System.out.println(productImage);
+
+            productRepository.save(product);
+            imageRepository.save(productImage);
+
         });
     }
 

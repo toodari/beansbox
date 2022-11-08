@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/product")
@@ -63,9 +64,9 @@ public class ProductController {
 
         log.info("dto..." + dto);
 
-        Long pnum = service.register(dto);
+            Long pnum = service.register(dto);
 
-        redirectAttributes.addFlashAttribute("msg", pnum);
+        redirectAttributes.addFlashAttribute("registered", pnum);
 
         return "redirect:/product/list";
     }

@@ -129,19 +129,21 @@
 
 
         <!-- Register Modal-->
-        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="registeredModal modal fade" tabindex="-1" role="dialog" id="registeredModal" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
+                        <h5 class="modal-title" id="registeredModalLabel">BeansBox</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">제품 등록이 완료되었습니다.</div>
                     <div class="modal-footer">
-                        <a class="btn btn-primary" href="list">확인</a>
+                        <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal">확인
+                        </button>
+<!--                        <a class="btn btn-primary" href="list" data-dismiss="modal">확인</a>-->
                     </div>
                 </div>
             </div>
@@ -171,15 +173,17 @@
         <script th:inline="javascript">
             var msg = [[${msg}]];
             var modified = [[${modified}]];
+            var registered = [[${registered}]];
 
             console.log(msg);
             console.log(modified);
+            console.log(registered);
 
-            if(msg){
-                $(".modal").modal();
-            }
             if (modified) {
                 $(".modifiedModal").modal();
+            }
+            if (registered) {
+                $(".registeredModal").modal();
             }
 
             var searchForm = $("#searchForm");
