@@ -61,7 +61,7 @@ public class MemberServiceImpl implements MemberService{
             roleSet.add(MemberRole.EMPLOYEE);
         }
         memberRegisterDTO.setRoleSet(roleSet);
-        //        String mid = memberRegisterDTO.getMid();
+//                String mid = memberRegisterDTO.getMid();
 //        boolean exist = memberRepository.existsByMid(mid);
 //        if(exist) {
 //            throw new MidExistException();

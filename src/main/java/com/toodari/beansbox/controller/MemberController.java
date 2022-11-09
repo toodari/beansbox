@@ -30,7 +30,7 @@ public class MemberController {
 
     private final CheckMemberIdValidator checkMemberIdValidator;
 
-    @InitBinder("MemberRegisterDTO")
+    @InitBinder("memberRegisterDTO")
     public void validatorBinder(WebDataBinder binder){
         binder.addValidators(checkMemberIdValidator);
     }
@@ -71,6 +71,7 @@ public class MemberController {
         log.info(memberRegisterDTO);
 
         if(errors.hasErrors()) {
+            log.info(errors);
 //            model.addAttribute("memberRegisterDTO", memberRegisterDTO);
             Map<String, String> validatorResult = memberService.validateHandling(errors);
             for(String key: validatorResult.keySet()) {
@@ -164,9 +165,9 @@ public class MemberController {
         return "redirect:/member/list";
     }
 
-    @PreAuthorize("hasRole('EMPLOYEE')")
-    @GetMapping("/403")
-    public void accessDenied(){
-        log.info("accessDenied...");
-    }
+//    @PreAuthorize("hasRole('EMPLOYEE')")
+//    @GetMapping("/403")
+//    public void accessDenied(){
+//        log.info("accessDenied...");
+//    }
 }

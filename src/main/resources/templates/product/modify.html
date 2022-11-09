@@ -22,7 +22,7 @@
       </div>
 
       <div class="card-body">
-        <form action="/product/modify" method="post">
+        <form th:action="@{/product/modify}" th:method="post" th:onsubmit="return Validation()">
           <input type="hidden"  name="pnum" th:value="${dto.pnum}">
           <input type="hidden" name="imageDTOList[0].imgname" th:value="${dto.imageDTOList[0].imgname}">
           <input type="hidden" name="imageDTOList[0].imgpath" th:value="${dto.imageDTOList[0].imgpath}">
@@ -32,19 +32,19 @@
           <input type="hidden"  name="keyword" th:value="${#requestDTO.keyword}">-->
           <div class="form-group">
             <label>제품명</label>
-            <input type="text" class="form-control w-50" name="pname" th:value="${dto.pname}">
+            <input type="text" class="form-control w-50" name="pname" id="pname" th:value="${dto.pname}">
           </div>
           <div class="form-group">
             <label>분류</label>
-            <input type="text" class="form-control w-50" name="pcat" th:value="${dto.pcat}">
+            <input type="text" class="form-control w-50" name="pcat" id="pcat" th:value="${dto.pcat}">
           </div>
           <div class="form-group">
             <label>구매가</label>
-            <input type="text" class="form-control w-50" name="pcost" th:value="${dto.pcost}">
+            <input type="text" class="form-control w-50" name="pcost" id="pcost" th:value="${dto.pcost}">
           </div>
           <div class="form-group">
             <label>판매가</label>
-            <input type="text" class="form-control w-50" name="pprice" th:value="${dto.pprice}">
+            <input type="text" class="form-control w-50" name="pprice" id="pprice" th:value="${dto.pprice}">
           </div>
 
           <button type="submit" class="btn btn-info btn-icon-split w-10">
@@ -59,6 +59,42 @@
     </div>
 
     <script th:inline="javascript">
+
+      //유효성 검사
+      function Validation(){
+        var RegExp = /^[a-zA-Z0-9가-힣\(\)]{1,20}$/;
+        var RegExp3 = /^[0-9]{0,20}$/;
+
+        var objPname = document.getElementById("pname");
+        var objPcat = document.getElementById("pcat");
+        var objPcost = document.getElementById("pcost");
+        var objPprice = document.getElementById("pprice");
+
+        if(objPname.value == ''){
+          alert("제품명을 입력하세요");
+          return false;
+        }
+        if(!RegExp.test(objPname.value)){
+          alert("제품명은 한글, 영문 대소문자, 숫자를 사용하여 20자 이내로 작성해 주세요")
+          return false;
+        }
+        if(objPcat.value == ''){
+          alert("분류를 입력하세요");
+          return false;
+        }
+        if(!RegExp.test(objPcat.value)){
+          alert("분류는 한글, 영문 대소문자, 숫자를 사용하여 20자 이내로 작성해 주세요")
+          return false;
+        }
+        if(!RegExp3.test(objPcost.value)){
+          alert("구매가는 20자 이내의 숫자만 입력 가능합니다")
+          return false;
+        }
+        if(!RegExp3.test(objPprice.value)){
+          alert("판매가는 20자 이내의 숫자만 입력 가능합니다")
+          return false;
+        }
+      }
 
       var msg = [[${msg}]];
 

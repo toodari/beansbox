@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
@@ -44,7 +44,7 @@
                         </div>
                     </form>
                     <!--제품 추가 버튼(오른쪽 정렬)-->
-                    <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
+                    <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right" sec:authorize="hasRole('ROLE_MANAGER')">
                         <a th:href="@{/product/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa fa-plus fa-sm text-white-50"></i> 제품 추가</a>
                     </div>

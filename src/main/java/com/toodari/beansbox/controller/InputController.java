@@ -8,6 +8,7 @@ import com.toodari.beansbox.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +31,13 @@ public class InputController {
     private final MemberService memberService;
     private final ProductService productService;
 
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/")
     public String index(){
         return "redirect:/input/list";
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){
 
@@ -59,6 +62,8 @@ public class InputController {
 //        return "redirect:/input/list";
 //    }
 
+
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/register")
     public void register(Authentication authentication, @RequestParam @ModelAttribute("checked") List<String> pnumList, Model model){
         log.info("register..............");
@@ -76,6 +81,7 @@ public class InputController {
         model.addAttribute("resultSet", inputService.getChkList(pnumList));
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @PostMapping("/register")
     public String registerPost(InputOrdersDTO inputOrdersDTO, @RequestParam List<Long> pnum, @RequestParam List<Long> pquantity,
                            RedirectAttributes redirectAttributes, Model model){
