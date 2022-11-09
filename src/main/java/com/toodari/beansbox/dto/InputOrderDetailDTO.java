@@ -14,4 +14,8 @@ public class InputOrderDetailDTO {
 
     private Long odquantity;
 
+    private Long pnum;
+
+    private Long onum;
+
 }

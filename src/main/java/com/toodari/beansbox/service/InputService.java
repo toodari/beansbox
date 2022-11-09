@@ -1,17 +1,15 @@
 package com.toodari.beansbox.service;
 
-import com.toodari.beansbox.dto.PageRequestDTO;
-import com.toodari.beansbox.dto.PageResultDTO;
-import com.toodari.beansbox.dto.ProductDTO;
-import com.toodari.beansbox.dto.ProductImageDTO;
+import com.toodari.beansbox.dto.*;
 import com.toodari.beansbox.entity.Product;
 import com.toodari.beansbox.entity.ProductImage;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public interface InputService {
-    public Long register(Long mid, String ocat, List<Long> pnum, List<Long> pquantity);
+    public Long register(InputOrdersDTO inputOrdersDTO, List<Long> pnum, List<Long> pquantity);
 
     PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO);
 
@@ -29,7 +27,6 @@ public interface InputService {
                 .regDate(product.getRegDate())
                 .modDate(product.getModDate())
                 .build();
-
 
         List<ProductImageDTO> productImageDTOList = productImages.stream().map(productImage -> {
             return ProductImageDTO.builder()

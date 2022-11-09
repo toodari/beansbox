@@ -1,9 +1,7 @@
 package com.toodari.beansbox.controller;
 
 
-import com.toodari.beansbox.dto.MemberModifyDTO;
-import com.toodari.beansbox.dto.PageRequestDTO;
-import com.toodari.beansbox.dto.ProductDTO;
+import com.toodari.beansbox.dto.*;
 import com.toodari.beansbox.service.InputService;
 import com.toodari.beansbox.service.MemberService;
 import com.toodari.beansbox.service.ProductService;
@@ -46,34 +44,51 @@ public class InputController {
 
     }
 
-    @PostMapping("/list")
-    public String listPost(Authentication authentication, @RequestParam ("ocat") String ocat, @RequestParam ("pnum") List<Long> pnum, @RequestParam ("pinput") List<Long> pinput,
-                           RedirectAttributes redirectAttributes, Model model){
+//    @PostMapping("/list")
+//    public String listPost(InputOrdersDTO inputOrdersDTO, @RequestParam List<Long> pnum, @RequestParam List<Long> pquantity,
+//                           RedirectAttributes redirectAttributes, Model model){
+//
+//        log.info("list post...");
+//        log.info(inputOrdersDTO);
+////        log.info(inputOrderDetailDTOList);
+//
+//        Long onum = inputService.register(inputOrdersDTO, pnum, pquantity);
+//
+//        redirectAttributes.addFlashAttribute("registered", onum);
+//
+//        return "redirect:/input/list";
+//    }
 
-        log.info(ocat);
-        log.info(pinput);
+    @GetMapping("/register")
+    public void register(Authentication authentication, @RequestParam @ModelAttribute("checked") List<String> pnumList, Model model){
+        log.info("register..............");
+        log.info(pnumList);
 
         String mid = authentication.getName();
         log.info("PIC mid: " + mid);
         MemberModifyDTO memberModifyDTO = memberService.read(mid);
         Long mnum = memberModifyDTO.getMnum();
 
-        Long onum = inputService.register(mnum, ocat, pnum, pinput);
-
-        redirectAttributes.addFlashAttribute("registered", "registered");
-
-        return "redirect:/input/list";
-    }
-
-    @GetMapping("/register")
-    public void register(@RequestParam @ModelAttribute("checked") List<String> pnumList, Model model){
-        log.info("register..............");
-        log.info(pnumList);
-
         // O_CAT에 넣을 카테고리 값
         model.addAttribute("category", "input");
 
+        model.addAttribute("mnumber", mnum);
         model.addAttribute("resultSet", inputService.getChkList(pnumList));
+    }
+
+    @PostMapping("/register")
+    public String registerPost(InputOrdersDTO inputOrdersDTO, @RequestParam List<Long> pnum, @RequestParam List<Long> pquantity,
+                           RedirectAttributes redirectAttributes, Model model){
+
+        log.info("list post...");
+        log.info(inputOrdersDTO);
+//        log.info(inputOrderDetailDTOList);
+
+        Long onum = inputService.register(inputOrdersDTO, pnum, pquantity);
+
+        redirectAttributes.addFlashAttribute("registered", onum);
+
+        return "redirect:/input/list";
     }
 
 }

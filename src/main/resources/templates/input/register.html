@@ -21,8 +21,9 @@
                     </div>
                 </h6>
             </div>
-            <form action="/input/list" method="post" id="registerForm">
+            <form action="/input/register" method="post" id="registerForm">
                 <input type="hidden" th:name="ocat" th:value="${category}">
+                <input type="hidden" th:name="mnum" th:value="${mnumber}">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
@@ -46,7 +47,7 @@
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.pcat}]]</td>
                             <td>[[${dto.pquantity}]] +
-                                <input type="number" th:name="pinput" th:value="1"
+                                <input type="number" th:name="pquantity" th:value="1"
                                        min="1" max="100"></td>
                         </tr>
                         </tbody>
@@ -69,7 +70,7 @@
             $('.registerBtn').click(function (e) {
 
                 registerForm
-                    .attr("action", "/input/list")
+                    .attr("action", "/input/register")
                     .attr("method", "post")
                     .submit();
 
