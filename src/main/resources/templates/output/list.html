@@ -43,15 +43,22 @@
               </div>
             </div>
           </form>
+
           <!--제품 추가 버튼(오른쪽 정렬)-->
           <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
-            <a th:href="@{/output/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            <a th:href="@{/output/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm outputBtn"><i
                     class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</a>
           </div>
         </h6>
       </div>
+
       <div class="card-body">
         <div class="table-responsive">
+          <form action="/output/register" method="get" id="outputForm">
+            <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
+              <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i
+                      class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</button>
+            </div>
           <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
             <thead>
             <tr>
@@ -65,7 +72,7 @@
             <tbody>
 
             <tr th:each="dto : ${result.dtoList}">
-              <th scope="row"><input type="checkbox"></th>
+              <th scope="row"><input type="checkbox" th:name="pnumList" th:value="${dto.pnum}"></th>
               <td>
                   <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
                        th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
@@ -78,7 +85,7 @@
           </table>
 
 
-
+          </form>
         </div>
       </div>
     </div>
@@ -115,40 +122,41 @@
 
     <script th:inline="javascript">
 
-      var msg = [[${msg}]];
+      var searchForm = $("#searchForm");
+      var actionForm = $("#outputForm");
+      var registered = [[${registered}]];
 
-      console.log(msg);
+      console.log(registered);
 
-      if(msg){
-        $(".modal").modal();
+      if (registered) {
+        $("#registeredModal").modal();
       }
 
-      var searchForm = $("#searchForm");
-
-      $('.btn-search').click(function (e){
+      $('.btn-search').click(function (e) {
 
         searchForm.submit();
       });
 
 
-      $('.btn-clear').click(function (e){
+      $('.btn-clear').click(function (e) {
 
         searchForm.empty().submit();
 
       });
-    </script>
 
-    <script>
-      function showUploadedImages(arr) {
+      $(".outputBtn").click(function(){
 
-        console.log(arr);
+        var keyword = $("input[name='keyword']");
+        actionForm.append(keyword);
+        actionForm
+                .attr("action", "/output/register")
+                .attr("method", "get")
+                .submit();
+      });
 
-        var divArea = $(".uploadResult");
 
-        for(var i = 0; i < arr.length; i++){
-          divArea.append("<img src='/img src='/display?fileName="+arr[i].thumbnailURL+"'>");
-        }
-      }
+
+
     </script>
 
 

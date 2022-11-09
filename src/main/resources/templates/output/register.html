@@ -15,11 +15,15 @@
         <h6 class="m-0 font-weight-bold text-primary align-items-center">
           <!--제품 추가 버튼(오른쪽 정렬)-->
           <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
-            <a th:href="@{/product/list}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm registerBtn"><i
                     class="fas fa fa-plus fa-sm text-white-50"></i> 출고 </a>
           </div>
         </h6>
       </div>
+
+      <form action="/output/register" method="post" id="registerForm">
+        <input type="hidden" th:name="ocat" th:value="${category}">
+        <input type="hidden" th:name="mnum" th:value="${mnumber}">
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
@@ -33,31 +37,31 @@
             </thead>
             <tbody>
 
-            <tr>
-              <th>
-                <!--                  <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"-->
-                <!--                       th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >-->
+            <tr th:each="dto : ${resultSet}">
+              <input type="hidden" th:name="pnum" th:value="${dto.pnum}">
+
+              <th scope="row">
+                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
+                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
               </th>
-              <td></td>
-              <td></td>
-              <td>
-                10         -
-                <input type="number" id="tentacles" name="tentacles" value="1"
+              <td>[[${dto.pname}]]</td>
+              <td>[[${dto.pcat}]]</td>
+              <td>[[${dto.pquantity}]] -
+                <input type="number" th:name="pquantity" th:value="1"
                        min="1" max="100"></td>
             </tr>
             </tbody>
           </table>
 
           <div>
-            <div> <h6>총 품목 수 : </h6>
-            </div>
-            <div> <h6> 총 수량 :   </h6>
+            <div><h6 th:text="${'총 품목 수: ' + resultSet.size()}"></h6>
             </div>
           </div>
 
 
         </div>
       </div>
+      </form>
     </div>
 
 
@@ -85,49 +89,20 @@
       </div>
     </div>
 
-
-
-
-
-
     <script th:inline="javascript">
 
-      var msg = [[${msg}]];
+      var registerForm = $("#registerForm");
 
-      console.log(msg);
+      $('.registerBtn').click(function (e) {
 
-      if(msg){
-        $(".modal").modal();
-      }
-
-      var searchForm = $("#searchForm");
-
-      $('.btn-search').click(function (e){
-
-        searchForm.submit();
-      });
-
-
-      $('.btn-clear').click(function (e){
-
-        searchForm.empty().submit();
+        registerForm
+                .attr("action", "/output/register")
+                .attr("method", "post")
+                .submit();
 
       });
+
     </script>
-
-    <script>
-      function showUploadedImages(arr) {
-
-        console.log(arr);
-
-        var divArea = $(".uploadResult");
-
-        for(var i = 0; i < arr.length; i++){
-          divArea.append("<img src='/img src='/display?fileName="+arr[i].thumbnailURL+"'>");
-        }
-      }
-    </script>
-
 
 
   </th:block>
