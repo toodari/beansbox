@@ -1,11 +1,15 @@
 package com.toodari.beansbox.controller;
 
 
+import com.toodari.beansbox.dto.MemberModifyDTO;
 import com.toodari.beansbox.dto.PageRequestDTO;
 import com.toodari.beansbox.dto.ProductDTO;
 import com.toodari.beansbox.service.InputService;
+import com.toodari.beansbox.service.MemberService;
+import com.toodari.beansbox.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +28,9 @@ import java.util.Map;
 public class InputController {
 
 
-    private final InputService service;
+    private final InputService inputService;
+    private final MemberService memberService;
+    private final ProductService productService;
 
     @GetMapping("/")
     public String index(){
@@ -36,8 +42,27 @@ public class InputController {
 
         log.info("list.............." + pageRequestDTO);
 
-        model.addAttribute("result", service.getList(pageRequestDTO));
+        model.addAttribute("result", inputService.getList(pageRequestDTO));
 
+    }
+
+    @PostMapping("/list")
+    public String listPost(Authentication authentication, @RequestParam ("ocat") String ocat, @RequestParam ("pnum") List<Long> pnum, @RequestParam ("pinput") List<Long> pinput,
+                           RedirectAttributes redirectAttributes, Model model){
+
+        log.info(ocat);
+        log.info(pinput);
+
+        String mid = authentication.getName();
+        log.info("PIC mid: " + mid);
+        MemberModifyDTO memberModifyDTO = memberService.read(mid);
+        Long mnum = memberModifyDTO.getMnum();
+
+        Long onum = inputService.register(mnum, ocat, pnum, pinput);
+
+        redirectAttributes.addFlashAttribute("registered", "registered");
+
+        return "redirect:/input/list";
     }
 
     @GetMapping("/register")
@@ -45,19 +70,10 @@ public class InputController {
         log.info("register..............");
         log.info(pnumList);
 
-        model.addAttribute("resultSet", service.getChkList(pnumList));
-    }
+        // O_CAT에 넣을 카테고리 값
+        model.addAttribute("category", "input");
 
-    @PostMapping("/register")
-    public String registerPost(ProductDTO dto, RedirectAttributes redirectAttributes){
-
-        log.info("dto..." + dto);
-
-        Long pnum = service.register(dto);
-
-        redirectAttributes.addFlashAttribute("msg", pnum);
-
-        return "redirect:/input/list";
+        model.addAttribute("resultSet", inputService.getChkList(pnumList));
     }
 
 }

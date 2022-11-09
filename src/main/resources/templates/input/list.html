@@ -95,7 +95,7 @@
 
 
         <!-- Register Modal-->
-        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" tabindex="-1" role="dialog" id="registeredModal" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -105,10 +105,11 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">제품 등록이 완료되었습니다.</div>
+                    <div class="modal-body">입고가 완료되었습니다.</div>
                     <div class="modal-footer">
-                        <a class="btn btn-primary" href="list">확인</a>
+                        <a class="btn btn-primary" th:href="@{/product/list}">제품목록</a>
                     </div>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">확인</button>
                 </div>
             </div>
         </div>
@@ -118,6 +119,13 @@
 
             var searchForm = $("#searchForm");
             var actionForm = $("#inputForm");
+            var registered = [[${registered}]];
+
+            console.log(registered);
+
+            if (registered) {
+                $(".registeredModal").modal();
+            }
 
             $('.btn-search').click(function (e) {
 
@@ -133,18 +141,11 @@
 
             $(".inputBtn").click(function(){
 
-                var chkArr = new Array();
-                $("input:checkbox[name=pnum]:checked").each(function (){
-                    var chk = $(this).val();
-                    chkArr.push(chk);
-                });
-
                 var keyword = $("input[name='keyword']");
                 actionForm.append(keyword);
-                actionForm.append(chkArr);
                 actionForm
                     .attr("action", "/input/register")
-                    .attr("method", "post")
+                    .attr("method", "get")
                     .submit();
             });
 

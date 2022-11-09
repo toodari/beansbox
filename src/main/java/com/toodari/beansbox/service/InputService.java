@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface InputService {
-    Long register(ProductDTO dto);
+    public Long register(Long mid, String ocat, List<Long> pnum, List<Long> pquantity);
 
     PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO);
 
     public List<ProductDTO> getChkList(List<String> pnumList);
+
 
     default ProductDTO entitiesToDTO(Product product, List<ProductImage> productImages){
         ProductDTO productDTO = ProductDTO.builder()

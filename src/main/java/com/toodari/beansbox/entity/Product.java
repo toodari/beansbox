@@ -43,4 +43,8 @@ public class Product extends BaseEntity {
         this.pcost = productDTO.getPcost();
         this.pprice = productDTO.getPprice();
     }
+
+    public void changeQuantity(Long quantity) {
+        this.pquantity = quantity;
+    }
 }

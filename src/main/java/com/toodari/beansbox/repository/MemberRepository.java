@@ -8,7 +8,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, String>, QuerydslPredicateExecutor<Member> {
+public interface MemberRepository extends JpaRepository<Member, Long>, QuerydslPredicateExecutor<Member> {
 
     @EntityGraph(attributePaths = "roleSet", type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT m FROM Member m WHERE m.mid = :mid")
