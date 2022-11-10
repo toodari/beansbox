@@ -46,8 +46,8 @@
 
           <!--제품 추가 버튼(오른쪽 정렬)-->
           <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
-            <a th:href="@{/output/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm outputBtn"><i
-                    class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</a>
+            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm outputBtn" ><i
+                    class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</button>
           </div>
         </h6>
       </div>
@@ -55,10 +55,6 @@
       <div class="card-body">
         <div class="table-responsive">
           <form action="/output/register" method="get" id="outputForm">
-            <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
-              <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i
-                      class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</button>
-            </div>
           <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
             <thead>
             <tr>
@@ -146,17 +142,24 @@
 
       $(".outputBtn").click(function(){
 
-        var keyword = $("input[name='keyword']");
-        actionForm.append(keyword);
+        var chk = false;
+        for(var i=0; i<outputForm.pnumList.length; i++) {
+          if(outputForm.pnumList[i].checked) {
+            chk = true;
+            break;
+          }
+        }
+
+        if(!chk) {
+          alert("품목을 선택해 주세요.");
+          return false;
+        }
+
         actionForm
                 .attr("action", "/output/register")
                 .attr("method", "get")
                 .submit();
       });
-
-
-
-
     </script>
 
 
