@@ -46,14 +46,15 @@
 
           <!--제품 추가 버튼(오른쪽 정렬)-->
           <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
-            <a th:href="@{/adjust/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</a>
+            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm adjustBtn" ><i
+                    class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</button>
           </div>
 
         </h6>
       </div>
       <div class="card-body">
         <div class="table-responsive">
+          <form action="/adjust/register" method="get" id="adjustForm">
           <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
             <thead>
             <tr>
@@ -67,7 +68,7 @@
             <tbody>
 
             <tr th:each="dto : ${result.dtoList}">
-              <th scope="row"><input type="checkbox"></th>
+              <th scope="row"><input type="checkbox" th:name="pnumList" th:value="${dto.pnum}"></th>
               <td>
                     <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
                          th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
@@ -78,7 +79,7 @@
             </tr>
             </tbody>
           </table>
-
+          </form>
         </div>
       </div>
     </div>
@@ -115,15 +116,15 @@
 
     <script th:inline="javascript">
 
-      var msg = [[${msg}]];
-
-      console.log(msg);
-
-      if(msg){
-        $(".modal").modal();
-      }
-
       var searchForm = $("#searchForm");
+      var actionForm = $("#adjustForm");
+      var registered = [[${registered}]];
+
+      console.log(registered);
+
+      if (registered) {
+        $("#registeredModal").modal();
+      }
 
       $('.btn-search').click(function (e){
 
@@ -136,20 +137,41 @@
         searchForm.empty().submit();
 
       });
-    </script>
 
-    <script>
-      function showUploadedImages(arr) {
+      $(".adjustBtn").click(function(){
 
-        console.log(arr);
-
-        var divArea = $(".uploadResult");
-
-        for(var i = 0; i < arr.length; i++){
-          divArea.append("<img src='/img src='/display?fileName="+arr[i].thumbnailURL+"'>");
+        var chk = false;
+        for(var i=0; i<adjustForm.pnumList.length; i++) {
+          if(adjustForm.pnumList[i].checked) {
+            chk = true;
+            break;
+          }
         }
-      }
+
+        if(!chk) {
+          alert("품목을 선택해 주세요.");
+          return false;
+        }
+
+        actionForm
+                .attr("action", "/adjust/register")
+                .attr("method", "get")
+                .submit();
+      });
     </script>
+
+<!--    <script>-->
+<!--      function showUploadedImages(arr) {-->
+
+<!--        console.log(arr);-->
+
+<!--        var divArea = $(".uploadResult");-->
+
+<!--        for(var i = 0; i < arr.length; i++){-->
+<!--          divArea.append("<img src='/img src='/display?fileName="+arr[i].thumbnailURL+"'>");-->
+<!--        }-->
+<!--      }-->
+<!--    </script>-->
 
 
 
