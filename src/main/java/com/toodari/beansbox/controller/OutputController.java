@@ -1,8 +1,8 @@
 package com.toodari.beansbox.controller;
 
 
+import com.toodari.beansbox.dto.OrdersDTO;
 import com.toodari.beansbox.dto.MemberModifyDTO;
-import com.toodari.beansbox.dto.OutputOrdersDTO;
 import com.toodari.beansbox.dto.PageRequestDTO;
 import com.toodari.beansbox.service.MemberService;
 import com.toodari.beansbox.service.OutputService;
@@ -66,14 +66,14 @@ public class OutputController {
 
     @PreAuthorize("hasRole('MANAGER')")
     @PostMapping("/register")
-    public String registerPost(OutputOrdersDTO outputOrdersDTO, @RequestParam List<Long> pnum, @RequestParam List<Long> pquantity,
+    public String registerPost(OrdersDTO ordersDTO, @RequestParam List<Long> pnum, @RequestParam List<Long> pquantity,
                                RedirectAttributes redirectAttributes, Model model){
 
         log.info("list post...");
-        log.info(outputOrdersDTO);
+        log.info(ordersDTO);
 //        log.info(inputOrderDetailDTOList);
 
-        Long onum = outputService.register(outputOrdersDTO, pnum, pquantity);
+        Long onum = outputService.register(ordersDTO, pnum, pquantity);
 
         redirectAttributes.addFlashAttribute("registered", onum);
 
