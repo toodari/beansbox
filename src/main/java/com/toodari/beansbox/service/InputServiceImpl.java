@@ -40,10 +40,11 @@ public class InputServiceImpl implements InputService {
         Long onum = orders.getOnum();
 
         for (int i = 0; i < pnum.size(); i++) {
-            InputOrderDetailDTO inputOrderDetailDTO = new InputOrderDetailDTO();
-            inputOrderDetailDTO.setOdquantity(pquantity.get(i));
-            inputOrderDetailDTO.setPnum(pnum.get(i));
-            inputOrderDetailDTO.setOnum(onum);
+            InputOrderDetailDTO inputOrderDetailDTO = InputOrderDetailDTO.builder()
+                    .odquantity(pquantity.get(i))
+                    .pnum(pnum.get(i))
+                    .onum(onum).build();
+
             OrderDetail orderDetail = modelMapper.map(inputOrderDetailDTO, OrderDetail.class);
             orderDetailRepository.save(orderDetail);
 

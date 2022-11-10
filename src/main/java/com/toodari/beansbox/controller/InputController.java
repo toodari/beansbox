@@ -81,10 +81,11 @@ public class InputController {
         model.addAttribute("resultSet", inputService.getChkList(pnumList));
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('MANAGER')"
+    )
     @PostMapping("/register")
     public String registerPost(InputOrdersDTO inputOrdersDTO, @RequestParam List<Long> pnum, @RequestParam List<Long> pquantity,
-                           RedirectAttributes redirectAttributes, Model model){
+                           RedirectAttributes redirectAttributes){
 
         log.info("list post...");
         log.info(inputOrdersDTO);

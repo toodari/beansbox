@@ -41,10 +41,13 @@ public class OutputServiceImpl implements OutputService {
         Long onum = orders.getOnum();
 
         for (int i = 0; i < pnum.size(); i++) {
-            OutputOrderDetailDTO outputOrderDetailDTO = new OutputOrderDetailDTO();
-            outputOrderDetailDTO.setOdquantity(pquantity.get(i));
-            outputOrderDetailDTO.setPnum(pnum.get(i));
-            outputOrderDetailDTO.setOnum(onum);
+            OutputOrderDetailDTO outputOrderDetailDTO = OutputOrderDetailDTO.builder()
+                    .odquantity(pquantity.get(i))
+                    .pnum(pnum.get(i))
+                    .onum(onum)
+                    .build();
+
+
             OrderDetail orderDetail = modelMapper.map(outputOrderDetailDTO, OrderDetail.class);
             orderDetailRepository.save(orderDetail);
 
