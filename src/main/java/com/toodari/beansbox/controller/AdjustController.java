@@ -56,7 +56,7 @@ public class AdjustController {
         Long mnum = memberModifyDTO.getMnum();
 
         // O_CAT에 넣을 카테고리 값
-        model.addAttribute("category", "input");
+        model.addAttribute("category", "adjust");
 
         model.addAttribute("mnumber", mnum);
         model.addAttribute("resultSet", adjustService.getChkList(pnumList));
