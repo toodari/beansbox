@@ -35,8 +35,8 @@
               <th>수량</th>
             </tr>
             </thead>
-            <tbody>
 
+            <tbody id="tablebody">
             <tr th:each="dto : ${resultSet}">
               <input type="hidden" th:name="pnum" th:value="${dto.pnum}">
 
@@ -46,8 +46,7 @@
               </th>
               <td>[[${dto.pname}]]</td>
               <td>[[${dto.pcat}]]</td>
-              <td>[[${dto.pquantity}]] -
-                <input type="number" th:name="pquantity" th:value="1"
+              <td class="pquantity">[[${dto.pquantity}]]<span> - </span><input type="number" th:name="pquantity" th:value="1"
                        min="1" max="100"></td>
             </tr>
             </tbody>
@@ -94,6 +93,31 @@
       var registerForm = $("#registerForm");
 
       $('.registerBtn').click(function (e) {
+
+        var chk = false;
+
+        var rows = document.getElementById("tablebody").getElementsByTagName("tr");
+        console.log(rows.length);
+
+        for ( var r=0; r<rows.length; r++ ) {
+          var cells = rows[r].getElementsByClassName("pquantity");
+          var cellData = cells[0].firstChild.data;
+          console.log(cellData);
+
+          var inputsData = cells[0].lastElementChild.value;
+          console.log(inputsData);
+
+          if(cellData<inputsData) {
+            chk = true;
+            break;
+          }
+        }
+
+        if(chk) {
+          alert("현재 재고보다 출고 수량이 많습니다.");
+          return false;
+        }
+
 
         registerForm
                 .attr("action", "/output/register")

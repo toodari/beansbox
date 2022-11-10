@@ -94,7 +94,7 @@
 
     <!-- Register Modal-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+         aria-hidden="true" id="registeredModal">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -105,7 +105,8 @@
           </div>
           <div class="modal-body">출고가 완료되었습니다.</div>
           <div class="modal-footer">
-            <a class="btn btn-primary" href="list">확인</a>
+            <a class="btn btn-primary" th:href="@{/product/list}">제품목록</a>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">확인</button>
           </div>
         </div>
       </div>
