@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<title>BeansBox - Adjust</title>
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
   <th:block th:fragment="content">
     <!-- Page Heading -->
@@ -103,9 +103,9 @@
           </div>
           <div class="modal-body">조정이 완료되었습니다.</div>
           <div class="modal-footer">
-            <a class="btn btn-primary" th:href="@{/product/list}">제품목록</a>
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">확인</button>
-          </div>
+              <a class="btn btn-secondary" th:href="@{/product/list}">제품목록</a>
+              <button class="btn btn-info" type="button" data-dismiss="modal">확인</button>
+                  </div>
         </div>
       </div>
     </div>
