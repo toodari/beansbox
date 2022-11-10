@@ -5,13 +5,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class InputOrdersDTO {
+public class OrdersDTO {
     private Long onum;
     private String ocat;
-    private Long mnum;
 
+    private int odcount;
+
+    private LocalDateTime regDate, modDate;
+
+    private Long mnum;
+    private String mname;
 }

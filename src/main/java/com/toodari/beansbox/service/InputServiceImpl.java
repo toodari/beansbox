@@ -13,12 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 @Log4j2
@@ -34,8 +32,8 @@ public class InputServiceImpl implements InputService {
 
     @Transactional
     @Override
-    public Long register(InputOrdersDTO inputOrdersDTO, List<Long> pnum, List<Long> pquantity) {
-        Orders orders = modelMapper.map(inputOrdersDTO, Orders.class);
+    public Long register(OrdersDTO ordersDTO, List<Long> pnum, List<Long> pquantity) {
+        Orders orders = modelMapper.map(ordersDTO, Orders.class);
         ordersRepository.save(orders);
         Long onum = orders.getOnum();
 

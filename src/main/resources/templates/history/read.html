@@ -16,8 +16,9 @@
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary align-items-center">
 
-          <h5> 조정내역 </h5>
-          <h5> 사용자 </h5>
+          <h5>[[${category}]]</h5>
+          <h5>[[${pic}]]</h5>
+          <h5>[[${regdate}]]</h5>
         </h6>
       </div>
 
@@ -29,98 +30,29 @@
               <th>제품명</th>
               <th>구매가</th>
               <th>판매가</th>
-              <th>이전재고  현재재고</th>
-
-              <th>수량</th>
+              <th>변동수량</th>
             </tr>
             </thead>
             <tbody>
 
-            <tr>
-              <th scope="row"></th>
-              <td>
-                <!--                  <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"-->
-                <!--                       th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >-->
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr th:each="dto : ${resultSet}">
+
+              <th scope="row">
+                [[${dto.pname}]]
+<!--                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"-->
+<!--                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">-->
+              </th>
+              <td>[[${dto.pcost}]]</td>
+              <td>[[${dto.pprice}]]</td>
+              <td>[[${dto.odquantity}]]</td>
             </tr>
+
             </tbody>
           </table>
 
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-    <!-- Register Modal-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">제품 등록이 완료되었습니다.</div>
-          <div class="modal-footer">
-            <a class="btn btn-primary" href="list">확인</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-
-
-    <script th:inline="javascript">
-
-      var msg = [[${msg}]];
-
-      console.log(msg);
-
-      if(msg){
-        $(".modal").modal();
-      }
-
-      var searchForm = $("#searchForm");
-
-      $('.btn-search').click(function (e){
-
-        searchForm.submit();
-      });
-
-
-      $('.btn-clear').click(function (e){
-
-        searchForm.empty().submit();
-
-      });
-    </script>
-
-    <script>
-      function showUploadedImages(arr) {
-
-        console.log(arr);
-
-        var divArea = $(".uploadResult");
-
-        for(var i = 0; i < arr.length; i++){
-          divArea.append("<img src='/img src='/display?fileName="+arr[i].thumbnailURL+"'>");
-        }
-      }
-    </script>
-
 
 
   </th:block>

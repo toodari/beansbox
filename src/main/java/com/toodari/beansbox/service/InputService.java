@@ -3,13 +3,12 @@ package com.toodari.beansbox.service;
 import com.toodari.beansbox.dto.*;
 import com.toodari.beansbox.entity.Product;
 import com.toodari.beansbox.entity.ProductImage;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public interface InputService {
-    public Long register(InputOrdersDTO inputOrdersDTO, List<Long> pnum, List<Long> pquantity);
+    public Long register(OrdersDTO ordersDTO, List<Long> pnum, List<Long> pquantity);
 
     PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO);
 

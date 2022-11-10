@@ -35,8 +35,8 @@ public class OutputServiceImpl implements OutputService {
 
     @Transactional
     @Override
-    public Long register(OutputOrdersDTO outputOrdersDTO, List<Long> pnum, List<Long> pquantity) {
-        Orders orders = modelMapper.map(outputOrdersDTO, Orders.class);
+    public Long register(OrdersDTO ordersDTO, List<Long> pnum, List<Long> pquantity) {
+        Orders orders = modelMapper.map(ordersDTO, Orders.class);
         ordersRepository.save(orders);
         Long onum = orders.getOnum();
 

@@ -14,10 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -81,17 +78,16 @@ public class InputController {
         model.addAttribute("resultSet", inputService.getChkList(pnumList));
     }
 
-    @PreAuthorize("hasRole('MANAGER')"
-    )
+    @PreAuthorize("hasRole('MANAGER')")
     @PostMapping("/register")
-    public String registerPost(InputOrdersDTO inputOrdersDTO, @RequestParam List<Long> pnum, @RequestParam List<Long> pquantity,
-                           RedirectAttributes redirectAttributes){
+    public String registerPost(OrdersDTO ordersDTO, @RequestParam List<Long> pnum, @RequestParam List<Long> pquantity,
+                               RedirectAttributes redirectAttributes){
 
         log.info("list post...");
-        log.info(inputOrdersDTO);
+        log.info(ordersDTO);
 //        log.info(inputOrderDetailDTOList);
 
-        Long onum = inputService.register(inputOrdersDTO, pnum, pquantity);
+        Long onum = inputService.register(ordersDTO, pnum, pquantity);
 
         redirectAttributes.addFlashAttribute("registered", onum);
 

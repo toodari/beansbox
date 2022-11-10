@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface OutputService {
-    public Long register(OutputOrdersDTO outputOrdersDTO, List<Long> pnum, List<Long> pquantity);
+    public Long register(OrdersDTO ordersDTO, List<Long> pnum, List<Long> pquantity);
 
     PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO);
 
