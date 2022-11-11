@@ -27,6 +27,7 @@ import java.util.stream.IntStream;
 
 import static com.toodari.beansbox.entity.MemberRole.EMPLOYEE;
 import static com.toodari.beansbox.entity.MemberRole.MANAGER;
+import static com.toodari.beansbox.entity.MemberRole.OWNER;
 
 @SpringBootTest
 
@@ -59,11 +60,30 @@ public class MemberRepositoryTests {
                 member.addMemberRole(MANAGER);
             }
             if (i <= 13) {
-                member.addMemberRole(MemberRole.OWNER);
+                member.addMemberRole(OWNER);
             }
             memberRepository.save(member);
         });
 
+    }
+
+    @Test
+    public void insertAdmin(){
+        Member member = Member.builder()
+                .mid("admin")
+                .mpw(passwordEncoder.encode("mitPass123!"))
+                .mname("관리자")
+                .mphone("01012345678")
+                .myear(2022L)
+                .mmonth(11L)
+                .mday(11L)
+                .build();
+
+        member.addMemberRole(EMPLOYEE);
+        member.addMemberRole(MANAGER);
+        member.addMemberRole(OWNER);
+
+        memberRepository.save(member);
     }
 
     @Test
