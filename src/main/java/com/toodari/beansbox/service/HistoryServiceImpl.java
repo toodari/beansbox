@@ -69,6 +69,7 @@ public class HistoryServiceImpl implements HistoryService {
         for (OrderDetail orderDetail : orderDetailList) {
             HistoryDTO historyDTO = HistoryDTO.builder()
                     .pname(orderDetail.getProduct().getPname())
+                    .pactive(orderDetail.getProduct().getPactive())
                     .pcost(orderDetail.getProduct().getPcost())
                     .pprice(orderDetail.getProduct().getPprice())
                     .odquantity(orderDetail.getOdquantity())

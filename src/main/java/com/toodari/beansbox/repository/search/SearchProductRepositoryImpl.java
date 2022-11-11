@@ -39,6 +39,7 @@ public class SearchProductRepositoryImpl extends QuerydslRepositorySupport imple
 
         JPQLQuery<Product> jpqlQuery = from(product);
         jpqlQuery.leftJoin(productImage).on(productImage.product.eq(product));
+        jpqlQuery.select(product).where(product.pactive.eq(1));
 
         JPQLQuery<Tuple> tuple = jpqlQuery.select(product, productImage);
         tuple.groupBy(product);
@@ -66,6 +67,7 @@ public class SearchProductRepositoryImpl extends QuerydslRepositorySupport imple
 
         JPQLQuery<Product> jpqlQuery = from(product);
         jpqlQuery.leftJoin(productImage).on(productImage.product.eq(product));
+        jpqlQuery.select(product).where(product.pactive.eq(1));
 //        List<QProductImage> imageList = Arrays.asList(productImage);
         JPQLQuery<Tuple> tuple = jpqlQuery.select(product, productImage);
 

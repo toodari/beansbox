@@ -16,6 +16,7 @@ public class HistoryDTO {
     private String pname;
     private Long pcost;
     private Long pprice;
+    private int pactive;
 
     private Long odquantity;
 

@@ -37,10 +37,15 @@
 
             <tr th:each="dto : ${resultSet}">
 
-              <th scope="row">
-                [[${dto.pname}]]
+              <th scope="row" th:if="${dto.pactive == 0}" style="color: #be2617">
+                [[${dto.pname}]] (삭제된 상품)
 <!--                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"-->
 <!--                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">-->
+              </th>
+              <th scope="row" th:if="${dto.pactive == 1}">
+                [[${dto.pname}]]
+                <!--                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"-->
+                <!--                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">-->
               </th>
               <td>[[${dto.pcost}]]</td>
               <td>[[${dto.pprice}]]</td>
