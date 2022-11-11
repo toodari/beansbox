@@ -15,6 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> , Queryd
 
     @Query("select p, i from Product p " +
             "left outer join ProductImage i on i.product = p " +
+            "where not p.pactive in (0) " +
             "group by p ")
     Page<Object[]> getListPage(Pageable pageable);
 

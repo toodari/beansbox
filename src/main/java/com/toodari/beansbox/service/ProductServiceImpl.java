@@ -8,6 +8,7 @@ import com.toodari.beansbox.dto.ProductDTO;
 import com.toodari.beansbox.entity.Product;
 import com.toodari.beansbox.entity.ProductImage;
 import com.toodari.beansbox.entity.QProduct;
+import com.toodari.beansbox.repository.OrderDetailRepository;
 import com.toodari.beansbox.repository.ProductImageRepository;
 import com.toodari.beansbox.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,11 +32,11 @@ public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
     private final ProductImageRepository imageRepository;
-    private final ModelMapper modelMapper;
 
     @Transactional
     @Override
     public Long register(ProductDTO productDTO) {
+        log.info(productDTO.getPactive());
 
         Map<String, Object> entityMap = dtoToEntity(productDTO);
         Product product = (Product) entityMap.get("product");
@@ -152,8 +153,12 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void removeWithImages(Long pnum) {
 
-        imageRepository.deleteByPnum(pnum); // 이미지를 삭제한다.
-        productRepository.deleteById(pnum); // 상품을 삭제한다.
+//        imageRepository.deleteByPnum(pnum); // 이미지를 삭제한다.
+        // 상품을 비활성화 상태로 전환
+        List<Object[]> result = productRepository.getProductWithImage(pnum);
+        Product product = (Product) result.get(0)[0];
+        product.changeActive(0);
+        productRepository.save(product);
 
     }
 

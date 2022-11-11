@@ -2,6 +2,8 @@ package com.toodari.beansbox.entity;
 
 import com.toodari.beansbox.dto.ProductDTO;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
@@ -34,7 +36,7 @@ public class Product extends BaseEntity {
     @Column(name = "p_price", columnDefinition = "BIGINT UNSIGNED")
     private Long pprice;
 
-    @Column(name = "p_active", nullable = false, columnDefinition = "TINYINT", length = 1)
+    @Column(name = "p_active", columnDefinition = "TINYINT default 1")
     private int pactive;
 
     public void changeProduct(ProductDTO productDTO) {
@@ -46,5 +48,13 @@ public class Product extends BaseEntity {
 
     public void changeQuantity(Long quantity) {
         this.pquantity = quantity;
+    }
+    public void changeActive(int active) {
+        this.pactive = active;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.pactive = (this.pactive == 0) ? 1 : this.pactive;
     }
 }

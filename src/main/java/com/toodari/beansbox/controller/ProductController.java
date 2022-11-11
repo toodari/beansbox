@@ -124,28 +124,29 @@ public class ProductController {
 
         log.info("pnum: " + pnum);
 
-        String srcFileName = null;
-        ProductDTO productDTO = service.read(pnum);
-        String fileName = productDTO.getImageDTOList().get(0).getImageURL();
-
-        try {
-            srcFileName = URLDecoder.decode(fileName,"UTF-8");
-            File file = new File(uploadPath + File.separator + srcFileName);
-
-            boolean result = file.delete();
-
-            File thumbnail = new File(file.getParent(),"s_" + file.getName());
-
-            result = thumbnail.delete();
-
-            ResponseEntity<Boolean> responseEntity = new ResponseEntity<>(result, HttpStatus.OK);
-            log.info(responseEntity);
-
-        } catch (UnsupportedEncodingException e){
-            e.printStackTrace();
-            ResponseEntity<Boolean> responseEntity = new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
-            log.info(responseEntity);
-        }
+        // 실제로 상품이 삭제되지 않으므로 상품 이미지도 유지시켜야 함???
+//        String srcFileName = null;
+//        ProductDTO productDTO = service.read(pnum);
+//        String fileName = productDTO.getImageDTOList().get(0).getImageURL();
+//
+//        try {
+//            srcFileName = URLDecoder.decode(fileName,"UTF-8");
+//            File file = new File(uploadPath + File.separator + srcFileName);
+//
+//            boolean result = file.delete();
+//
+//            File thumbnail = new File(file.getParent(),"s_" + file.getName());
+//
+//            result = thumbnail.delete();
+//
+//            ResponseEntity<Boolean> responseEntity = new ResponseEntity<>(result, HttpStatus.OK);
+//            log.info(responseEntity);
+//
+//        } catch (UnsupportedEncodingException e){
+//            e.printStackTrace();
+//            ResponseEntity<Boolean> responseEntity = new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+//            log.info(responseEntity);
+//        }
 
         service.removeWithImages(pnum);
 
