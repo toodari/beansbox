@@ -23,12 +23,8 @@ public interface ProductService {
 
     void remove(Long pnum);
 
-    void removeWithImages(Long pnum); // bno로 삭제처리를 진행한다.
+    void removeWithImages(Long pnum);
 
-
-
-
-    //    PageResultDTO<ProductDTO, Product> getList(PageRequestDTO requestDTO);
     PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO);
 
     default ProductDTO entitiesToDTO(Product product, List<ProductImage> productImages){

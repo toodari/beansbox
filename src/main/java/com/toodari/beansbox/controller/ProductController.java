@@ -3,27 +3,18 @@ package com.toodari.beansbox.controller;
 import com.toodari.beansbox.dto.PageRequestDTO;
 import com.toodari.beansbox.dto.PageResultDTO;
 import com.toodari.beansbox.dto.ProductDTO;
-import com.toodari.beansbox.service.MemberService;
 import com.toodari.beansbox.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/product")
@@ -33,7 +24,7 @@ public class ProductController {
 
     private final ProductService service;
 
-    @Value("${org.zerock.upload.path}") // application.properties의 변수
+    @Value("${org.zerock.upload.path}")
     private String uploadPath;
 
     @PreAuthorize("hasRole('EMPLOYEE')")
@@ -91,8 +82,6 @@ public class ProductController {
 
         redirectAttributes.addAttribute("page", requestDTO.getPage());
         redirectAttributes.addAttribute("pnum", dto.getPnum());
-        /*redirectAttributes.addAttribute("type", requestDTO.getType());
-        redirectAttributes.addAttribute("keyword", requestDTO.getKeyword());*/
         redirectAttributes.addFlashAttribute("modifymsg", pnum);
 
         return "redirect:/product/read";
@@ -104,15 +93,14 @@ public class ProductController {
         log.info("post copy............");
         log.info("dto : " + dto);
 
-        Long pnum = service.copy(dto); //read에서 복제 버튼을 누른 번호
+        Long pnum = service.copy(dto);
         log.info(dto);
 
         PageResultDTO result = service.getList(requestDTO);
         ProductDTO firstProduct = (ProductDTO) result.getDtoList().get(0);
-        //새로 만든 글의 번호를 가져와야됨
 
         redirectAttributes.addAttribute("page", requestDTO.getPage());
-        redirectAttributes.addAttribute("pnum", firstProduct.getPnum()); //null 자리에 새로운 번호가 들어감
+        redirectAttributes.addAttribute("pnum", firstProduct.getPnum());
         redirectAttributes.addFlashAttribute("copymsg", firstProduct);
 
         return "redirect:/product/read";
@@ -123,30 +111,6 @@ public class ProductController {
     public String remove(long pnum, RedirectAttributes redirectAttributes){
 
         log.info("pnum: " + pnum);
-
-        // 실제로 상품이 삭제되지 않으므로 상품 이미지도 유지시켜야 함???
-//        String srcFileName = null;
-//        ProductDTO productDTO = service.read(pnum);
-//        String fileName = productDTO.getImageDTOList().get(0).getImageURL();
-//
-//        try {
-//            srcFileName = URLDecoder.decode(fileName,"UTF-8");
-//            File file = new File(uploadPath + File.separator + srcFileName);
-//
-//            boolean result = file.delete();
-//
-//            File thumbnail = new File(file.getParent(),"s_" + file.getName());
-//
-//            result = thumbnail.delete();
-//
-//            ResponseEntity<Boolean> responseEntity = new ResponseEntity<>(result, HttpStatus.OK);
-//            log.info(responseEntity);
-//
-//        } catch (UnsupportedEncodingException e){
-//            e.printStackTrace();
-//            ResponseEntity<Boolean> responseEntity = new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
-//            log.info(responseEntity);
-//        }
 
         service.removeWithImages(pnum);
 

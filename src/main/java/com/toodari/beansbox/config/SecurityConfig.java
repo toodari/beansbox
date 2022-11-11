@@ -46,11 +46,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    //403(forbidden)에러는 서버에서 사용자의 요청을 거부했다는 의미로 현재 사용자가 로그인은 되어있지만 해당 작업을 수행할 수 없는 경우.
-    //-> AccessDeniedHandler 인터페이스를 구현
-    //-> Custom403Handler 클래스를 통해 에러페이지로 이동하게 처리
-    
-    // 워크북 707p부터 봐야함
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
         return new Custom403Handler();

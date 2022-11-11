@@ -14,12 +14,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <!-- Topbar Search -->
-                <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
-                    <!--제품 추가 버튼(오른쪽 정렬)-->
-                    <!--                        <div class="d-sm-flex align-items-center justify-content-between float-right">-->
-                    <!--                            <button type="reset" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" form="regForm">초기화</button>-->
-                    <!--                        </div>-->
-                </h3>
+                <h3 class="text-gray-800 align-items-center mt-2">제품 정보</h3>
             </div>
 
             <div class="card-body">
@@ -93,7 +88,7 @@
                         <input type="text" class="form-control w-50" name="pquantity" id="pquantity">
                     </div>
 
-                    <button type="submit" class="btn btn-info btn-icon-split w-10" >
+                    <button type="submit" class="btn btn-info btn-icon-split w-10">
                         <span class="text">입력 완료</span>
                     </button>
                     <button type="button" onclick="history.back()" class="btn btn-primary btn-icon-split w-10">
@@ -103,17 +98,9 @@
             </div>
         </div>
 
-        <!--        <script-->
-        <!--                src="https://code.jquery.com/jquery-3.5.1.min.js"-->
-        <!--                integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="-->
-        <!--                crossorigin="anonymous">-->
-        <!--        </script>-->
-
-
         <script th:inline="javascript">
 
-            //유효성 검사
-            function Validation(){
+            function Validation() {
                 var RegExp = /^[a-zA-Z0-9가-힣\(\)]{1,20}$/;
                 var RegExp2 = /^[0-9]{1,20}$/;
                 var RegExp3 = /^[0-9]{0,20}$/;
@@ -124,36 +111,36 @@
                 var objPcost = document.getElementById("pcost");
                 var objPprice = document.getElementById("pprice");
 
-                if(objPname.value == ''){
+                if (objPname.value == '') {
                     alert("제품명을 입력하세요");
                     return false;
                 }
-                if(!RegExp.test(objPname.value)){
+                if (!RegExp.test(objPname.value)) {
                     alert("제품명은 한글, 영문 대소문자, 숫자를 사용하여 20자 이내로 작성해 주세요")
                     return false;
                 }
 
-                if(objPcat.value == ''){
+                if (objPcat.value == '') {
                     alert("분류를 입력하세요");
                     return false;
                 }
-                if(!RegExp.test(objPcat.value)){
+                if (!RegExp.test(objPcat.value)) {
                     alert("분류는 한글, 영문 대소문자, 숫자를 사용하여 20자 이내로 작성해 주세요")
                     return false;
                 }
-                if(objPquantity.value == ''){
+                if (objPquantity.value == '') {
                     alert("초기수량을 입력하세요");
                     return false;
                 }
-                if(!RegExp2.test(objPquantity.value)){
+                if (!RegExp2.test(objPquantity.value)) {
                     alert("초기수량은 20자 이내의 숫자만 입력 가능합니다")
                     return false;
                 }
-                if(!RegExp3.test(objPcost.value)){
+                if (!RegExp3.test(objPcost.value)) {
                     alert("구매가는 20자 이내의 숫자만 입력 가능합니다")
                     return false;
                 }
-                if(!RegExp3.test(objPprice.value)){
+                if (!RegExp3.test(objPprice.value)) {
                     alert("판매가는 20자 이내의 숫자만 입력 가능합니다")
                     return false;
                 }
@@ -162,7 +149,7 @@
 
             var resetForm = $("#resetForm");
 
-            $('.btn-clear').click(function (e){
+            $('.btn-clear').click(function (e) {
 
                 resetForm.empty().submit();
 
@@ -170,31 +157,31 @@
         </script>
 
         <script>
-            $(document).ready(function(e) {
+            $(document).ready(function (e) {
 
                 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
                 var imgRegex = new RegExp("(.*?)\.(bmp|jpg|gif|png|svg)$");
                 var maxSize = 10485760; //10MB
                 var isFileExist = false;
 
-                function checkExtension(fileName, fileSize){
+                function checkExtension(fileName, fileSize) {
 
-                    if(isFileExist == true){
+                    if (isFileExist == true) {
                         alert("파일은 하나만 업로드할 수 있습니다.")
                         return false;
                     }
 
-                    if(regex.test(fileName)){
+                    if (regex.test(fileName)) {
                         alert("해당 종류의 파일은 업로드할 수 없습니다.");
                         return false;
                     }
 
-                    if(!imgRegex.test(fileName)){
+                    if (!imgRegex.test(fileName)) {
                         alert("이미지 파일만 업로드할 수 있습니다.");
                         return false;
                     }
 
-                    if(fileSize >= maxSize){
+                    if (fileSize >= maxSize) {
                         alert("파일 사이즈 초과");
                         return false;
                     }
@@ -202,7 +189,7 @@
                     return true;
                 }
 
-                $(".custom-file-input").on("change", function() {
+                $(".custom-file-input").on("change", function () {
 
                     var fileName = $(this).val().split("\\").pop();
                     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
@@ -215,26 +202,16 @@
 
                     var appended = false;
 
-                    // 폼데이터에 첫번째 사진 데이터만 전송하는 코드
-                    /*if(!checkExtension(files[0].name, files[0].size) ){
-                        return false;
-                    }
-
-                    console.log(files[0]);
-                    formData.append("uploadFiles", files[0]);
-                    appended = true;*/
-
-                    // 원래 코드
                     for (var i = 0; i < files.length; i++) {
 
-                        if(files.length > 1){
+                        if (files.length > 1) {
                             alert("파일은 하나만 업로드할 수 있습니다.");
                             $(".selected").html("");
                             $(".custom-file-input").val('');
                             return false;
                         }
 
-                        if(!checkExtension(files[i].name, files[i].size) ){
+                        if (!checkExtension(files[i].name, files[i].size)) {
                             $(".selected").html("");
                             $(".custom-file-input").val('');
                             return false;
@@ -246,44 +223,43 @@
                         appended = true;
                     }
 
-                    //upload를 하지 않는다.
-                    if (!appended) {return;}
+
+                    if (!appended) {
+                        return;
+                    }
 
                     for (var value of formData.values()) {
                         console.log(value);
                     }
 
-                    //실제 업로드 부분
-                    //upload ajax
                     $.ajax({
                         url: '/uploadAjax',
                         processData: false,
                         contentType: false,
                         data: formData,
                         type: 'POST',
-                        dataType:'json',
-                        success: function(result){
+                        dataType: 'json',
+                        success: function (result) {
                             console.log(result);
                             showResult(result);
                             isFileExist = true;
                         },
-                        error: function(jqXHR, textStatus, errorThrown){
+                        error: function (jqXHR, textStatus, errorThrown) {
                             console.log(textStatus);
                             isFileExist = false;
                         }
-                    }); //$.ajax
-                }); //end change event
+                    });
+                });
 
-
-                function showResult(uploadResultArr){
+                function showResult(uploadResultArr) {
 
                     var uploadUL = $(".uploadResult ul");
 
-                    var str ="";
+                    var str = "";
 
-                    $(uploadResultArr).each(function(i, obj) {
+                    $(uploadResultArr).each(function (i, obj) {
 
-                        str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+                        str += "<li data-name='" + obj.fileName + "' data-path='" + obj.folderPath + "' data-uuid='" + obj.uuid + "'>";
                         str + " <div>";
                         str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
                         str += "class='btn-warning btn-sm'>X</button><br>";
@@ -295,7 +271,7 @@
                     uploadUL.append(str);
                 }
 
-                $(".uploadResult ").on("click", "li button", function(e){
+                $(".uploadResult ").on("click", "li button", function (e) {
 
                     console.log("delete file");
 
@@ -306,42 +282,40 @@
                     $.ajax({
                         url: '/removeFile',
                         data: {fileName: targetFile},
-                        dataType:'text',
+                        dataType: 'text',
                         type: 'POST',
-                        success: function(){
-                            // alert(result);
+                        success: function () {
                             alert("사진이 삭제되었습니다.");
                             targetLi.remove();
                             $(".selected").html("");
                             $(".custom-file-input").val('');
                             isFileExist = false;
                         }
-                    }); //$.ajax
+                    });
                 });
 
 
-                $(".btn-info").on("click", function(e) {
+                $(".btn-info").on("click", function (e) {
                     e.preventDefault();
 
-                    if(!isFileExist) {
+                    if (!isFileExist) {
                         alert("사진이 등록되지 않았습니다.");
                         return false;
                     }
 
                     var str = "";
 
-                    $(".uploadResult li").each(function(i,obj){
+                    $(".uploadResult li").each(function (i, obj) {
                         var target = $(obj);
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imgname' value='"+target.data('name') +"'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].imgname' value='" + target.data('name') + "'>";
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imgpath' value='"+target.data('path')+"'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].imgpath' value='" + target.data('path') + "'>";
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imguuid' value='"+target.data('uuid')+"'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].imguuid' value='" + target.data('uuid') + "'>";
 
                     });
 
-                    //태그들이 추가된 것을 확인한 후에 comment를 제거
                     $(".box").html(str);
 
                     $("form").submit();
@@ -349,8 +323,7 @@
                 });
 
 
-
-            }); //document ready
+            });
         </script>
 
     </th:block>

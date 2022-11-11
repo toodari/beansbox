@@ -27,7 +27,6 @@ public class InitialPasswordHandler implements AuthenticationSuccessHandler {
         if(encodedPw.equals("mitPass123!") || passwordEncoder.matches("mitPass123!", encodedPw)){
             log.info("Should change password");
             response.sendRedirect("/member/mypage");
-            return;
         } else {
             response.sendRedirect("/");
         }

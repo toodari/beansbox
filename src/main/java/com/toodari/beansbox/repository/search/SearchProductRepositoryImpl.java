@@ -2,7 +2,6 @@ package com.toodari.beansbox.repository.search;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -18,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +66,6 @@ public class SearchProductRepositoryImpl extends QuerydslRepositorySupport imple
         JPQLQuery<Product> jpqlQuery = from(product);
         jpqlQuery.leftJoin(productImage).on(productImage.product.eq(product));
         jpqlQuery.select(product).where(product.pactive.eq(1));
-//        List<QProductImage> imageList = Arrays.asList(productImage);
         JPQLQuery<Tuple> tuple = jpqlQuery.select(product, productImage);
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -88,16 +85,6 @@ public class SearchProductRepositoryImpl extends QuerydslRepositorySupport imple
                 conditionBuilder.or(product.pcat.contains(keyword));
             }
 
-//            for (String t : typeArr) {
-//                switch (t) {
-//                    case "n":
-//                        conditionBuilder.or(product.pname.contains(keyword));
-//                        break;
-//                    case "c":
-//                        conditionBuilder.or(product.pcat.contains(keyword));
-//                        break;
-//                }
-//            }
             booleanBuilder.and(conditionBuilder);
         }
 

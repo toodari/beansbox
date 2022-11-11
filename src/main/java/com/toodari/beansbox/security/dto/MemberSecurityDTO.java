@@ -2,7 +2,6 @@ package com.toodari.beansbox.security.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

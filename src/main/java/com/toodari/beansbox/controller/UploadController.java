@@ -1,6 +1,5 @@
 package com.toodari.beansbox.controller;
 
-import com.toodari.beansbox.dto.ProductImageDTO;
 import com.toodari.beansbox.dto.UploadResultDTO;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -31,7 +30,7 @@ import java.util.UUID;
 @Log4j2
 public class UploadController {
 
-    @Value("${org.zerock.upload.path}") // application.properties의 변수
+    @Value("${org.zerock.upload.path}")
     private String uploadPath;
 
     @PostMapping("/uploadAjax")
@@ -40,36 +39,29 @@ public class UploadController {
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
         for (MultipartFile uploadFile : uploadFiles) {
 
-            // 이미지 파일만 업로드 가능
             if(uploadFile.getContentType().startsWith("image") == false){
-                // 이미지가 아닌경우 403 Forbidden 반환
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
 
-            // 실제 파일 이름 IE나 Edge는 전체 경로가 들어오므로
             String originalName = uploadFile.getOriginalFilename();
 
             String imgname = originalName.substring(originalName.lastIndexOf("\\") + 1);
 
-            // 날짜 폴더 생성
             String imgpath = makeFolder();
 
-            //UUID
             String imguuid = UUID.randomUUID().toString();
 
-            //저장할 파일 이름
             String saveName = uploadPath + File.separator + imgpath + File.separator + imguuid + "_" + imgname;
 
             Path savePath = Paths.get(saveName);
 
             try {
-                uploadFile.transferTo(savePath);// 실제 이미지 저장(원본 파일)
+                uploadFile.transferTo(savePath);
 
-                //섬네일 생성 -> 섬네일 파일 이름은 중간에 s_로 시작
                 String thumbnailSaveName = uploadPath + File.separator + imgpath + File.separator +"s_" + imguuid +"_"+ imgname;
 
                 File thumbnailFile = new File(thumbnailSaveName);
-                // 섬네일 생성
+
                 Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,40,40);
 
                 resultDTOList.add(new UploadResultDTO(imgname, imguuid, imgpath));
@@ -87,7 +79,6 @@ public class UploadController {
 
         String folderPath = str.replace("/", File.separator);
 
-        // make folder ----
         File uploadPatheFolder = new File(uploadPath,folderPath);
 
         if(uploadPatheFolder.exists() == false){

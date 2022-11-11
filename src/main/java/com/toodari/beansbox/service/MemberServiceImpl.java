@@ -61,11 +61,7 @@ public class MemberServiceImpl implements MemberService{
             roleSet.add(MemberRole.EMPLOYEE);
         }
         memberRegisterDTO.setRoleSet(roleSet);
-//                String mid = memberRegisterDTO.getMid();
-//        boolean exist = memberRepository.existsByMid(mid);
-//        if(exist) {
-//            throw new MidExistException();
-//        }
+
         Member member = modelMapper.map(memberRegisterDTO, Member.class);
         member.changePassword(passwordEncoder.encode(memberRegisterDTO.getMpw()));
 
@@ -94,7 +90,7 @@ public class MemberServiceImpl implements MemberService{
             }
         } else dto = null;
         return dto;
-    } // dto에 mrole을 넣은 상태에서 entity->dto 변환입 ㅏㄹ생하니 -> 그 결과로 mrole의 값이 과연 보존이 되는가?
+    }
 
     @Override
     public MemberMyPageDTO myRead(String mid) {
@@ -182,7 +178,6 @@ public class MemberServiceImpl implements MemberService{
     }
 
     private BooleanBuilder getSearch(PageRequestDTO requestDTO){
-//        String type = requestDTO.getType();
 
         String keyword = requestDTO.getKeyword();
 

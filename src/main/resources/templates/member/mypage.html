@@ -4,7 +4,6 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
 
-        <!-- 사용자 CSS 추가 -->
         <style>
             .fieldError {
                 color: #bd2130;
@@ -29,7 +28,8 @@
                     </div>
                     <div class="form-group">
                         <label th:for="mpw">비밀번호</label>
-                        <input type="password" class="form-control w-75" th:field="*{mpw}" id="mpw" placeholder="8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요">
+                        <input type="password" class="form-control w-75" th:field="*{mpw}" id="mpw"
+                               placeholder="8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요">
                         <p th:if="${#fields.hasErrors('mpw')}" th:errors="*{mpw}" class="fieldError">Incorrect
                             data</p>
                     </div>
@@ -70,7 +70,7 @@
                     </div>
 
                     <span class="float-right">
-                    <button type="button" class="btn btn-info btn-icon-split p-2 pl-5 pr-5 modifyBtn" >수정</button>
+                    <button type="button" class="btn btn-info btn-icon-split p-2 pl-5 pr-5 modifyBtn">수정</button>
                     <button type="button" class="btn btn-primary btn-icon-split p-2 pl-5 pr-5 cancelBtn">취소</button>
                     </span>
                 </form>
@@ -78,9 +78,10 @@
         </div>
 
         <script th:inline="javascript">
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('#mpw').focus();
             });
+
             function validateForm() {
                 if ($("#mpw").val() !== $("#mrepw").val()) {
                     $('#pwHelper').text("입력하신 비밀번호가 서로 다릅니다.");
@@ -93,7 +94,7 @@
 
             var actionForm = $("form");
 
-            $(".modifyBtn").click(function(){
+            $(".modifyBtn").click(function () {
                 validateForm();
                 actionForm
                     .attr("action", "/member/mypage")
@@ -101,7 +102,7 @@
                     .submit();
             });
 
-            $(".cancelBtn").click(function(){
+            $(".cancelBtn").click(function () {
 
                 actionForm.empty();
                 actionForm

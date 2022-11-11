@@ -2,7 +2,6 @@ package com.toodari.beansbox.dto;
 
 import com.toodari.beansbox.entity.MemberRole;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
 import java.util.Set;

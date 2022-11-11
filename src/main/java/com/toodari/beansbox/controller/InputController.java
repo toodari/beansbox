@@ -44,22 +44,6 @@ public class InputController {
 
     }
 
-//    @PostMapping("/list")
-//    public String listPost(InputOrdersDTO inputOrdersDTO, @RequestParam List<Long> pnum, @RequestParam List<Long> pquantity,
-//                           RedirectAttributes redirectAttributes, Model model){
-//
-//        log.info("list post...");
-//        log.info(inputOrdersDTO);
-////        log.info(inputOrderDetailDTOList);
-//
-//        Long onum = inputService.register(inputOrdersDTO, pnum, pquantity);
-//
-//        redirectAttributes.addFlashAttribute("registered", onum);
-//
-//        return "redirect:/input/list";
-//    }
-
-
     @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/register")
     public void register(Authentication authentication, @RequestParam @ModelAttribute("checked") List<String> pnumList, Model model){
@@ -71,7 +55,6 @@ public class InputController {
         MemberModifyDTO memberModifyDTO = memberService.read(mid);
         Long mnum = memberModifyDTO.getMnum();
 
-        // O_CAT에 넣을 카테고리 값
         model.addAttribute("category", "input");
 
         model.addAttribute("mnumber", mnum);
@@ -85,7 +68,6 @@ public class InputController {
 
         log.info("list post...");
         log.info(ordersDTO);
-//        log.info(inputOrderDetailDTOList);
 
         Long onum = inputService.register(ordersDTO, pnum, pquantity);
 

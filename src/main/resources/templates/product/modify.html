@@ -2,135 +2,127 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <title>BeansBox - Product</title>
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
-  <th:block th:fragment="content">
+    <th:block th:fragment="content">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">제품 수정</h1>
-    <p class="mb-4">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">제품 수정</h1>
+        <p class="mb-4">
 
-    </p>
+        </p>
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <!-- Topbar Search -->
-        <h3 class="text-gray-800 align-items-center mt-2" >제품 정보
-          <!--제품 추가 버튼(오른쪽 정렬)-->
-          <!--          <div class="d-sm-flex align-items-center justify-content-between float-right">-->
-          <!--            <button type="reset" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" form="modForm">초기화</button>-->
-          <!--          </div>-->
-        </h3>
-      </div>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <!-- Topbar Search -->
+                <h3 class="text-gray-800 align-items-center mt-2">제품 정보</h3>
+            </div>
 
-      <div class="card-body">
-        <form th:action="@{/product/modify}" th:method="post" th:onsubmit="return Validation()">
-          <input type="hidden"  name="pnum" th:value="${dto.pnum}">
-          <input type="hidden" name="imageDTOList[0].imgname" th:value="${dto.imageDTOList[0].imgname}">
-          <input type="hidden" name="imageDTOList[0].imgpath" th:value="${dto.imageDTOList[0].imgpath}">
-          <input type="hidden" name="imageDTOList[0].imguuid" th:value="${dto.imageDTOList[0].imguuid}">
-          <!--<input type="hidden"  name="page" th:value="${requestDTO.page}">
-          <input type="hidden"  name="type" th:value="${requestDTO.type}">
-          <input type="hidden"  name="keyword" th:value="${#requestDTO.keyword}">-->
-          <div class="form-group">
-            <label>제품명</label>
-            <input type="text" class="form-control w-50" name="pname" id="pname" th:value="${dto.pname}">
-          </div>
-          <div class="form-group">
-            <label>분류</label>
-            <input type="text" class="form-control w-50" name="pcat" id="pcat" th:value="${dto.pcat}">
-          </div>
-          <div class="form-group">
-            <label>구매가</label>
-            <input type="text" class="form-control w-50" name="pcost" id="pcost" th:value="${dto.pcost}">
-          </div>
-          <div class="form-group">
-            <label>판매가</label>
-            <input type="text" class="form-control w-50" name="pprice" id="pprice" th:value="${dto.pprice}">
-          </div>
+            <div class="card-body">
+                <form th:action="@{/product/modify}" th:method="post" th:onsubmit="return Validation()">
+                    <input type="hidden" name="pnum" th:value="${dto.pnum}">
+                    <input type="hidden" name="imageDTOList[0].imgname" th:value="${dto.imageDTOList[0].imgname}">
+                    <input type="hidden" name="imageDTOList[0].imgpath" th:value="${dto.imageDTOList[0].imgpath}">
+                    <input type="hidden" name="imageDTOList[0].imguuid" th:value="${dto.imageDTOList[0].imguuid}">
 
-          <button type="submit" class="btn btn-info btn-icon-split w-10">
-            <span class="text">수정</span>
-          </button>
+                    <div class="form-group">
+                        <label>제품명</label>
+                        <input type="text" class="form-control w-50" name="pname" id="pname" th:value="${dto.pname}">
+                    </div>
+                    <div class="form-group">
+                        <label>분류</label>
+                        <input type="text" class="form-control w-50" name="pcat" id="pcat" th:value="${dto.pcat}">
+                    </div>
+                    <div class="form-group">
+                        <label>구매가</label>
+                        <input type="text" class="form-control w-50" name="pcost" id="pcost" th:value="${dto.pcost}">
+                    </div>
+                    <div class="form-group">
+                        <label>판매가</label>
+                        <input type="text" class="form-control w-50" name="pprice" id="pprice" th:value="${dto.pprice}">
+                    </div>
 
-          <button type="button" onclick="history.back()" class="btn btn-primary btn-icon-split w-10">
-            <span class="text">취소</span>
-          </button>
-        </form>
-      </div>
-    </div>
+                    <button type="submit" class="btn btn-info btn-icon-split w-10">
+                        <span class="text">수정</span>
+                    </button>
 
-    <script th:inline="javascript">
+                    <button type="button" onclick="history.back()" class="btn btn-primary btn-icon-split w-10">
+                        <span class="text">취소</span>
+                    </button>
+                </form>
+            </div>
+        </div>
 
-      //유효성 검사
-      function Validation(){
-        var RegExp = /^[a-zA-Z0-9가-힣\(\)]{1,20}$/;
-        var RegExp3 = /^[0-9]{0,20}$/;
+        <script th:inline="javascript">
 
-        var objPname = document.getElementById("pname");
-        var objPcat = document.getElementById("pcat");
-        var objPcost = document.getElementById("pcost");
-        var objPprice = document.getElementById("pprice");
+            function Validation() {
+                var RegExp = /^[a-zA-Z0-9가-힣\(\)]{1,20}$/;
+                var RegExp3 = /^[0-9]{0,20}$/;
 
-        if(objPname.value == ''){
-          alert("제품명을 입력하세요");
-          return false;
-        }
-        if(!RegExp.test(objPname.value)){
-          alert("제품명은 한글, 영문 대소문자, 숫자를 사용하여 20자 이내로 작성해 주세요")
-          return false;
-        }
-        if(objPcat.value == ''){
-          alert("분류를 입력하세요");
-          return false;
-        }
-        if(!RegExp.test(objPcat.value)){
-          alert("분류는 한글, 영문 대소문자, 숫자를 사용하여 20자 이내로 작성해 주세요")
-          return false;
-        }
-        if(!RegExp3.test(objPcost.value)){
-          alert("구매가는 20자 이내의 숫자만 입력 가능합니다")
-          return false;
-        }
-        if(!RegExp3.test(objPprice.value)){
-          alert("판매가는 20자 이내의 숫자만 입력 가능합니다")
-          return false;
-        }
-      }
+                var objPname = document.getElementById("pname");
+                var objPcat = document.getElementById("pcat");
+                var objPcost = document.getElementById("pcost");
+                var objPprice = document.getElementById("pprice");
 
-      var msg = [[${msg}]];
+                if (objPname.value == '') {
+                    alert("제품명을 입력하세요");
+                    return false;
+                }
+                if (!RegExp.test(objPname.value)) {
+                    alert("제품명은 한글, 영문 대소문자, 숫자를 사용하여 20자 이내로 작성해 주세요")
+                    return false;
+                }
+                if (objPcat.value == '') {
+                    alert("분류를 입력하세요");
+                    return false;
+                }
+                if (!RegExp.test(objPcat.value)) {
+                    alert("분류는 한글, 영문 대소문자, 숫자를 사용하여 20자 이내로 작성해 주세요")
+                    return false;
+                }
+                if (!RegExp3.test(objPcost.value)) {
+                    alert("구매가는 20자 이내의 숫자만 입력 가능합니다")
+                    return false;
+                }
+                if (!RegExp3.test(objPprice.value)) {
+                    alert("판매가는 20자 이내의 숫자만 입력 가능합니다")
+                    return false;
+                }
+            }
 
-      console.log(msg);
+            var msg = [[${msg}]];
 
-      if(msg){
-        $(".modal").modal();
-      }
+            console.log(msg);
 
-      var searchForm = $("#searchForm");
+            if (msg) {
+                $(".modal").modal();
+            }
 
-      $('.btn-search').click(function (e){
+            var searchForm = $("#searchForm");
 
-        searchForm.submit();
-      });
+            $('.btn-search').click(function (e) {
+
+                searchForm.submit();
+            });
 
 
-      $('.btn-clear').click(function (e){
+            $('.btn-clear').click(function (e) {
 
-        searchForm.empty().submit();
+                searchForm.empty().submit();
 
-      });
-    </script>
+            });
+        </script>
 
-    <script th:inline="javascript">
+        <script th:inline="javascript">
 
-      var resetForm = $("#resetForm");
+            var resetForm = $("#resetForm");
 
-      $('.btn-clear').click(function (e){
+            $('.btn-clear').click(function (e) {
 
-        resetForm.empty().submit();
+                resetForm.empty().submit();
 
-      });
-    </script>
+            });
+        </script>
 
-  </th:block>
+    </th:block>
 </th:block>
 </html>

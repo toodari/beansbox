@@ -72,7 +72,6 @@ public class MemberController {
 
         if(errors.hasErrors()) {
             log.info(errors);
-//            model.addAttribute("memberRegisterDTO", memberRegisterDTO);
             Map<String, String> validatorResult = memberService.validateHandling(errors);
             for(String key: validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
@@ -164,10 +163,4 @@ public class MemberController {
         redirectAttributes.addFlashAttribute("deleted", "deleted");
         return "redirect:/member/list";
     }
-
-//    @PreAuthorize("hasRole('EMPLOYEE')")
-//    @GetMapping("/403")
-//    public void accessDenied(){
-//        log.info("accessDenied...");
-//    }
 }

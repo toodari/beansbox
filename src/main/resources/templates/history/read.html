@@ -22,6 +22,7 @@
           <h5><span>담당자 : </span>[[${pic}]]</h5>
           <h5><span>처리날짜 : </span><span th:text="${#temporals.format(regdate, 'yyyy-MM-dd HH:mm')}"></span></h5>
         </h6>
+
       </div>
 
       <div class="card-body">
@@ -40,14 +41,12 @@
             <tr th:each="dto : ${resultSet}">
 
               <th scope="row" th:if="${dto.pactive == 0}" style="color: #be2617">
-                [[${dto.pname}]] (삭제된 상품)
-<!--                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"-->
-<!--                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">-->
+                [[${dto.pname}]] (삭제된 제품)
+
               </th>
               <th scope="row" th:if="${dto.pactive == 1}">
                 [[${dto.pname}]]
-                <!--                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"-->
-                <!--                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">-->
+
               </th>
               <td>[[${dto.pcost}]]</td>
               <td>[[${dto.pprice}]]</td>
@@ -56,6 +55,10 @@
 
             </tbody>
           </table>
+
+          <a th:href="@{/history/list}" class="btn btn-primary btn-icon-split col-1 offset-11">
+            <span class="text">돌아가기</span>
+          </a>
 
         </div>
       </div>

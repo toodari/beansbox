@@ -14,7 +14,6 @@ public interface MemberService {
     PageResultDTO<MemberRegisterDTO, Member> getList(PageRequestDTO requestDTO);
 
     void register(MemberRegisterDTO memberRegisterDTO);
-//    void register(MemberRegisterDTO memberRegisterDTO) throws MidExistException;
 
     void modify(MemberModifyDTO memberModifyDTO);
 

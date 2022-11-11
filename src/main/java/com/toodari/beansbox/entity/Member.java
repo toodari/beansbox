@@ -2,7 +2,6 @@ package com.toodari.beansbox.entity;
 
 import com.toodari.beansbox.dto.MemberModifyDTO;
 import com.toodari.beansbox.dto.MemberMyPageDTO;
-import com.toodari.beansbox.dto.MemberRegisterDTO;
 import lombok.*;
 
 import javax.persistence.*;

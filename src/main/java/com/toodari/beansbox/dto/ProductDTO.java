@@ -1,6 +1,5 @@
 package com.toodari.beansbox.dto;
 
-import com.toodari.beansbox.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

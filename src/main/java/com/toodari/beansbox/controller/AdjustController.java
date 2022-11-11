@@ -67,7 +67,6 @@ public class AdjustController {
 
         log.info("list post...");
         log.info(adjustOrdersDTO);
-//        log.info(inputOrderDetailDTOList);
 
         Long onum = adjustService.register(adjustOrdersDTO, pnum, pquantity);
 

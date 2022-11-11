@@ -4,7 +4,6 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.toodari.beansbox.dto.MemberModifyDTO;
 import com.toodari.beansbox.dto.MemberMyPageDTO;
-import com.toodari.beansbox.dto.MemberRegisterDTO;
 import com.toodari.beansbox.entity.Member;
 import com.toodari.beansbox.entity.MemberRole;
 
@@ -21,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.sql.SQLOutput;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -43,24 +41,24 @@ public class MemberRepositoryTests {
     private ModelMapper modelMapper;
 
     @Test
-    public void insertMembers(){
-        IntStream.rangeClosed(10,99).forEach(i -> {
+    public void insertMembers() {
+        IntStream.rangeClosed(10, 99).forEach(i -> {
             Member member = Member.builder()
-                    .mid("member"+i)
+                    .mid("member" + i)
                     .mpw(passwordEncoder.encode("mitPass123!"))
-                    .mname("직원"+i)
-                    .mphone("010123456"+i)
-                    .myear(1900+(long)i)
-                    .mmonth((long)i%12+1)
-                    .mday((long)i%30+1)
+                    .mname("직원" + i)
+                    .mphone("010123456" + i)
+                    .myear(1900 + (long) i)
+                    .mmonth((long) i % 12 + 1)
+                    .mday((long) i % 30 + 1)
                     .build();
 
             member.addMemberRole(EMPLOYEE);
 
-            if(i<=19){
+            if (i <= 19) {
                 member.addMemberRole(MANAGER);
             }
-            if(i<=13){
+            if (i <= 13) {
                 member.addMemberRole(MemberRole.OWNER);
             }
             memberRepository.save(member);
@@ -69,7 +67,7 @@ public class MemberRepositoryTests {
     }
 
     @Test
-    public void testRead(){
+    public void testRead() {
         Optional<Member> result = memberRepository.getWithRoles("member9");
 
         Member member = result.orElseThrow();
@@ -81,26 +79,25 @@ public class MemberRepositoryTests {
     }
 
     @Test
-    public void testGetWithRoles(){
+    public void testGetWithRoles() {
         String mid = "member99";
         Optional<Member> member = memberRepository.getWithRoles(mid);
         System.out.println("-----------------------------------");
         System.out.println(member);
 
 
-
         MemberMyPageDTO dto = modelMapper.map(member.get(), MemberMyPageDTO.class);
         System.out.println("-----------------------------------");
         System.out.println(dto);
 
-        if(member.isPresent()){
-            if(member.get().getRoleSet().size() == 1) {
+        if (member.isPresent()) {
+            if (member.get().getRoleSet().size() == 1) {
                 dto.setMrole("EMPLOYEE");
             }
-            if(member.get().getRoleSet().size() == 2) {
+            if (member.get().getRoleSet().size() == 2) {
                 dto.setMrole("MANAGER");
             }
-            if(member.get().getRoleSet().size() == 3) {
+            if (member.get().getRoleSet().size() == 3) {
                 dto.setMrole("OWNER");
             }
         } else dto = null;
@@ -110,8 +107,8 @@ public class MemberRepositoryTests {
     }
 
     @Test
-    public void testQuery1(){
-        Pageable pageable = PageRequest.of(0,10, Sort.by("mnum").descending());
+    public void testQuery1() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("mnum").descending());
 
         QMember qmember = QMember.member;
 
@@ -132,7 +129,7 @@ public class MemberRepositoryTests {
     }
 
     @Test
-    public void testModify(){
+    public void testModify() {
         MemberModifyDTO memberModifyDTO = new MemberModifyDTO();
         memberModifyDTO.setMname("수정테스트");
         memberModifyDTO.setMphone("01011112222");
@@ -145,7 +142,7 @@ public class MemberRepositoryTests {
         memberModifyDTO.setRoleSet(roleSet);
 
         Optional<Member> result = memberRepository.getWithRoles("member8");
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             Member member = result.get();
             member.changeMember(memberModifyDTO);
             memberRepository.save(member);

@@ -10,14 +10,13 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@MappedSuperclass // 테이블로 생성되지 않는다.
+@MappedSuperclass
 @EntityListeners(value = {AuditingEntityListener.class})
-// JPA 내부에서 객체가 생성/변경되는 것을 감시한다.
 @Getter
 abstract class BaseEntity {
 
     @CreatedDate
-    @Column(name = "regdate", updatable = false) // 수정x
+    @Column(name = "regdate", updatable = false)
     private LocalDateTime regDate;
 
     @LastModifiedDate
@@ -25,5 +24,3 @@ abstract class BaseEntity {
     private LocalDateTime modDate;
 
 }
-
-// 코드로 배우는 스프링부트 프로젝트 133p 참고

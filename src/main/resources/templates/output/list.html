@@ -2,170 +2,162 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <title>BeansBox - Output</title>
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
-  <th:block th:fragment="content">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">출고 - 품목 선택</h1>
-    <p class="mb-4">
+    <th:block th:fragment="content">
 
-    </p>
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">출고 - 품목 선택</h1>
+        <p class="mb-4">
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary align-items-center">
+        </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary align-items-center">
 
 
-          <!-- Topbar Search -->
-          <form action="/output/list" method="get" id="searchForm"
-                class="d-none d-sm-inline-block form-inline mr-5  my-2 my-md-0 mw-100 navbar-search ">
-            <div class="input-group">
-              <input type="hidden" name="page" value="1">
-              <div class="input-group-prepend">
-                <select name="type" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm h-100">
-                  <option value="nc" th:selected="${pageRequestDTO.type == 'nc'}">전체</option>
-                  <option value="n" th:selected="${pageRequestDTO.type == 'n'}">제품명</option>
-                  <option value="c" th:selected="${pageRequestDTO.type == 'c'}">분류</option>
-                </select>
-              </div>
-              &nbsp;&nbsp;&nbsp;
-              <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" class="form-control bg-light border-0 small" placeholder="검색어를 입력하세요"
-                     aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append" id="button-addon">
-                <button type="button" class="btn btn-search btn-primary" >
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
+                    <!-- Topbar Search -->
+                    <form action="/output/list" method="get" id="searchForm"
+                          class="d-none d-sm-inline-block form-inline mr-5  my-2 my-md-0 mw-100 navbar-search ">
+                        <div class="input-group">
+                            <input type="hidden" name="page" value="1">
+                            <div class="input-group-prepend">
+                                <select name="type" aria-controls="dataTable"
+                                        class="custom-select custom-select-sm form-control form-control-sm h-100">
+                                    <option value="nc" th:selected="${pageRequestDTO.type == 'nc'}">전체</option>
+                                    <option value="n" th:selected="${pageRequestDTO.type == 'n'}">제품명</option>
+                                    <option value="c" th:selected="${pageRequestDTO.type == 'c'}">분류</option>
+                                </select>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}"
+                                   class="form-control bg-light border-0 small" placeholder="검색어를 입력하세요"
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append" id="button-addon">
+                                <button type="button" class="btn btn-search btn-primary">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
 
-                <button type="button" class="btn btn-clear btn-primary btn-icon-split">
+                                <button type="button" class="btn btn-clear btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fa fa-undo" aria-hidden="true"></i>
                                         </span>
-                </button>
-              </div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!--제품 추가 버튼-->
+                    <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm outputBtn"><i
+                                class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가
+                        </button>
+                    </div>
+                </h6>
             </div>
-          </form>
 
-          <!--제품 추가 버튼(오른쪽 정렬)-->
-          <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
-            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm outputBtn" ><i
-                    class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</button>
-          </div>
-        </h6>
-      </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <form action="/output/register" method="get" id="outputForm">
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>체크박스</th>
+                                <th>제품사진</th>
+                                <th>제품명</th>
+                                <th>분류</th>
+                                <th>수량</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-      <div class="card-body">
-        <div class="table-responsive">
-          <form action="/output/register" method="get" id="outputForm">
-          <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
-            <thead>
-            <tr>
-              <th>체크박스</th>
-              <th>제품사진</th>
-              <th>제품명</th>
-              <th>분류</th>
-              <th>수량</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="dto : ${result.dtoList}">
-              <th scope="row"><input type="checkbox" th:name="pnumList" th:value="${dto.pnum}"></th>
-              <td>
-                  <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
-                       th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
-              </td>
-                <td>[[${dto.pname}]]</td>
-                <td>[[${dto.pcat}]]</td>
-                <td>[[${dto.pquantity}]]</td>
-            </tr>
-            </tbody>
-          </table>
-
-
-          </form>
+                            <tr th:each="dto : ${result.dtoList}">
+                                <th scope="row"><input type="checkbox" th:name="pnumList" th:value="${dto.pnum}"></th>
+                                <td>
+                                    <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
+                                         th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
+                                </td>
+                                <td>[[${dto.pname}]]</td>
+                                <td>[[${dto.pcat}]]</td>
+                                <td>[[${dto.pquantity}]]</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
 
-
-
-
-
-
-    <!-- Register Modal-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true" id="registeredModal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">출고가 완료되었습니다.</div>
-          <div class="modal-footer">
-            <a class="btn btn-info" style="margin-right: 312px" th:href="@{/product/list}">제품목록</a>
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">확인</button>
-          </div>
+        <!-- Register Modal-->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true" id="registeredModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">BeansBox</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">출고가 완료되었습니다.</div>
+                    <div class="modal-footer">
+                        <a class="btn btn-info" style="margin-right: 312px" th:href="@{/product/list}">제품목록</a>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">확인</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
 
+        <script th:inline="javascript">
+
+            var searchForm = $("#searchForm");
+            var actionForm = $("#outputForm");
+            var registered = [[${registered}]];
+
+            console.log(registered);
+
+            if (registered) {
+                $("#registeredModal").modal();
+            }
+
+            $('.btn-search').click(function (e) {
+
+                searchForm.submit();
+            });
 
 
+            $('.btn-clear').click(function (e) {
+
+                searchForm.empty().submit();
+
+            });
+
+            $(".outputBtn").click(function () {
+
+                var chk = false;
+                for (var i = 0; i < outputForm.pnumList.length; i++) {
+                    if (outputForm.pnumList[i].checked) {
+                        chk = true;
+                        break;
+                    }
+                }
+
+                if (!chk) {
+                    alert("품목을 선택해 주세요.");
+                    return false;
+                }
+
+                actionForm
+                    .attr("action", "/output/register")
+                    .attr("method", "get")
+                    .submit();
+            });
+        </script>
 
 
-    <script th:inline="javascript">
-
-      var searchForm = $("#searchForm");
-      var actionForm = $("#outputForm");
-      var registered = [[${registered}]];
-
-      console.log(registered);
-
-      if (registered) {
-        $("#registeredModal").modal();
-      }
-
-      $('.btn-search').click(function (e) {
-
-        searchForm.submit();
-      });
-
-
-      $('.btn-clear').click(function (e) {
-
-        searchForm.empty().submit();
-
-      });
-
-      $(".outputBtn").click(function(){
-
-        var chk = false;
-        for(var i=0; i<outputForm.pnumList.length; i++) {
-          if(outputForm.pnumList[i].checked) {
-            chk = true;
-            break;
-          }
-        }
-
-        if(!chk) {
-          alert("품목을 선택해 주세요.");
-          return false;
-        }
-
-        actionForm
-                .attr("action", "/output/register")
-                .attr("method", "get")
-                .submit();
-      });
-    </script>
-
-
-
-  </th:block>
+    </th:block>
 </th:block>
 
 </html>

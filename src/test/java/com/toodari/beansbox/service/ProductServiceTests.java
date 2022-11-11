@@ -20,41 +20,41 @@ public class ProductServiceTests {
     private ProductService service;
 
     @Test
-    public void testRegister(){
-        IntStream.rangeClosed(1,100).forEach(i -> {
-        ProductImageDTO productImageDTO1 = ProductImageDTO.builder()
-                .imguuid(UUID.randomUUID().toString())
-                .imgpath("C:\\Users\\mit\\Desktop")
-                .imgname("hodoo.jpg")
-                .build();
+    public void testRegister() {
+        IntStream.rangeClosed(1, 100).forEach(i -> {
+            ProductImageDTO productImageDTO1 = ProductImageDTO.builder()
+                    .imguuid(UUID.randomUUID().toString())
+                    .imgpath("C:\\Users\\mit\\Desktop")
+                    .imgname("hodoo.jpg")
+                    .build();
 //        ProductImageDTO productImageDTO2 = ProductImageDTO.builder()
 //                .imguuid(UUID.randomUUID().toString())
 //                .imgpath("C:\\Users\\mit\\Desktop")
 //                .imgname("dew.jpg")
 //                .build();
 
-        List<ProductImageDTO> productImageDTOList = new ArrayList<>();
+            List<ProductImageDTO> productImageDTOList = new ArrayList<>();
 
-        productImageDTOList.add(productImageDTO1);
+            productImageDTOList.add(productImageDTO1);
 //        productImageDTOList.add(productImageDTO2);
 
-        ProductDTO productDTO = ProductDTO.builder()
-                .pname("Sample Name..." + i)
-                .pcat("Sample Category..." + i)
-                .pquantity(100L)
-                .pcost(1000L)
-                .pprice(10000L)
-                .pactive(1)
-                .imageDTOList(productImageDTOList)
-                .build();
+            ProductDTO productDTO = ProductDTO.builder()
+                    .pname("Sample Name..." + i)
+                    .pcat("Sample Category..." + i)
+                    .pquantity(100L)
+                    .pcost(1000L)
+                    .pprice(10000L)
+                    .pactive(1)
+                    .imageDTOList(productImageDTOList)
+                    .build();
 
-        System.out.println(service.register(productDTO));
+            System.out.println(service.register(productDTO));
         });
 
     }
 
     @Test
-    public void testList(){
+    public void testList() {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
@@ -68,7 +68,7 @@ public class ProductServiceTests {
 
         System.out.println("----------------------------------------------------------");
 
-        for(ProductDTO productDTO : resultDTO.getDtoList()){
+        for (ProductDTO productDTO : resultDTO.getDtoList()) {
             System.out.println(productDTO);
         }
 
@@ -77,13 +77,14 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void testRead(){
+    public void testRead() {
         ProductDTO productDTO = service.read(108L);
         System.out.println(productDTO);
 
     }
+
     @Test
-    public void testModify(){
+    public void testModify() {
         ProductDTO productDTO = ProductDTO.builder()
                 .pnum(108L)
                 .pname("영광아밥먹자")
@@ -102,14 +103,14 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void testDelete(){
+    public void testDelete() {
 
         service.remove(109L);
 
     }
 
     @Test
-    public void testCopy(){
+    public void testCopy() {
         ProductDTO productDTO = ProductDTO.builder()
                 .pname("Sample Name...")
                 .pcat("Sample Category...")
@@ -123,7 +124,7 @@ public class ProductServiceTests {
     }
 
     @Test
-    public  void testSearch(){
+    public void testSearch() {
 
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
@@ -140,7 +141,7 @@ public class ProductServiceTests {
 
         System.out.println("----------------------------------------------------------");
 
-        for(ProductDTO productDTO : resultDTO.getDtoList()) {
+        for (ProductDTO productDTO : resultDTO.getDtoList()) {
             System.out.println(productDTO);
         }
 

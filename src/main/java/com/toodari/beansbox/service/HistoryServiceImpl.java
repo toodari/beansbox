@@ -7,8 +7,6 @@ import com.toodari.beansbox.repository.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +53,6 @@ public class HistoryServiceImpl implements HistoryService {
             Member member = (Member) result.get(0)[1];
             Long odcount = (Long) result.get(0)[2];
 
-            // odcount는 실제 사용되지 않는 변수 (메서드 오버로딩으로 orders, member만 받는 메서드 작성 요망)
             return entitiesToDTO(orders, member, odcount);
     }
 

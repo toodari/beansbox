@@ -57,7 +57,6 @@ public class OutputController {
         MemberModifyDTO memberModifyDTO = memberService.read(mid);
         Long mnum = memberModifyDTO.getMnum();
 
-        // O_CAT에 넣을 카테고리 값
         model.addAttribute("category", "output");
 
         model.addAttribute("mnumber", mnum);
@@ -71,7 +70,6 @@ public class OutputController {
 
         log.info("list post...");
         log.info(ordersDTO);
-//        log.info(inputOrderDetailDTOList);
 
         Long onum = outputService.register(ordersDTO, pnum, pquantity);
 

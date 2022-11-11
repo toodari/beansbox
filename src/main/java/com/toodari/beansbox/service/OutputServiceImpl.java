@@ -28,7 +28,6 @@ import java.util.function.Function;
 public class OutputServiceImpl implements OutputService {
 
     private final ProductRepository productRepository;
-    private final MemberRepository memberRepository;
     private final OrdersRepository ordersRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final ModelMapper modelMapper;

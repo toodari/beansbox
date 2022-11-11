@@ -20,9 +20,9 @@ public class MemberServiceTests {
 
         PageResultDTO<MemberRegisterDTO, Member> resultDTO = memberService.getList(pageRequestDTO);
 
-        System.out.println("PREV: "+resultDTO.isPrev());
-        System.out.println("NEXT: "+resultDTO.isNext());
-        System.out.println("TOTAL: "+resultDTO.getTotalPage());
+        System.out.println("PREV: " + resultDTO.isPrev());
+        System.out.println("NEXT: " + resultDTO.isNext());
+        System.out.println("TOTAL: " + resultDTO.getTotalPage());
         System.out.println("---------------------------------------");
 
         for (MemberRegisterDTO memberRegisterDTO : resultDTO.getDtoList()) {
@@ -35,7 +35,7 @@ public class MemberServiceTests {
     }
 
     @Test
-    public void testSearch(){
+    public void testSearch() {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
@@ -44,9 +44,9 @@ public class MemberServiceTests {
 
         PageResultDTO<MemberRegisterDTO, Member> resultDTO = memberService.getList(pageRequestDTO);
 
-        System.out.println("PREV: "+resultDTO.isPrev());
-        System.out.println("NEXT: "+resultDTO.isNext());
-        System.out.println("TOTAL: "+resultDTO.getTotalPage());
+        System.out.println("PREV: " + resultDTO.isPrev());
+        System.out.println("NEXT: " + resultDTO.isNext());
+        System.out.println("TOTAL: " + resultDTO.getTotalPage());
         System.out.println("---------------------------------------");
 
         for (MemberRegisterDTO memberRegisterDTO : resultDTO.getDtoList()) {
@@ -58,7 +58,7 @@ public class MemberServiceTests {
     }
 
     @Test
-    public void testMyRead(){
+    public void testMyRead() {
 
     }
 }

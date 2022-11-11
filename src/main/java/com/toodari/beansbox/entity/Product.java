@@ -2,9 +2,6 @@ package com.toodari.beansbox.entity;
 
 import com.toodari.beansbox.dto.ProductDTO;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-
 import javax.persistence.*;
 
 @Entity

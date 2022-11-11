@@ -12,12 +12,12 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import java.util.List;
 
 public interface OrdersRepository extends JpaRepository<Orders, Long>, QuerydslPredicateExecutor<Product>, SearchProductRepository {
-    // 목록 처리
+
     @Query(value = "SELECT o, m, count(d) FROM Orders o LEFT JOIN o.member m LEFT JOIN OrderDetail d ON d.orders = o GROUP BY o",
             countQuery = "SELECT count (o) FROM Orders o")
     Page<Object[]> getHistoryWithMember(Pageable pageable);
 
-    // 조회 처리
+
     @Query("SELECT o, m, count(d) FROM Orders o LEFT JOIN o.member m LEFT JOIN OrderDetail d ON d.orders = o " +
             "where o.onum = :onum group by d")
     List<Object[]> getHistoryByOnum(Long onum);

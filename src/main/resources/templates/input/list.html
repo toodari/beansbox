@@ -3,6 +3,7 @@
 <title>BeansBox - Input</title>
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
+
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">입고 - 품목 선택</h1>
         <p class="mb-4">
@@ -44,16 +45,14 @@
                             </div>
                         </div>
                     </form>
-            <!--제품 추가 버튼(오른쪽 정렬)-->
 
+            <!--제품 추가 버튼-->
                     <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right">
                         <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm inputBtn" ><i
                                 class="fas fa fa-plus fa-sm text-white-50"></i> 품목 추가</button>
                     </div>
                 </h6>
             </div>
-
-
 
                 <div class="card-body">
                     <div class="table-responsive">
@@ -71,7 +70,7 @@
                             <tbody>
 
                             <tr th:each="dto : ${result.dtoList}">
-<!--                                field="*{dto.pnum}"-->
+
                                 <th scope="row"><input type="checkbox" th:name="pnumList" th:value="${dto.pnum}" th:id="pnumList"></th>
                                 <td>
                                     <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
@@ -156,12 +155,7 @@
                     .submit();
             });
 
-
-
-
         </script>
-
-
 
     </th:block>
 </th:block>

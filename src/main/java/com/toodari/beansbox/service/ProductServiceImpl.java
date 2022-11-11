@@ -1,29 +1,21 @@
 package com.toodari.beansbox.service;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.toodari.beansbox.dto.PageRequestDTO;
 import com.toodari.beansbox.dto.PageResultDTO;
 import com.toodari.beansbox.dto.ProductDTO;
 import com.toodari.beansbox.entity.Product;
 import com.toodari.beansbox.entity.ProductImage;
-import com.toodari.beansbox.entity.QProduct;
-import com.toodari.beansbox.repository.OrderDetailRepository;
 import com.toodari.beansbox.repository.ProductImageRepository;
 import com.toodari.beansbox.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.IntStream;
 
 @Service
 @Log4j2
@@ -50,20 +42,6 @@ public class ProductServiceImpl implements ProductService{
 
         return product.getPnum();
     }
-
-//    @Override
-//    public PageResultDTO<ProductDTO, Product> getList(PageRequestDTO requestDTO){
-//
-//        Pageable pageable = requestDTO.getPageable(Sort.by("pnum").descending());
-//
-//        BooleanBuilder booleanBuilder = getSearch(requestDTO);
-//
-//        Page<Product> result = productRepository.findAll(booleanBuilder, pageable);
-//
-//        Function<Product, ProductDTO> fn = (product -> modelMapper.map(product, ProductDTO.class));
-//
-//        return new PageResultDTO<>(result, fn);
-//    }
 
     @Override
     public PageResultDTO<ProductDTO, Object[]> getList(PageRequestDTO requestDTO){
@@ -112,13 +90,6 @@ public class ProductServiceImpl implements ProductService{
         });
 
         product.changeProduct(dto);
-//        IntStream.rangeClosed(0, productImageList.size()).forEach(i -> {
-//            productImageList.get(i).changeProductImage(dto.getImageDTOList().get(i));
-//        });
-
-//        Map<String, Object> entityMap = dtoToEntity(dto);
-//        Product product = (Product) entityMap.get("product");
-//        List<ProductImage> productImageList = (List<ProductImage>) entityMap.get("imgList");
 
         productRepository.save(product);
         productImageList.forEach(productImage -> {
@@ -153,46 +124,11 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void removeWithImages(Long pnum) {
 
-//        imageRepository.deleteByPnum(pnum); // 이미지를 삭제한다.
-        // 상품을 비활성화 상태로 전환
         List<Object[]> result = productRepository.getProductWithImage(pnum);
         Product product = (Product) result.get(0)[0];
         product.changeActive(0);
         productRepository.save(product);
 
     }
-
-//    private BooleanBuilder getSearch(PageRequestDTO requestDTO){
-//
-//        String type = requestDTO.getType();
-//
-//        BooleanBuilder booleanBuilder = new BooleanBuilder();
-//
-//        QProduct qProduct = QProduct.product;
-//
-//        String keyword = requestDTO.getKeyword();
-//
-//        BooleanExpression expression = qProduct.pnum.gt(0L);
-//
-//        booleanBuilder.and(expression);
-//
-//        if(type == null || type.trim().length() == 0){
-//            return booleanBuilder;
-//        }
-//
-//        BooleanBuilder conditionBuilder = new BooleanBuilder();
-//
-//        if(type.contains("n")){
-//            conditionBuilder.or(qProduct.pname.contains(keyword));
-//        }
-//        if(type.contains("c")){
-//            conditionBuilder.or(qProduct.pcat.contains(keyword));
-//        }
-//
-//        booleanBuilder.and(conditionBuilder);
-//
-//        return booleanBuilder;
-
-//    }
 
 }

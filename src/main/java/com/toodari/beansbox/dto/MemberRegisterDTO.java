@@ -25,7 +25,6 @@ public class MemberRegisterDTO {
 
     @NotBlank(message = "휴대폰 번호는 필수 입력 값입니다.")
     @Pattern(regexp = "^010([0-9]{4})([0-9]{4})$", message = "올바른 휴대폰 번호를 입력해 주세요.")
-//    @Pattern(regexp = "^\\d{3}\\d{3,4}\\d{4}$", message = "올바른 휴대폰 번호를 입력해 주세요.")
     private String mphone;
 
     private String mrole;

@@ -3,6 +3,7 @@
 <title>BeansBox - Product</title>
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
+
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">제품 목록</h1>
         <p class="mb-4">
@@ -14,24 +15,25 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary align-items-center">
 
-
                     <!-- Topbar Search -->
                     <form action="/product/list" method="get" id="searchForm"
                           class="d-none d-sm-inline-block form-inline mr-5  my-2 my-md-0 mw-100 navbar-search ">
                         <div class="input-group">
                             <input type="hidden" name="page" value="1">
                             <div class="input-group-prepend">
-                                <select name="type" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm h-100">
+                                <select name="type" aria-controls="dataTable"
+                                        class="custom-select custom-select-sm form-control form-control-sm h-100">
                                     <option value="nc" th:selected="${pageRequestDTO.type == 'nc'}">전체</option>
                                     <option value="n" th:selected="${pageRequestDTO.type == 'n'}">제품명</option>
                                     <option value="c" th:selected="${pageRequestDTO.type == 'c'}">분류</option>
                                 </select>
                             </div>
                             &nbsp;&nbsp;&nbsp;
-                            <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" class="form-control bg-light border-0 small" placeholder="검색어를 입력하세요"
+                            <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}"
+                                   class="form-control bg-light border-0 small" placeholder="검색어를 입력하세요"
                                    aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append" id="button-addon">
-                                <button type="button" class="btn btn-search btn-primary" >
+                                <button type="button" class="btn btn-search btn-primary">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
 
@@ -43,16 +45,19 @@
                             </div>
                         </div>
                     </form>
-                    <!--제품 추가 버튼(오른쪽 정렬)-->
-                    <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right" sec:authorize="hasRole('ROLE_MANAGER')">
-                        <a th:href="@{/product/register}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+
+                    <!--제품 추가 버튼-->
+                    <div class="d-sm-flex align-items-center justify-content-between mt-1 float-right"
+                         sec:authorize="hasRole('ROLE_MANAGER')">
+                        <a th:href="@{/product/register}"
+                           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa fa-plus fa-sm text-white-50"></i> 제품 추가</a>
                     </div>
                 </h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>제품사진</th>
@@ -74,7 +79,7 @@
                              keyword= ${pageRequestDTO.keyword})}">
 
                                     <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].imgpath != null }"
-                                         th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
+                                         th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|">
                                 </a>
                             </th>
 
@@ -125,14 +130,9 @@
             </div>
         </div>
 
-
-
-
-
-
-
         <!-- Register Modal-->
-        <div class="registeredModal modal fade" tabindex="-1" role="dialog" id="registeredModal" aria-labelledby="exampleModalLabel"
+        <div class="registeredModal modal fade" tabindex="-1" role="dialog" id="registeredModal"
+             aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -146,7 +146,6 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal">확인
                         </button>
-<!--                        <a class="btn btn-primary" href="list" data-dismiss="modal">확인</a>-->
                     </div>
                 </div>
             </div>
@@ -165,7 +164,6 @@
                     </div>
                     <div class="modal-body">마이페이지 수정이 완료되었습니다.</div>
                     <div class="modal-footer">
-                        <!--                        <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal" data-toggle="modal" data-target="#successModal">확인</button>-->
                         <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal">확인
                         </button>
                     </div>
@@ -191,13 +189,13 @@
 
             var searchForm = $("#searchForm");
 
-            $('.btn-search').click(function (e){
+            $('.btn-search').click(function (e) {
 
                 searchForm.submit();
             });
 
 
-            $('.btn-clear').click(function (e){
+            $('.btn-clear').click(function (e) {
 
                 searchForm.empty().submit();
             });
@@ -210,13 +208,11 @@
 
                 var divArea = $(".uploadResult");
 
-                for(var i = 0; i < arr.length; i++){
-                    divArea.append("<img src='/img src='/display?fileName="+arr[i].thumbnailURL+"'>");
+                for (var i = 0; i < arr.length; i++) {
+                    divArea.append("<img src='/img src='/display?fileName=" + arr[i].thumbnailURL + "'>");
                 }
             }
         </script>
-
-
 
     </th:block>
 </th:block>
