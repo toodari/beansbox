@@ -29,7 +29,7 @@
           <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0" >
             <thead>
             <tr>
-              <th>이미지</th>
+              <th>제품사진</th>
               <th>제품명</th>
               <th>분류</th>
               <th>수량</th>
@@ -46,8 +46,7 @@
               </th>
               <td>[[${dto.pname}]]</td>
               <td>[[${dto.pcat}]]</td>
-              <td>[[${dto.pquantity}]] ->
-                <input type="number" th:name="pquantity" th:value="1"
+              <td>[[${dto.pquantity}]]<i class="fa fa-random pr-3 pl-3" aria-hidden="true"></i><input type="number" th:name="pquantity" th:value="1"
                        min="1" max="100"></td>
             </tr>
             </tbody>

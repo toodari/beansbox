@@ -16,9 +16,11 @@
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary align-items-center">
 
-          <h5>[[${category}]]</h5>
-          <h5>[[${pic}]]</h5>
-          <h5>[[${regdate}]]</h5>
+          <h5 th:if="${category == 'input'}"><span>구분 : </span>입고</h5>
+          <h5 th:if="${category == 'output'}"><span>구분 : </span>출고</h5>
+          <h5 th:if="${category == 'adjust'}"><span>구분 : </span>조정</h5>
+          <h5><span>담당자 : </span>[[${pic}]]</h5>
+          <h5><span>처리날짜 : </span><span th:text="${#temporals.format(regdate, 'yyyy-MM-dd HH:mm')}"></span></h5>
         </h6>
       </div>
 
