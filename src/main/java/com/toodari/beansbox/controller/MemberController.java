@@ -57,11 +57,9 @@ public class MemberController {
 
     @PreAuthorize("hasRole('OWNER')")
     @GetMapping("/register")
-    public String registerGET(Model model){
+    public void registerGET(Model model){
         log.info("register get...");
         model.addAttribute("memberRegisterDTO", new MemberRegisterDTO());
-
-        return "/member/register";
     }
 
     @PreAuthorize("hasRole('OWNER')")
@@ -76,7 +74,7 @@ public class MemberController {
             for(String key: validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
             }
-            return "/member/register";
+            return "member/register";
         }
         memberService.register(memberRegisterDTO);
         redirectAttributes.addFlashAttribute("registered","registered");
@@ -85,14 +83,12 @@ public class MemberController {
 
     @PreAuthorize("hasRole('OWNER')")
     @GetMapping("/modify")
-    public String read(String mid, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
+    public void read(String mid, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
         log.info("mid: "+mid);
         MemberModifyDTO memberModifyDTO = memberService.read(mid);
         log.info("dto : " + memberModifyDTO.getMrole());
         log.info("dto : " + memberModifyDTO);
         model.addAttribute("memberModifyDTO", memberModifyDTO);
-
-        return "/member/modify";
     }
 
     @PreAuthorize("hasRole('OWNER')")
@@ -114,7 +110,7 @@ public class MemberController {
                 model.addAttribute(key, validatorResult.get(key));
             }
 
-            return "/member/modify";
+            return "member/modify";
         }
         memberService.modify(memberModifyDTO);
         redirectAttributes.addFlashAttribute("modified","modified");
@@ -123,15 +119,13 @@ public class MemberController {
 
     @PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/mypage")
-    public String myRead(Authentication authentication, Model model) {
+    public void myRead(Authentication authentication, Model model) {
         String mid = authentication.getName();
         log.info("mypagemid: " + mid);
         MemberMyPageDTO memberMyPageDTO = memberService.myRead(mid);
         model.addAttribute("memberMyPageDTO", memberMyPageDTO);
         log.info("=====================================================");
         log.info(model.getAttribute("memberMyPageDTO"));
-
-        return "/member/mypage";
     }
 
     @PreAuthorize("hasRole('EMPLOYEE')")
@@ -147,7 +141,7 @@ public class MemberController {
             for(String key: validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
             }
-            return "/member/mypage";
+            return "member/mypage";
         }
         memberService.myModify(memberMyPageDTO);
         redirectAttributes.addFlashAttribute("modified","modified");

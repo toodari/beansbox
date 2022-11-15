@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <title>BeansBox - Member</title>
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+<th:block th:replace="~{layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
 
         <!-- Page Heading -->
@@ -61,10 +61,10 @@
                         </thead>
                         <tbody>
                         <tr th:each="dto : ${result.dtoList}">
-                            <th scope="row"><a
-                                    th:href="@{/member/modify(mid=${dto.mid}, page=${result.page}, keyword = ${pageRequestDTO.keyword})}">[[${dto.mid}]]</a>
+                            <th scope="row">
+                                <a th:href="@{/member/modify(mid=${dto.mid}, page=${result.page}, keyword = ${pageRequestDTO.keyword})}">[[${dto.mid}]]</a>
                             </th>
-                            <td><a th:href="@{/member/modify(mid=${dto.mid}, page=${result.page})}">[[${dto.mname}]]</a>
+                            <td><a th:href="@{/member/modify(mid=${dto.mid}, page=${result.page}, keyword = ${pageRequestDTO.keyword})}">[[${dto.mname}]]</a>
                             </td>
                             <td th:if="${dto.roleSet.size() == 3}">점장</td>
                             <td th:if="${dto.roleSet.size() == 2}">매니저</td>
