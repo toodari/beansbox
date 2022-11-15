@@ -171,20 +171,45 @@
             </div>
         </div>
 
+        <div class="removedModal modal fade" id="removedModal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="removedModalLabel">BeansBox</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">제품 삭제가 완료되었습니다.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary modal-btn" type="button" data-dismiss="modal">확인
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script th:inline="javascript">
             var msg = [[${msg}]];
             var modified = [[${modified}]];
             var registered = [[${registered}]];
+            var removed = [[${deletemsg}]];
 
             console.log(msg);
             console.log(modified);
             console.log(registered);
+            console.log(removed);
 
             if (modified) {
                 $(".modifiedModal").modal();
             }
             if (registered) {
                 $(".registeredModal").modal();
+            }
+            if (removed) {
+                $(".removedModal").modal();
             }
 
             var searchForm = $("#searchForm");
